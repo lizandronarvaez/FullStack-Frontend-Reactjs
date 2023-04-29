@@ -41,7 +41,7 @@ const Producto = ({ productos }) => {
                 <p className="nombre">{nombre}</p>
                 <p className="precio">{precio}€</p>
                 {imagenProducto
-                    ? <img className="img-productos" src={`http://localhost:5000/${imagenProducto}`} alt="imagen producto" />
+                    ? <img className="img-productos" src={`${import.meta.env.VITE_URL_BACKEND}/${imagenProducto}`} alt="imagen producto" />
                     : null
                 }
             </div>
