@@ -2,6 +2,7 @@ import axios from "axios";
 // 
 
 const apiBackend = import.meta.env.VITE_BASE_URL
+console.log(apiBackend)
 const clienteAxios = axios.create({
     baseURL: apiBackend
 });

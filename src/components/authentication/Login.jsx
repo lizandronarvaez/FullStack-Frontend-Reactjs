@@ -70,6 +70,7 @@ const Login = () => {
                         <input type="email"
                             name="email"
                             onChange={datosFormulario}
+                            autoComplete='on'
                         />
                     </div>
                     <div className='campo'>
@@ -77,6 +78,7 @@ const Login = () => {
                         <input type="password"
                             name="password"
                             onChange={datosFormulario}
+                            autoComplete="current-password"
                         />
                     </div>
                     <input type="submit" value="Login" className='btn btn-verde' />

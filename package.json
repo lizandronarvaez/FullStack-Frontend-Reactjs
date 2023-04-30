@@ -18,6 +18,7 @@
     "sweetalert2": "^11.4.8"
   },
   "devDependencies": {
+    "@import-meta-env/unplugin": "^0.4.8",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.0.0",
