@@ -8,6 +8,16 @@ const AUTHContext = (props) => {
         authentication: false
     })
 
+    useEffect(()=>{
+        const token=localStorage.getItem("token")
+        if(token){
+            setAuth({
+                token,
+                authentication:true
+            })
+        return
+        }
+    },[])
     return (
         <HOOKContext.Provider value={[auth, setAuth]}>
             {props.children}

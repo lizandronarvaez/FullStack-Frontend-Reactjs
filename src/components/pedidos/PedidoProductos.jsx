@@ -11,8 +11,20 @@ const PedidosProductos = (props) => {
                 <td data-titulo="Pedido">{index + 1}</td>
                 <td data-titulo="Articulo">{nombre}</td>
                 <td data-titulo="Precio Unitario">{precio}€</td>
-                <td data-titulo="Cantidad art."><input type="number" defaultValue={0} min={0} onChange={(e) => cantidadProductos(e, index)} /></td>
-                <td data-titulo="Acciones"><button type="button" onClick={() => eliminarProductoLista(producto._id)} ><img src={Delete} alt="icon delete" /></button></td>
+                <td data-titulo="Cantidad art.">
+                    <input type="number"
+                        defaultValue={0}
+                        min={0}
+                        onChange={(e) => cantidadProductos(e, index)}
+                    />
+                </td>
+                <td data-titulo="Acciones">
+                    <button type="button"
+                        onClick={() => eliminarProductoLista(producto._id)}
+                    >
+                        <img src={Delete} alt="icon delete" />
+                    </button>
+                </td>
             </tr>
         </tbody>
     );

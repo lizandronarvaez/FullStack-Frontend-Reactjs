@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import clienteAxios from "../../config/axios";
 const Cliente = ({ cliente }) => {
-    // 
-    const navigate=useNavigate()
+    //
+    const navigate = useNavigate();
     // Extrae los valores del cliente
     const { _id, nombre, apellido, empresa, email, telefono } = cliente;
     // Elimina los clientes
@@ -31,13 +31,13 @@ const Cliente = ({ cliente }) => {
                             "success"
                         );
                     });
-                navigate("/clientes")
+                navigate("/clientes");
             }
         });
     };
-useEffect(()=>{
+    useEffect(() => {
 
-},[cliente])
+    }, [cliente]);
     return (
 
         <li className="cliente">

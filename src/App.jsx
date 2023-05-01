@@ -24,6 +24,7 @@ import Login from "./components/authentication/Login";
 // hookContent
 import { HOOKContext, AUTHContext } from "./hooks/authContext";
 import Home from "./components/layout/Home";
+import NotFound from "./components/notFound/NotFound";
 
 const App = () => {
     // Uso del hook context
@@ -43,6 +44,7 @@ const App = () => {
                         <main className="caja-contenido col-9">
                             <Routes>
                                 <Route exact path="/" Component={Home} />
+
                                 <Route exact path="/users" Component={Dashboard} />
                                 <Route exact path="/clientes" Component={Clientes} />
                                 <Route exact path='/clientes/nuevo-cliente' Component={NuevoCLiente} />
@@ -54,6 +56,7 @@ const App = () => {
                                 <Route exact path="/pedidos/nuevo/:_id" Component={PedidoNuevo} />
                                 <Route exact path="/pedidos/pdf/:_idPedido" Component={PedidoPDF} />
                                 <Route exact path="/login" Component={Login} />
+                                <Route exact path="*" Component={NotFound} />
                             </Routes>
                         </main>
                     </div>

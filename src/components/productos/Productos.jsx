@@ -1,22 +1,23 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
 import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import clienteAxios from "../../config/axios";
 import Producto from "./Producto";
 import Spinner from "../layout/Spinner/Spinner";
-// 
+//
 import { HOOKContext } from "../../hooks/authContext";
 
 const Productos = () => {
     const navigate = useNavigate();
     // hook jwt
-    const [auth, setAuth] = useContext(HOOKContext)
+    const [auth, setAuth] = useContext(HOOKContext);
     // usaremos los state para consultar y guardar los productos
     const [productos, setProductos] = useState([]);
 
     // Query hacia la api backend
     const consultarApiBackend = async () => {
-        if(auth.token){
+        if (auth.token) {
             try {
                 // Consulta hacia la api
                 const productos = await clienteAxios.get("/productos");
@@ -24,13 +25,13 @@ const Productos = () => {
                 const { data } = productos;
                 setProductos(data);
             } catch (error) {
-                error.response.status === 500 ?
-                navigate("/login")
-                : null
+                error.response.status === 500
+                    ? navigate("/login")
+                    : null;
             }
-            return
+            return;
         }
-        navigate("/login")
+        navigate("/login");
     };
     // useEffect
     useEffect(() => {

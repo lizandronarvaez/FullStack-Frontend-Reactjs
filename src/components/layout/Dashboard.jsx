@@ -18,8 +18,8 @@ const Dashboard = () => {
     const [productos, setProductos] = useState(0);
     const [pedidos, setPedidos] = useState(0);
     // useContext
-    const [auth, setAuth] = useContext(HOOKContext);
-    // consultarApi
+    let [auth, setAuth] = useContext(HOOKContext);
+
     const consultaBackend = async () => {
         // Si el token no esta vacio
         if (auth.token !== "") {
