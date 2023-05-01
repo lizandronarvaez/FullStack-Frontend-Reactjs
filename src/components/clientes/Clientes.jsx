@@ -42,7 +42,6 @@ const Clientes = () => {
             )
             return
         }
-        console.log(buscarCliente)
         // eslint-disable-next-line array-callback-return
         const clienteExiste = clientes.filter(cliente => {
             return (cliente.nombre + " " + cliente.apellido)
