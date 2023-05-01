@@ -34,6 +34,15 @@ const Clientes = () => {
 
     const filtrarCliente = (e) => {
         e.preventDefault()
+        if (buscarCliente.length === 0) {
+            Swal.fire(
+                "Introduce un dato",
+                "El campo no puede estar vacio",
+                "error",
+            )
+            return
+        }
+        console.log(buscarCliente)
         // eslint-disable-next-line array-callback-return
         const clienteExiste = clientes.filter(cliente => {
             return (cliente.nombre + " " + cliente.apellido)
@@ -69,7 +78,7 @@ const Clientes = () => {
             navigate("/login")
             return
         }
-    }, [filtrarDatos]);
+    }, [filtrarDatos, clientes]);
 
     return (
         <Fragment>
@@ -92,18 +101,17 @@ const Clientes = () => {
             <Link
                 to={"/clientes/nuevo-cliente"}
                 className="btn btn-verde nvo-cliente">
-                <i className="fas fa-plus-circle"></i>
                 Nuevo Cliente
             </Link>
 
             <ul className='listado-clientes'>
                 {
-                filtrarDatos.map(cliente => (
-                    <Cliente
-                        key={cliente._id}
-                        cliente={cliente}
-                    />
-                ))
+                    filtrarDatos.map(cliente => (
+                        <Cliente
+                            key={cliente._id}
+                            cliente={cliente}
+                        />
+                    ))
                 }
             </ul>
 

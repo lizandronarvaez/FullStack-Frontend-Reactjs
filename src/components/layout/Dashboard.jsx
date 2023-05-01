@@ -54,25 +54,31 @@ const Dashboard = () => {
             : clientes.length === 0 && productos.length === 0 && pedidos.length === 0
                 ? <Spinner />
                 :
-                <><div className="dashboard">
-                    <div className="caja-clientes">
-                        <h2>Clientes</h2>
-                        <div className="caja">
-                            <p>{clientes}</p>
-                            <img src={Users} alt="icon" />
+                <>
+                    <div className="dashboard">
+                        <div className="caja-clientes">
+                            <h2>Clientes</h2>
+                            <div className="caja">
+                                <p>{clientes}</p>
+                                <img src={Users} alt="icon" />
+                            </div>
+                        </div>
+                        <div className="caja-productos">
+                            <h2>Productos</h2>
+                            <div className="caja">
+                                <p>{productos}</p>
+                                <img src={Cart} alt="icon" />
+                            </div>
+                        </div>
+                        <div className="caja-pedidos">
+                            <h2>Pedidos</h2>
+                            <div className="caja">
+                                <p>{pedidos}</p>
+                                <img src={TableList} alt="icon" />
+                            </div>
                         </div>
                     </div>
-                    <div className="caja-productos"><h2>Productos</h2>
-                        <div className="caja">
-                            <p>{productos}</p>
-                            <img src={Cart} alt="icon" />
-                        </div></div>
-                    <div className="caja-pedidos"><h2>Pedidos</h2>
-                        <div className="caja">
-                            <p>{pedidos}</p>
-                            <img src={TableList} alt="icon" />
-                        </div></div>
-                </div></>
+                </>
 
     );
 };
