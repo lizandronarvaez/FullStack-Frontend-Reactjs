@@ -4,6 +4,7 @@ import PedidosDetalles from "./PedidosDetalles";
 // hooks
 import { HOOKContext } from "../../hooks/authContext";
 import { useNavigate } from "react-router";
+
 const PedidosTodos = () => {
     const navigate = useNavigate();
     // hook JWT
@@ -36,7 +37,7 @@ const PedidosTodos = () => {
     // COmprobar que el pedido se ha completado
     const pedidoTerminado = (e) => {
         if (e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent == "Pendiente") {
-            e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Servido"
+            e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent="Servido"
             return
         }
         e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Pendiente"
@@ -50,8 +51,8 @@ const PedidosTodos = () => {
     // console.log(pedidosLista)
     return (
         <>
-            <h1>Lista de pedidos</h1>
             <div className="resumen">
+            <h2>Lista de pedidos</h2>
                 <table>
                     <thead>
                         <tr>
@@ -60,7 +61,7 @@ const PedidosTodos = () => {
                             <th>ClienteId</th>
                             <th>Estado Pedido</th>
                             <th>Cliente</th>
-                            <th>Importe/Cantidad</th>
+                            <th>Importe</th>
                             <th>Acciones</th>
                             <th>Realizado</th>
                         </tr>

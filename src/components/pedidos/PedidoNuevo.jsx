@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import FormBuscarProducto from "./FormBuscarProducto";
 import { useNavigate, useParams } from "react-router";
 import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import PedidosProductos from "./PedidoProductos";
-
+import { HOOKContext } from '../../hooks/authContext'
 const NuevoPedido = () => {
     // Extraer el id del cliente que va a realizar la compra
     const { _id } = useParams();
@@ -15,7 +15,8 @@ const NuevoPedido = () => {
     const [buscar, setBuscar] = useState("");
     const [productos, setProductos] = useState([]);
     const [totalPrecio, setTotalPrecio] = useState(0);
-
+    // 
+    const [auth, setAuth] = useContext(HOOKContext);
     // Desestructuracion de los datos del cliente
     const { nombre, apellido, empresa, telefono } = cliente;
 
@@ -140,61 +141,53 @@ const NuevoPedido = () => {
     }, [productos]);
 
     return (
-        <>
-            <h2>Nuevo Pedido</h2>
 
-            <div className="ficha-cliente">
+        !auth.token ? null
+            :
+            <><h2>Nuevo Pedido</h2><div className="ficha-cliente">
                 <h3>Datos del cliente</h3>
                 <p>{nombre} {apellido}</p>
                 <p>{telefono}</p>
                 <p>{empresa}</p>
-            </div>
-            <FormBuscarProducto
-                buscarProducto={buscarProducto}
-                valorInput={valorInput}
-            />
-            <div className="resumen">
-                <table>
-                    {!productos.length
-                        ? null
-                        : <thead>
-                            <tr>
-                                <th>Nº Articulo</th>
-                                <th>Nombre Articulo</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>}
-                    {productos.map((producto, index) => (
-
-                        <PedidosProductos
-                            key={producto.producto}
-                            producto={producto}
-                            index={index}
-                            cantidadProductos={cantidadProductos}
-                            eliminarProductoLista={eliminarProductoLista}
-                        />
-                    ))}
-                </table>
-            </div>
-            <div className="resumen-total">
-                <div className="campo-total">
-                    {
-                        productos.length === 0
+            </div><FormBuscarProducto
+                    buscarProducto={buscarProducto}
+                    valorInput={valorInput} /><div className="resumen">
+                    <table>
+                        {!productos.length
                             ? null
-                            : <p> Total a pagar: <span>{totalPrecio.toFixed(2)}€</span></p>
-                    }
-                </div>
-                <div className="campo">
-                    {totalPrecio > 0
-                        ? <form onSubmit={submitPedido}>
-                            <input type="submit" className="btn btn-azul " value="Realizar Pedido" />
-                        </form>
-                        : null}
-                </div>
-            </div>
-        </>
+                            : <thead>
+                                <tr>
+                                    <th>Nº Articulo</th>
+                                    <th>Nombre Articulo</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>}
+                        {productos.map((producto, index) => (
+
+                            <PedidosProductos
+                                key={producto.producto}
+                                producto={producto}
+                                index={index}
+                                cantidadProductos={cantidadProductos}
+                                eliminarProductoLista={eliminarProductoLista} />
+                        ))}
+                    </table>
+                </div><div className="resumen-total">
+                    <div className="campo-total">
+                        {productos.length === 0
+                            ? null
+                            : <p> Total a pagar: <span>{totalPrecio.toFixed(2)}€</span></p>}
+                    </div>
+                    <div className="campo">
+                        {totalPrecio > 0
+                            ? <form onSubmit={submitPedido}>
+                                <input type="submit" className="btn btn-azul " value="Realizar Pedido" />
+                            </form>
+                            : null}
+                    </div>
+                </div></>
     );
 };
 

@@ -25,7 +25,8 @@ const Login = () => {
         try {
             const result = await clienteAxios.post("/users/iniciar-sesion", credenciales);
             // Extraer token y gurdarlo en el localStorage
-            const { token } = result.data
+            const { token, usuario } = result.data
+            localStorage.setItem("usuario",usuario.nombre)
             localStorage.setItem("token", token)
             setAuth({
                 token,

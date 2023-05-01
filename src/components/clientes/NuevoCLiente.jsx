@@ -46,9 +46,6 @@ const NuevoCLiente = () => {
                         text: "Hubo un conflicto de datos",
                         icon: "error"
                     });
-
-                    // Redireccionamiento de url
-                    navigate("/");
                     return;
                 }
                 /**
@@ -60,7 +57,7 @@ const NuevoCLiente = () => {
                     "",
                     "success"
                 );
-                navigate("/");
+                navigate("/clientes");
             });
 
         // tambien le podemos aplicar este codigo

@@ -18,18 +18,18 @@ const PedidosDetalles = (props) => {
         <>
             <tbody>
                 <tr>
-                    <td>{new Date().toLocaleDateString()}</td>
-                    <td>{_id.substring(0, 10)}</td>
-                    <td>{cliente._id.substring(0, 10)}</td>
-                    <td>Pendiente</td>
-                    <td>{cliente.nombre} {cliente.apellido}</td>
-                    <td>{total}€</td>
-                    <td>
+                    <td data-titulo="Fecha:">{new Date().toLocaleDateString()}</td>
+                    <td data-titulo="IdPedido:">{_id.substring(0, 10)}</td>
+                    <td data-titulo="IdCLiente:">{cliente._id.substring(0, 10)}</td>
+                    <td data-titulo="Estado:">Pendiente</td>
+                    <td data-titulo="Cliente:">{cliente.nombre} {cliente.apellido}</td>
+                    <td data-titulo="Toal:">{total}€</td>
+                    <td data-titulo="Acciones:">
                         <button type='button' onClick={pedidoPDF}><img src={Pdf} alt="icon pdf" /></button>
                         <button type='button'><img src={Edit} alt="icon edit" /></button>
                         <button type="button" onClick={() => eliminarPedido(_id)} ><img src={Delete} alt="icon delete" /></button>
                     </td>
-                    <td> <input type="checkbox" className='completar-pedido' name="completar" onClick={pedidoTerminado} /></td>
+                    <td data-titulo="Realizado"> <input type="checkbox" className='completar-pedido' name="completar" onClick={pedidoTerminado} /></td>
                 </tr>
             </tbody>
         </>
