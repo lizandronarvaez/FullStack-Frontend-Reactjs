@@ -34,6 +34,7 @@ const Producto = ({ productos }) => {
 
     // Extraemos los valores de los productos;
     const { _id, nombre, precio, imagenProducto } = productos;
+    console.log(productos)
     // Retornamos al dom
     return (
         <li className="producto">

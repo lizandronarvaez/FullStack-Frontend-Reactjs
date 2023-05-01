@@ -10,7 +10,6 @@ const Header = () => {
     const [auth, setAuth] = useContext(HOOKContext)
     // 
     const usuario = localStorage.getItem("usuario")
-    console.log(usuario)
     const logout = () => {
         Swal.fire({
             title: 'Cerrar sesion?',
@@ -38,6 +37,7 @@ const Header = () => {
                 })
                 // Removemos el token del local storage
                 localStorage.removeItem("token");
+                localStorage.removeItem("usuario")
                 // Redireccionamos a iniciar sesion
                 navigate("/");
             }
