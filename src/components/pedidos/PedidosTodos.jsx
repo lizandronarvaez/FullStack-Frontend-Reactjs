@@ -34,12 +34,10 @@ const PedidosTodos = () => {
     };
 
     // Eliminar pedidos de la lista
-    const eliminarPedido = async (id) => {
-        await clienteAxios.delete(`/pedidos/${id}`);
-    };
+    const eliminarPedido = async (id) => await clienteAxios.delete(`/pedidos/${id}`);
     // COmprobar que el pedido se ha completado
     const pedidoTerminado = (e) => {
-        if (e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent == "Pendiente") {
+        if (e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent === "Pendiente") {
             e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Servido";
             return;
         }

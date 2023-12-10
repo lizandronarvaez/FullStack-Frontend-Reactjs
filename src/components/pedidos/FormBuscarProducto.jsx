@@ -1,7 +1,6 @@
 import React from "react";
 
-const FormBuscarProducto = (props) => {
-    const { buscarProducto, valorInput } = props;
+const FormBuscarProducto = ({ buscarProducto, valorInput }) => {
     return (
         <>
             <form onSubmit={buscarProducto}>
@@ -9,13 +8,15 @@ const FormBuscarProducto = (props) => {
 
                 <div className="campo">
                     <label>Productos:</label>
-                    <input type="text"
+                    <input
+                        type="text"
                         placeholder="Nombre Productos"
                         name="productos"
                         onChange={valorInput}
                     />
                 </div>
-                <input type="submit"
+                <input
+                    type="submit"
                     className="btn btn-azul btn-block"
                     value="Buscar producto"
                 />

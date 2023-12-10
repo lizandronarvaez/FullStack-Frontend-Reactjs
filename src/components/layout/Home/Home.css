@@ -1,0 +1,63 @@
+.contenedor-home {
+    margin: 10rem auto 0 auto;
+    width: 50rem;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.contenedor-home h2 {
+    font-size: 8rem;
+    color: #fff;
+    text-align: center;
+    /* padding-top: 10rem; */
+    margin: 0;
+    font-weight: bold;
+}
+
+.contenedor-home h2 strong {
+    font-style:italic;
+    color: #052c66;
+}
+
+.contenedor-home h2 span {
+    display: block;
+    font-size: 1.7rem;
+}
+
+.contenedor-home>a {
+    background-color: #052c66;
+    font-weight: 600;
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 5rem;
+}
+
+.contenedor-home>a:hover {
+    background-color: #0a59cb;
+}
+
+.register-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-account p {
+    margin-right: 1rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.register-account a {
+    background-color: red;
+    color: #fff;
+    border-radius: .5rem;
+    font-weight: bold;
+    padding: .5rem 1.5rem;
+}
+
+.register-account a:hover {
+    background-color: #fff;
+    color: red;
+}

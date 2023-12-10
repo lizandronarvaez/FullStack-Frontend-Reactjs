@@ -1,12 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-// Icons
-import Home from "../../assets/home.svg";
-import Users from "../../assets/users.svg";
-import Cart from "../../assets/cart.svg";
-import TableList from "../../assets/table-list.svg";
-import { HOOKContext } from "../../hooks/authContext";
+import { Cart, Home, TableList, Users } from "../../../assets";
+import { HOOKContext } from "../../../hooks/authContext";
+import "./Navegacion.css";
 const Navegacion = () => {
+    // eslint-disable-next-line no-unused-vars
     const [auth, setAuth] = useContext(HOOKContext);
     return (
         !auth.token

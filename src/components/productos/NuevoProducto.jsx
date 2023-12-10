@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
@@ -5,18 +6,18 @@ import { useNavigate } from "react-router";
 import { HOOKContext } from "../../hooks/authContext";
 
 const NuevoProducto = () => {
-    const [auth, setAuth] = useContext(HOOKContext)
+    const formData = {
+        nombre: "",
+        precio: ""
+    };
+    const [auth, setAuth] = useContext(HOOKContext);
 
     // navigate
     const navigate = useNavigate();
     // Creamos los stastate para crear los productos
-    const [agregarProducto, setAgregarProducto] = useState({
-        nombre: "",
-        precio: ""
-    });
+    const [agregarProducto, setAgregarProducto] = useState(formData);
     // Creamos otro state para el archivo de imagen
     const [imgProducto, setImgProducto] = useState("");
-
     // Funcion para leer datos de el fomrulario
     const setFormulario = e => {
         // Agregamos los valores los state
@@ -26,12 +27,7 @@ const NuevoProducto = () => {
             [e.target.name]: [e.target.value]
         });
     };
-    const imagenProductoForm = e => {
-        // Acceder a los archivos del input
-        // console.log(e.target.files[0].name);
-        // State en el que guardaremos el nombre de la imagen
-        setImgProducto(e.target.files[0]);
-    };
+    const imagenProductoForm = e => setImgProducto(e.target.files[0]);
     // funcion para validar el formulario
     const validarFormulario = () => {
         // Desestructuracion del producto
@@ -74,37 +70,52 @@ const NuevoProducto = () => {
             Swal.fire("Error al crear el producto", error.response.data, "error");
         }
     };
-
     useEffect(() => {
         // VERIFICAR EL JWT
-        if (!auth.token) {
-            navigate("/login")
-        }
-    }, [])
+        if (!auth.token) navigate("/login");
+    }, []);
     return (
         <>
             <h2>Nuevo Producto</h2>
-
             <form onSubmit={submitFormulario}>
                 <legend>Llena todos los campos</legend>
-
                 <div className="campo">
                     <label>Nombre:</label>
-                    <input type="text" onChange={setFormulario} placeholder="Nombre Producto" name="nombre" />
+                    <input
+                        type="text"
+                        onChange={setFormulario}
+                        placeholder="Nombre Producto"
+                        name="nombre"
+                    />
                 </div>
-
                 <div className="campo">
                     <label>Precio:</label>
-                    <input type="number" onChange={setFormulario} name="precio" min="0.00" step="0.01" placeholder="Precio" />
+                    <input
+                        type="number"
+                        onChange={setFormulario}
+                        name="precio"
+                        min="0.00"
+                        step="0.01"
+                        placeholder="Precio"
+                    />
                 </div>
 
                 <div className="campo">
                     <label>Imagen:</label>
-                    <input type="file" onChange={imagenProductoForm} name="imagen" />
+                    <input
+                        type="file"
+                        onChange={imagenProductoForm}
+                        name="imagen"
+                    />
                 </div>
 
                 <div className="enviar">
-                    <input type="submit" disabled={validarFormulario()} className="btn btn-azul" value="Agregar Producto" />
+                    <input
+                        type="submit"
+                        disabled={validarFormulario()}
+                        className="btn btn-azul"
+                        value="Agregar Producto"
+                    />
                 </div>
             </form>
         </>

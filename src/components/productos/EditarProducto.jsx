@@ -1,20 +1,21 @@
 /* eslint-disable no-multiple-empty-lines */
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import clienteAxios from "../../config/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 // import Spinner from "../layout/Spinner/Spinner";
 const EditarProducto = () => {
+    const formData = {
+        nombre: "",
+        precio: "",
+        imagenProducto: ""
+    };
     // Navigate
     const navigate = useNavigate();
     // Obtenemos el id del producto que queremos actualizar
     const { _id } = useParams();
     // State donde utilizaremos el producto y el set cliente para guardar los datos
-    const [actualizarProducto, setActualizarProducto] = useState({
-        nombre: "",
-        precio: "",
-        imagenProducto: ""
-    });
+    const [actualizarProducto, setActualizarProducto] = useState(formData);
     // / Creamos otro state para el archivo de imagen
     const [imgProducto, setImgProducto] = useState("");
     // Desestructuracion de los productos
@@ -22,9 +23,7 @@ const EditarProducto = () => {
     // Consulta hacia la api backend
     const consultarBackend = async () => {
         // Query hacia la api backend
-        const productos = await clienteAxios.get(`/productos/${_id}`);
-        // Desectructuracion de la data
-        const { data } = productos;
+        const { data } = await clienteAxios.get(`/productos/${_id}`);
         // Guardamos la data en el state
         setActualizarProducto(data);
     };
@@ -37,9 +36,7 @@ const EditarProducto = () => {
         });
     };
     // Imagen del producto
-    const archivoImg = e => {
-        setImgProducto(e.target.files[0]);
-    };
+    const archivoImg = e => setImgProducto(e.target.files[0]);
 
     // Enviar formulario
     const actualizarFormProducto = async (e) => {
@@ -71,7 +68,6 @@ const EditarProducto = () => {
                 // Redireccionamos hacia la ruta principal
                 navigate("/productos");
             }
-            console.log(enviarProducto);
         } catch (error) {
             Swal.fire("Error al actualizar el producto", error.response.data, "error");
         }
@@ -83,36 +79,57 @@ const EditarProducto = () => {
     }, []);
     // if (!nombre) return <Spinner />;
     return (
-        <Fragment>
+        <>
             <h2>Editar Producto</h2>
-
             <form onSubmit={actualizarFormProducto}>
                 <legend>Actualiza los datos de tus productos</legend>
-
                 <div className="campo">
                     <label>Nombre:</label>
-                    <input type="text" onChange={setFormulario} value={nombre} placeholder="Nombre Producto" name="nombre" />
+                    <input
+                        type="text"
+                        onChange={setFormulario}
+                        value={nombre}
+                        placeholder="Nombre Producto"
+                        name="nombre"
+                    />
                 </div>
 
                 <div className="campo">
                     <label>Precio:</label>
-                    <input type="number" onChange={setFormulario} value={precio} name="precio" min="0.00" step="0.01" placeholder="Precio" />
+                    <input
+                        type="number"
+                        onChange={setFormulario}
+                        value={precio}
+                        name="precio"
+                        min="0.00"
+                        step="0.01"
+                        placeholder="Precio"
+                    />
                 </div>
-
                 <div className="campo">
                     <label>Imagen:</label>
-
                     {imagenProducto
-                        ? <img src={`${import.meta.env.VITE_BASE_URL}/${imagenProducto}`} alt="image producto" width={200} />
+                        ? <img
+                            src={`${import.meta.env.VITE_BASE_URL}/${imagenProducto}`}
+                            alt="image producto" width={200}
+                        />
                         : null}
-                    <input type="file" onChange={archivoImg} name="imagen" />
+                    <input
+                        type="file"
+                        onChange={archivoImg}
+                        name="imagen"
+                    />
                 </div>
 
                 <div className="enviar">
-                    <input type="submit" className="btn btn-azul" value="Actualizar Producto" />
+                    <input
+                        type="submit"
+                        className="btn btn-azul"
+                        value="Actualizar Producto"
+                    />
                 </div>
             </form>
-        </Fragment>
+        </>
     );
 };
 

@@ -1,0 +1,54 @@
+.barra {
+    background-color: #04152d;
+    padding: 2rem 0;
+}
+
+.barra h1 {
+    margin: 0;
+    color: white;
+    font-size: 2.8rem;
+}
+
+.contenido-barra {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.contenido-barra .usuario-autenticado button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 12rem;
+}
+.contenido-barra  .usuario-autenticado button img{
+    max-width: 2rem;
+}
+
+.contenido-barra .usuario-autenticado{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+@media (min-width: 768px) {
+    .contenido-barra {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .contenido-barra  .usuario-autenticado button {
+        margin-left: 1rem;
+    }
+
+    .contenido-barra .usuario-autenticado{
+        flex-direction: row;
+        align-items: center;
+        font-weight: bold;
+    }
+
+}

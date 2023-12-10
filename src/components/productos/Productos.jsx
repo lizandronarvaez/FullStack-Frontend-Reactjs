@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
 import React, { Fragment, useState, useEffect, useContext } from "react";
@@ -43,8 +44,10 @@ const Productos = () => {
         <Fragment>
 
             <h2>Productos</h2>
-
-            <Link to={"/productos/nuevo-producto"} className="btn btn-verde nvo-cliente">
+            <Link
+                to={"/productos/nuevo-producto"}
+                className="btn btn-verde nvo-cliente"
+            >
                 <i className="fas fa-plus-circle"></i>
                 Nuevo Producto
             </Link>
