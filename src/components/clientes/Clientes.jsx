@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, Fragment, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // Importamos axios como funcion
 import axiosCliente from "../../config/axios";
 // COmponente cliente
 import Cliente from "./Cliente";
-import Spinner from "../layout/Spinner/Spinner";
+// import Spinner from "../layout/Spinner/Spinner";
 import { HOOKContext } from "../../hooks/authContext";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 
@@ -24,7 +25,6 @@ const Clientes = () => {
         // Guardamos la data en el state
         setClientes(data);
     };
-
     // Buscar que un cliente existe
     const handleBusquedaCliente = e => {
         e.preventDefault();
@@ -42,39 +42,42 @@ const Clientes = () => {
             return;
         }
         // eslint-disable-next-line array-callback-return
-        const clienteExiste = clientes.filter(cliente => {
-            return (cliente.nombre + " " + cliente.apellido)
+        const clienteExiste = clientes.filter(({ nombre, apellido, empresa, email }) => {
+            return (nombre + " " + apellido)
                 .toString()
                 .toLowerCase()
                 .includes(buscarCliente.toLowerCase().trim()) ||
-                cliente.empresa
+                empresa
                     .toString()
                     .toLowerCase()
                     .includes(buscarCliente.toLowerCase()) ||
-                cliente.email
+                email
                     .toString()
                     .toLowerCase()
                     .includes(buscarCliente.toLowerCase());
         });
+        console.log(clienteExiste.length);
         // Si buscamos un cliente y existe
-        if (clienteExiste.length !== 0) {
+        if (clienteExiste.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "No se encuentra el cliente",
+                text: "Hubo un error en la busqueda"
+            });
+        } else {
+            Swal.fire({
+                title: `Existen ${clienteExiste.length} clientes`,
+                text: "Busqueda correcta",
+                icon: "success"
+            });
             setFiltrarDatos(clienteExiste);
-            return;
         }
-        // si el cliente no existe
-        Swal.fire({
-            icon: "error",
-            title: "No se encuentra el cliente",
-            text: "Hubo un error en la busqueda"
-        });
     };
 
     // Utilizamos ussefect para que actualize los cambios
     useEffect(() => {
         consultaClientes();
-        if (!auth.authentication) {
-            navigate("/login");
-        }
+        if (!auth.authentication) navigate("/login");
     }, [filtrarDatos, clientes]);
 
     return (
@@ -83,13 +86,15 @@ const Clientes = () => {
             <form onSubmit={filtrarCliente}>
                 <div className="busqueda-cliente">
                     <label htmlFor="busca-cliente">Buscar un cliente</label>
-                    <input type="text"
+                    <input
+                        type="text"
                         placeholder="Introduce nombre, email o empresa"
                         name="buscar-cliente"
                         value={buscarCliente}
                         onChange={handleBusquedaCliente}
                     />
-                    <input type="submit"
+                    <input
+                        type="submit"
                         className="btn btn-searchCliente"
                         value="Buscar cliente"
                     />
@@ -103,7 +108,8 @@ const Clientes = () => {
 
             <ul className='listado-clientes'>
                 {filtrarDatos.map(cliente => (
-                    <Cliente
+
+                    < Cliente
                         key={cliente._id}
                         cliente={cliente}
                     />

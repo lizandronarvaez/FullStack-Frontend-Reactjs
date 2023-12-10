@@ -41,12 +41,19 @@ const Producto = ({ productos }) => {
                 <p className="nombre">{nombre}</p>
                 <p className="precio">{precio}€</p>
                 {imagenProducto
-                    ? <img className="img-productos" src={`${import.meta.env.VITE_BASE_URL}/${imagenProducto}`} alt="imagen producto" />
+                    ? <img
+                        className="img-productos"
+                        src={`${import.meta.env.VITE_BASE_URL}/${imagenProducto}`}
+                        alt="imagen producto"
+                    />
                     : null
                 }
             </div>
             <div className="acciones">
-                <Link to={`/productos/editar-producto/${_id}`} className="btn btn-azul">
+                <Link
+                    to={`/productos/editar-producto/${_id}`}
+                    className="btn btn-azul"
+                >
                     <i className="fas fa-pen-alt"></i>
                     Editar Producto
                 </Link>

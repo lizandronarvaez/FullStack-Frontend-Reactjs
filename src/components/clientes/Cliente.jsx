@@ -4,10 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import clienteAxios from "../../config/axios";
 const Cliente = ({ cliente }) => {
-    //
+    console.log(cliente)
     const navigate = useNavigate();
     // Extrae los valores del cliente
     const { _id, nombre, apellido, empresa, email, telefono } = cliente;
+
     // Elimina los clientes
     const eliminarCliente = (idCliente) => {
         Swal.fire({
