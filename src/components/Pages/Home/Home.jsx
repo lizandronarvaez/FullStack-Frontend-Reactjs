@@ -5,7 +5,6 @@ const Home = () => {
     return (
 
         <div className='contenedor-home'>
-
             <h2>
                 <strong>B</strong>ienvenido
                 <span>para acceder a la aplicación es necesario iniciar sesion</span>
