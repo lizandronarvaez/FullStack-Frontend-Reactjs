@@ -1,46 +1,27 @@
 /* eslint-disable no-multiple-empty-lines */
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import clienteAxios from "../../config/axios";
+import { clienteAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-// import Spinner from "../layout/Spinner/Spinner";
-const EditarProducto = () => {
-    const formData = {
-        nombre: "",
-        precio: "",
-        imagenProducto: ""
-    };
-    // Navigate
+const formData = {
+    nombre: "",
+    precio: "",
+    imagenProducto: ""
+};
+export const ProductsUpdate = () => {
     const navigate = useNavigate();
-    // Obtenemos el id del producto que queremos actualizar
     const { _id } = useParams();
-    // State donde utilizaremos el producto y el set cliente para guardar los datos
     const [actualizarProducto, setActualizarProducto] = useState(formData);
-    // / Creamos otro state para el archivo de imagen
     const [imgProducto, setImgProducto] = useState("");
-    // Desestructuracion de los productos
     const { nombre, precio, imagenProducto } = actualizarProducto;
-    // Consulta hacia la api backend
     const consultarBackend = async () => {
-        // Query hacia la api backend
         const { data } = await clienteAxios.get(`/productos/${_id}`);
-        // Guardamos la data en el state
         setActualizarProducto(data);
     };
+    const setFormulario = ({ target: { name, value } }) => { setActualizarProducto({ ...actualizarProducto, [name]: [value] }) };
+    const archivoImg = ({ target }) => setImgProducto(target.files[0]);
 
-    // Funcion para leer los datos del formulario
-    const setFormulario = e => {
-        setActualizarProducto({
-            ...actualizarProducto,
-            [e.target.name]: [e.target.value]
-        });
-    };
-    // Imagen del producto
-    const archivoImg = e => setImgProducto(e.target.files[0]);
-
-    // Enviar formulario
     const actualizarFormProducto = async (e) => {
-        // Prevenir la recarga de la pagina
         e.preventDefault();
         const { nombre, precio } = actualizarProducto;
         // Crear el formData y agregar los valores
@@ -49,35 +30,25 @@ const EditarProducto = () => {
         formData.append("precio", precio);
         formData.append("imagenProducto", imgProducto);
         try {
-            // accion de post hacia backend con axios
-            const enviarProducto = await clienteAxios.put(`/productos/${_id}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
+            const { status, data } = await clienteAxios.put(`/products/${_id}`, formData, {
+                headers: { "Content-Type": "multipart/form-data" }
             });
-            // Evaluamos los resultados
-            if (enviarProducto.status === 200) {
+            if (status === 200) {
                 // Mostramos un mensaje si todo esta bien
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: enviarProducto.data.message,
+                    title: data.message,
                     showConfirmButton: false,
                     timer: 1500
                 });
-                // Redireccionamos hacia la ruta principal
                 navigate("/productos");
             }
-        } catch (error) {
-            Swal.fire("Error al actualizar el producto", error.response.data, "error");
+        } catch ({ response }) {
+            Swal.fire("Error al actualizar el producto", response.data, "error");
         }
     };
-
-    // useEffect
-    useEffect(() => {
-        consultarBackend();
-    }, []);
-    // if (!nombre) return <Spinner />;
+    useEffect(() => { consultarBackend(); }, []);
     return (
         <>
             <h2>Editar Producto</h2>
@@ -132,5 +103,3 @@ const EditarProducto = () => {
         </>
     );
 };
-
-export default EditarProducto;

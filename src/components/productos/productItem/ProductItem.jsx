@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-import clienteAxios from "../../config/axios";
-const Producto = ({ productos }) => {
-    // Eliminar un producto de la lista
+import { clienteAxios } from "../../../api/axios";
+export const ProductItem = ({ productos }) => {
     const eliminarProducto = (idProducto) => {
         Swal.fire({
             title: "Eliminar producto, estas seguro?",
@@ -16,8 +15,7 @@ const Producto = ({ productos }) => {
             confirmButtonText: "Si, eliminar producto"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await clienteAxios
-                    .delete(`/productos/${idProducto}`)
+                await clienteAxios.delete(`/productos/${idProducto}`)
                     .then(response => {
                         Swal.fire({
                             position: "center",
@@ -31,10 +29,7 @@ const Producto = ({ productos }) => {
             }
         });
     };
-
-    // Extraemos los valores de los productos;
     const { _id, nombre, precio, imagenProducto } = productos;
-    // Retornamos al dom
     return (
         <li className="producto">
             <div className="info-producto">
@@ -70,5 +65,3 @@ const Producto = ({ productos }) => {
         </li>
     );
 };
-
-export default Producto;

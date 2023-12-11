@@ -1,12 +1,11 @@
-import Productos from "./Productos";
-import Producto from "./Producto";
-import NuevoProducto from "./NuevoProducto";
-import EditarProducto from "./EditarProducto";
+import { ProductsAll } from "./productsAll/ProductsAll";
+import { ProductItem } from "./productItem/ProductItem";
+import { ProductCreate } from "./productCreate/ProductCreate";
+import { ProductsUpdate } from "./productsUpdate/ProductsUpdate";
 
 export {
-    Productos,
-    Producto,
-    NuevoProducto,
-    EditarProducto
-
+    ProductsAll,
+    ProductItem,
+    ProductCreate,
+    ProductsUpdate
 };
