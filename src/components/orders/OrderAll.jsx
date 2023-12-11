@@ -1,41 +1,23 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-expressions */
-import React, { useState, useEffect, useContext } from "react";
-import clienteAxios from "../../config/axios";
-import PedidosDetalles from "./PedidosDetalles";
-import Spinner from "../layout/Spinner/Spinner";
-// hooks
-import { HOOKContext } from "../../hooks/authContext";
+import React, { useState, useEffect } from "react";
+import { clienteAxios } from "../../api/axios";
 import { useNavigate } from "react-router";
-
-const PedidosTodos = () => {
+import { Spinner } from "../Pages";
+import { OrderItem } from ".";
+export const OrderAll = () => {
     const navigate = useNavigate();
-    // hook JWT
-    const [auth, setAuth] = useContext(HOOKContext);
-    // useState
     const [pedidosLista, setPedidoLista] = useState([]);
-    // Consulta bd backend
     const bdBackend = async () => {
-        if (auth.token) {
-            try {
-                // Consulta ala bd de datos
-                const consulta = await clienteAxios.get("/pedidos");
-                const { data } = consulta;
-                // Almacenar la data en el state
-                setPedidoLista(data);
-            } catch (error) {
-                error.response.status === 500
-                    ? navigate("/login")
-                    : null;
-            }
-            return;
+        try {
+            const { data } = await clienteAxios.get("/orders");
+            setPedidoLista(data);
+        } catch (error) {
+            error.response.status === 500
+                ? navigate("/login")
+                : null;
         }
-        navigate("/login");
     };
-
-    // Eliminar pedidos de la lista
-    const eliminarPedido = async (id) => await clienteAxios.delete(`/pedidos/${id}`);
-    // COmprobar que el pedido se ha completado
+    const eliminarPedido = async (id) => await clienteAxios.delete(`/orders/${id}`);
     const pedidoTerminado = (e) => {
         if (e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent === "Pendiente") {
             e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Servido";
@@ -43,11 +25,7 @@ const PedidosTodos = () => {
         }
         e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Pendiente";
     };
-    // useEffect
-    useEffect(() => {
-        // Funcion consulta bd_backend
-        bdBackend();
-    }, [pedidosLista]);
+    useEffect(() => { bdBackend(); }, [pedidosLista]);
     return (
         <>
             <div className="resumen">
@@ -65,10 +43,17 @@ const PedidosTodos = () => {
                             <th>Realizado</th>
                         </tr>
                     </thead>
-                    {pedidosLista.length === 0
-                        ? <Spinner />
+                    {!pedidosLista.length
+                        ? (
+                            <>
+                                <div>
+                                    <Spinner />
+                                    <h2>Cargando pedidos...</h2>
+                                </div>
+                            </>
+                        )
                         : pedidosLista.map(pedido => (
-                            <PedidosDetalles
+                            <OrderItem
                                 key={pedido._id}
                                 datosPedido={pedido}
                                 eliminarPedido={eliminarPedido}
@@ -81,5 +66,3 @@ const PedidosTodos = () => {
         </>
     );
 };
-
-export default PedidosTodos;

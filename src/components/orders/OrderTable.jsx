@@ -1,8 +1,7 @@
 import React from "react";
 import { Delete } from "../../assets";
 
-const PedidosProductos = ({ index, producto, cantidadProductos, eliminarProductoLista }) => {
-    // Desestructuracion de los productos
+export const OrderTable = ({ index, producto, cantidadProductos, eliminarProductoLista }) => {
     const { nombre, precio } = producto;
     return (
         <tbody>
@@ -30,5 +29,3 @@ const PedidosProductos = ({ index, producto, cantidadProductos, eliminarProducto
         </tbody>
     );
 };
-
-export default PedidosProductos;

@@ -2,17 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Delete, Edit, Pdf } from "../../assets";
 
-const PedidosDetalles = (pedidos) => {
+export const OrderItem = (pedidos) => {
     const { datosPedido, eliminarPedido, pedidoTerminado } = pedidos;
-    console.log(pedidos)
-    // Navigate
     const navigate = useNavigate();
-    // Destructuring pedido
-    // eslint-disable-next-line no-unused-vars
     const { _id, cliente, pedido, total } = datosPedido;
-    // Mostrar pdf pedido
-    const pedidoPDF = () => navigate(`/pedidos/pdf/${_id}`);
-
+    const pedidoPDF = () => navigate(`/orders/pdf/${_id}`);
     return (
         <>
             <tbody>
@@ -61,5 +55,3 @@ const PedidosDetalles = (pedidos) => {
         </>
     );
 };
-
-export default PedidosDetalles;

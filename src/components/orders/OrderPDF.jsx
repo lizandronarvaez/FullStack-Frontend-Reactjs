@@ -1,27 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Page, Text, View, Document, PDFViewer } from "@react-pdf/renderer";
-import clienteAxios from "../../config/axios";
+import { clienteAxios } from "../../api/axios";
 import { useLocation } from "react-router-dom";
-import { HOOKContext } from "../../hooks/authContext";
-
-const PedidoPDF = () => {
-    const [auth, setAuth] = useContext(HOOKContext);
-    // // location
+export const OrderPDF = () => {
     const ref = useLocation();
-
     const idPedido = ref.pathname.substring(13);
-    // usestate
     const [pedidos, setPedidos] = useState([]);
     const { _id, cliente, pedido, total } = pedidos;
-    // Consulta bd con nº pedido
     const consultaBDPedido = async () => {
-        const consulta = await clienteAxios.get(`/pedidos/${idPedido}`);
-        setPedidos(consulta.data);
+        const { data } = await clienteAxios.get(`/orders/${idPedido}`);
+        setPedidos(data);
     };
-    useEffect(() => {
-        consultaBDPedido();
-    }, [pedidos]);
+    useEffect(() => { consultaBDPedido(); }, [pedidos]);
     return (
         <>{
             pedidos.length === 0 && !_id
@@ -113,5 +104,3 @@ const PedidoPDF = () => {
         </>
     );
 };
-
-export default PedidoPDF;
