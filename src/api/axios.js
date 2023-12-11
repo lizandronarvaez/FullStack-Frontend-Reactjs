@@ -1,10 +1,8 @@
 import axios from "axios";
-//
+import { getEnv } from "../helpers/getEnv";
+const { VITE_BASE_URL } = getEnv();
 
-const apiBackend = import.meta.env.VITE_BASE_URL;
-const clienteAxios = axios.create({
-    baseURL: apiBackend
-});
+export const clienteAxios = axios.create({ baseURL: VITE_BASE_URL });
 clienteAxios.interceptors.request.use(config => {
     config.headers = {
         ...config.headers,
@@ -13,5 +11,3 @@ clienteAxios.interceptors.request.use(config => {
 
     return config;
 });
-// }, err => Promise.reject(err)); // Do something with request error
-export default clienteAxios;
