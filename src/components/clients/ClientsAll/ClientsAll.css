@@ -1,0 +1,66 @@
+.table-clients{
+    overflow: scroll;
+}
+.clientsAll {
+    padding: 0 2rem;
+    text-align: center;
+    width: 120rem;
+    margin: 0 auto;
+}
+
+.clientsAll .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clientsAll .header a {
+    padding: 1.5rem 2rem;
+    background-color: #092635;
+    color: #fff;
+    border-radius: .5rem;
+    font-weight: 700;
+}
+
+.clientsAll .form_search_client {
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    padding: rem;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 0 1rem 1rem 0;
+    height: 50%;
+}
+
+.clientsAll .form_search_client .listado-clientes {
+    width: 100%;
+}
+
+.clientsAll .form_search_client .listado-clientes thead tr th {
+    background-color:#347cbb ;
+    padding: 1rem 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    border-radius:.2rem;
+    border-collapse: collapse;
+}
+
+.busqueda-cliente {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+}
+
+.busqueda-cliente label {
+    text-align: left;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+.busqueda-cliente input[type="text"] {
+    padding: 1.5rem 2rem;
+    border-color: #969696;
+    border-radius: 0.5rem;
+    outline: none;
+}
