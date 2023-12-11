@@ -140,29 +140,6 @@ h2 {
 }
 
 /* BUscar un cliente */
-.busqueda-cliente {
-    display: flex;
-    flex-direction: column;
-    /* max-width: 50rem; */
-    margin-bottom: 5rem;
-}
-
-.busqueda-cliente label {
-    font-size: 2rem;
-    color: var(--grisOscuro);
-    padding-bottom: 1rem;
-}
-
-.busqueda-cliente input[type="text"] {
-    padding: 1rem 1.5rem;
-    border-color: #969696;
-
-}
-
-.nvo-cliente {
-    padding: 2rem 4rem;
-    width: auto;
-}
 
 .btn-eliminar {
     margin-top: 1rem;
@@ -192,32 +169,16 @@ h2 {
         display: flex;
         justify-content: space-between;
     }
-
-    .col-3 {
-        flex: 0 0 calc(25% - 1rem);
-    }
-
     .col-9 {
         flex: 1 0 calc(75% - 1rem);
     }
 }
 
-.contenido-barra .usuario-autenticado .user {
-    padding: 2rem 0;
-}
-
-@media (min-width: 768px) {
-
-    .contenido-barra .usuario-autenticado .user {
-        margin-left: 1rem;
-        font-weight: 400;
-        font-style: italic;
-    }
-}
-
 .contenido-principal {
-    /* background-color: #fff; */
-    /* margin-top: 4rem; */
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    min-height: 100vh;
 }
 
 /** Caja **/
@@ -386,68 +347,6 @@ h2 {
 }
 
 /** Formularios **/
-/* form {
-    width: auto;
-    margin: 4rem auto;
-    background-color: #dfdede;
-    text-align: center;
-    box-shadow: 0 15px 5px rgba(0, 0, 0, 0.2);
-    padding: 4rem;
-
-}
-
-form legend {
-    font-size: 2.4rem;
-    font-family: var(--fontTexto);
-    font-weight: 700;
-    text-align: center;
-    display: block;
-    padding: 2rem;
-    margin-bottom: 2rem;
-}
-
-form .campo {
-    padding: 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-form .campo label {
-    font-weight: bold;
-    font-family: var(--fontTexto);
-    flex: 0 0 80px;
-}
-
-form .campo input:not([type="submit"]) {
-    padding: 1.5rem;
-    flex: 1;
-    border: 1px solid #e1e1e1;
-}
-
-form .campo input[type="file"] {
-    margin-left: 2rem;
-}
-
-form .campo input[readonly] {
-    background-color: #e1e1e1;
-}
-
-@media (min-width: 468px) {
-    form {
-        width: 95%;
-        max-width: 800px;
-    }
-
-    form .campo {
-        padding: 2rem 2rem;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 2rem;
-    }
-
-} */
 
 /*  */
 .enviar {
