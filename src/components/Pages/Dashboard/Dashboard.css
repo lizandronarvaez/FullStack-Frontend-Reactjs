@@ -1,0 +1,44 @@
+/* DASHBOARD */
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5rem;
+    padding: 3rem 2rem;
+    max-height: 25rem;
+    width: 140rem;
+    margin: 0 auto;
+}
+
+.dashboard h2{
+    color: #fff;
+}
+.caja-clientes,
+.caja-productos,
+.caja-pedidos {
+    text-align: center;
+    padding: 1rem;
+    background-color: #042440;
+    color: #fff;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.caja {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.caja p {
+    font-size: 3rem;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .dashboard {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5rem;
+    }
+}

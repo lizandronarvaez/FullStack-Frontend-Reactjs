@@ -1,0 +1,65 @@
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2/dist/sweetalert2.all";
+import { Link } from "react-router-dom";
+import "./Header.css";
+import { LogoutBtn } from "../../../assets";
+import { AuthContext } from "../../../auth/context/authContext";
+const Header = () => {
+    const navigate = useNavigate();
+    const usuario = localStorage.getItem("usuario");
+    const token = localStorage.getItem("token");
+    const { logoutUser } = useContext(AuthContext);
+
+    const logout = () => {
+        Swal.fire({
+            title: "Cerrar sesion?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No, cancelar",
+            confirmButtonText: "Si, cerrar sesion"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logoutUser();
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Sesion cerrada correctamente",
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(() => navigate("/", { replace: true }));
+            }
+        });
+    };
+    useEffect(() => {
+
+    }, [token]);
+
+    return (
+        <header className='barra'>
+            <div className="contenido-barra">
+                <Link to={"/users"}>
+                    <h1>Sistema de Gestión</h1>
+                </Link>
+                {token
+                    ? (
+                        <>
+                            <p className="usuario-autenticado">Bienvenido
+                                <span className="user">{usuario}</span>
+                                <button type="button" className="btn btn-rojo" onClick={logout} >
+                                    <img src={LogoutBtn} alt="icon logout" />
+                                    Logout
+                                </button>
+                            </p>
+                        </>
+                    )
+                    : null
+                }
+            </div>
+        </header>
+    );
+};
+
+export default Header;

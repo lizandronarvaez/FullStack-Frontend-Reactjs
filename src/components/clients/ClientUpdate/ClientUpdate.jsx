@@ -1,0 +1,88 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2/dist/sweetalert2.all";
+import { clienteAxios } from "../../../api/axios";
+
+const EditarCliente = () => {
+    const { _id } = useParams();
+    const navigate = useNavigate();
+    const [cliente, nuevoCliente] = useState({ fullname: "", company: "", email: "", phone: "" });
+    const consultarApi = async () => {
+        const { data } = await clienteAxios.get(`/clients/${_id}`);
+        nuevoCliente(data);
+    };
+    useEffect(() => { consultarApi(); }, []);
+    const datosFormulario = ({ target: { name, value } }) => { nuevoCliente({ ...cliente, [name]: value }); };
+    const enviarFormulario = async (e) => {
+        e.preventDefault();
+        const { status } = await clienteAxios.put(`/clients/${_id}`, cliente);
+        if (status !== 200) {
+            Swal.fire({
+                title: "Hubo un error",
+                text: "No se pudo actualizar la informacion del cliente",
+                icon: "error"
+            });
+            // TODO:REVISAR
+            navigate("/");
+            return;
+        }
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "Comprueba que los datos estan correctamente escritos",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "No, cancelar",
+            confirmButtonText: "Si, actualizar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    "Actualizados!",
+                    "Se ha actualizado correctamente",
+                    "success"
+                );
+                navigate("/");
+            }
+        });
+    };
+
+    const validarFormulario = () => {
+        const { fullname, company, email, phone } = cliente;
+        const validar = !fullname.length || !company.length || !email.length || !phone.length;
+        return validar;
+    };
+
+    return (
+        <>
+            <h2>Crear Nuevo Cliente</h2>
+            <form onSubmit={enviarFormulario}>
+                <legend>Llena todos los campos</legend>
+                <div className="campo">
+                    <label>Nombre:</label>
+                    <input type="text" value={cliente.fullname} placeholder="Nombre Cliente" name="fullname" onChange={datosFormulario} />
+                </div>
+                <div className="campo">
+                    <label>Empresa:</label>
+                    <input type="text" value={cliente.company} placeholder="Empresa Cliente" name="company" onChange={datosFormulario} />
+                </div>
+                <div className="campo">
+                    <label>Email:</label>
+                    <input type="email" value={cliente.email} placeholder="Email Cliente" name="email" onChange={datosFormulario} />
+                </div>
+                <div className="campo">
+                    <label>Teléfono:</label>
+                    <input type="text" value={cliente.phone} placeholder="Teléfono Cliente" name="phone" onChange={datosFormulario} />
+                </div>
+                <div className="enviar">
+                    <input type="submit" className="btn btn-azul" value="Actualizar Cliente" onChange={enviarFormulario}
+                        disabled={validarFormulario()}
+                    />
+                </div>
+            </form>
+        </>
+
+    );
+};
+
+export default EditarCliente;

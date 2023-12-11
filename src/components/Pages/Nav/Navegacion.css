@@ -1,0 +1,46 @@
+/** Navegacion **/
+.sidebar {
+    text-align: center;
+    border-right: 1px solid #969696;
+}
+
+.navegacion a {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    position: relative;
+    padding-top: 2rem;
+}
+
+.navegacion a::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-size: 3rem;
+    margin-right: 1rem;
+    position: absolute;
+    left: 0;
+    top: 1rem;
+}
+
+.navegacion a.clientes::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f0c0";
+}
+
+.navegacion a.productos::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f468";
+}
+
+.navegacion a.pedidos::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f02d";
+}

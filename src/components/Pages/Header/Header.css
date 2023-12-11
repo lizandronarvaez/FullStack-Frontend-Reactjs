@@ -1,0 +1,56 @@
+.barra {
+    background-color: #04152d;
+}
+
+.barra h1 {
+    margin: 0;
+    color: white;
+    font-size: 3rem;
+}
+
+.contenido-barra {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 3.5rem 5rem;
+}
+
+.contenido-barra .usuario-autenticado button {
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.contenido-barra .usuario-autenticado button img{
+    max-width: 2rem;
+}
+
+.contenido-barra .usuario-autenticado{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: capitalize;
+    margin: 0;
+}
+.contenido-barra .usuario-autenticado .user{
+    font-weight: 900;
+    padding: 0 1.5rem;
+}
+@media (min-width: 768px) {
+    .contenido-barra {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .contenido-barra  .usuario-autenticado button {
+        margin-left: 1rem;
+    }
+
+    .contenido-barra .usuario-autenticado{
+        flex-direction: row;
+        align-items: center;
+    }
+
+}
