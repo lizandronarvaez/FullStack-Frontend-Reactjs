@@ -1,21 +1,20 @@
 .contenedor-home {
     margin: 10rem auto 0 auto;
-    width: 50rem;
+    width: auto;
     padding: 2rem;
     border-radius: 1rem;
+    text-align: center; 
 }
 
 .contenedor-home h2 {
-    font-size: 8rem;
+    font-size: 5rem;
     color: #fff;
-    text-align: center;
-    /* padding-top: 10rem; */
     margin: 0;
     font-weight: bold;
 }
 
 .contenedor-home h2 strong {
-    font-style:italic;
+    font-style: italic;
     color: #052c66;
 }
 
@@ -24,15 +23,18 @@
     font-size: 1.7rem;
 }
 
-.contenedor-home>a {
+.contenedor-home .boton {
     background-color: #052c66;
+    color: #fff;
     font-weight: 600;
-    margin: 0 auto;
-    width: 50%;
     margin-top: 5rem;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 0.5rem;
 }
 
-.contenedor-home>a:hover {
+.contenedor-home .boton:hover {
     background-color: #0a59cb;
 }
 
@@ -41,6 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 2rem;
 }
 
 .register-account p {
@@ -52,12 +55,27 @@
 .register-account a {
     background-color: red;
     color: #fff;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     font-weight: bold;
-    padding: .5rem 1.5rem;
+    padding: 0.5rem 1.5rem;
+    text-decoration: none;
 }
 
 .register-account a:hover {
     background-color: #fff;
     color: red;
+}
+
+
+@media (min-width:768px) {
+    .contenedor-home {
+        margin: 10rem auto 0 auto;
+        width: 50rem;
+        padding: 2rem;
+        border-radius: 1rem;
+        text-align: center; 
+    }
+    .contenedor-home h2 {
+        font-size: 8rem;
+    }
 }

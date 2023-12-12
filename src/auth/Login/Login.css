@@ -14,9 +14,7 @@
     border-radius: 1rem 0 0 1rem;
 }
 
-/** Formularios **/
-
-.login-formulario form {
+.login-formulario .form_login {
     width: auto;
     height: 100%;
     margin: 0 auto;
@@ -26,53 +24,52 @@
     border-radius: 0 1rem 1rem 0;
 }
 
-.login-formulario form h2 {
+.login-formulario .form_login h2 {
     color: #000;
 }
 
-.login-formulario form .campo {
+.login-formulario .form_login .campo {
     padding: 2rem 2rem;
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
 }
 
-.login-formulario form .campo input {
+.login-formulario .form_login .campo input {
     width: 100%;
     border-radius: 1rem;
     padding: 1rem;
     border: 1px solid #e1e1e1;
 }
 
-.login-formulario form .campo input:focus {
+.login-formulario .form_login .campo input:focus {
     outline: none;
 }
 
-.login-formulario form .campo input[type="submit"] {
+.login-formulario .form_login .campo input[type="submit"] {
     width: 100%;
     border-radius: .5rem;
     background-color: #0a59cb;
     padding: 2rem 0;
-    /* font-size: 1.8rem; */
     letter-spacing: .2rem;
 }
 
-.login-formulario form .campo input[type="submit"]:hover {
+.login-formulario .form_login .campo input[type="submit"]:hover {
     background-color: #052c66;
 }
 
-.login form .campo-register {
+.login .form_login .campo-register {
     margin-top: 7rem;
 }
 
-.login-formulario form .campo-register p,
-.login-formulario form .campo-reset p {
+.login-formulario .form_login .campo-register p,
+.login-formulario .form_login .campo-reset p {
     display: flex;
     justify-content: end;
 }
 
-.login-formulario form .campo-register p a,
-.login-formulario form .campo-reset p a {
+.login-formulario .form_login .campo-register p a,
+.login-formulario .form_login .campo-reset p a {
     padding: 0 1rem;
     color: rgb(179, 37, 37);
     font-weight: 600;

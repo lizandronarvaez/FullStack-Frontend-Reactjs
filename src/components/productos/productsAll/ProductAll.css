@@ -1,23 +1,22 @@
-.table-clients {
+.table-products {
     overflow-y: scroll;
 }
 
-.clientsAll {
-    padding: 0 2rem;
+.productsAll {
+    padding: 0 5rem;
     text-align: center;
     width: 100%;
     margin: 0 auto;
-    max-width: 120rem; 
+    max-width: 120rem;
     height: fit-content;
 }
-
-.clientsAll .header {
+.productsAll .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.clientsAll .header a {
+.productsAll .header a {
     padding: 1.5rem 2rem;
     background-color: #092635;
     color: #fff;
@@ -25,7 +24,7 @@
     font-weight: 700;
 }
 
-.clientsAll .form_search_client {
+.productsAll .form-search-product {
     width: auto;
     height: auto;
     margin: 0 auto;
@@ -35,11 +34,11 @@
     border-radius: 0 1rem 1rem 0;
 }
 
-.clientsAll .form_search_client .list-clients {
+.productsAll .form-search-product .list-products {
     width: 100%;
 }
 
-.clientsAll .form_search_client .list-clients thead tr th {
+.productsAll .form-search-product .list-products thead tr th {
     background-color: #347cbb;
     padding: 1rem 1.5rem;
     font-weight: 800;
@@ -48,26 +47,26 @@
     border-collapse: collapse;
 }
 
-.busqueda-cliente {
+.search-product {
     display: flex;
     flex-direction: column;
     margin-bottom: 5rem;
 }
 
-.busqueda-cliente label {
+.search-product label {
     text-align: left;
     font-size: 2rem;
     padding-bottom: 1rem;
 }
 
-.busqueda-cliente input[type="text"] {
+.search-product input[type="text"] {
     padding: 1.5rem 2rem;
     border-color: #969696;
     border-radius: 0.5rem;
     outline: none;
 }
 
-.busqueda-cliente .client-notFound {
+.search-product .product-notFound {
     padding: 1rem 2rem;;
     background-color: #A01C48;
     border-radius: .5rem;

@@ -1,26 +1,45 @@
-.create-client{
-    width: 120rem;
+.create-client {
+    width: 100%;
+    max-width: 120rem;
     margin: 0 auto;
-    height: auto;
-}
-
-.create-client form{
     padding: 2rem;
+}
+
+.create-client .form_create_client {
     height: auto;
 }
 
-.create-client form input[type="text"],
-.create-client form input[input="email"]{
-    border: .5px solid;
-}
-.create-client form input[type="text"]:focus,
-.create-client form input[type="email"]:focus{
-    border: 3px solid #347cbb;
-    border-color: #347cbb;
+.create-client .campo label {
+    color: #707070;
 }
 
-.create-client-header{
-    display: flex; 
-    align-items: center
-    
+.create-client .form_create_client input[type="text"],
+.create-client .form_create_client input[type="email"] {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    outline: none;
+    font-family: 'Arial', sans-serif;
+}
+
+.create-client .form_create_client input[type="text"]:focus,
+.create-client .form_create_client input[type="email"]:focus {
+    border: 3px solid #347cbb;
+}
+
+.create-client .form_create_client .buttonSubmit {
+    background-color: #347cbb;
+    color: #fff;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.create-client .form_create_client .buttonSubmit:hover {
+    background-color: #235a8c;
 }

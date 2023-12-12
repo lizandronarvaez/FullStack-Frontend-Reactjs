@@ -1,0 +1,39 @@
+.product-create {
+    width: 80%;
+    max-width: 120rem;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+.product-create .form-create-product {
+    height: fit-content;
+}
+
+.product-create .campo label {
+    color: #707070;
+}
+
+.product-create .form-create-product .campo {
+    width: 100%; 
+    margin-bottom: 1rem;
+}
+
+.product-create .form-create-product .campo input[type="text"],
+.product-create .form-create-product .campo input[type="number"] {
+    border: .5px solid;
+    padding: 1rem;
+    width: 100%; 
+    border-radius: .5rem;
+    outline: none;
+}
+
+.product-create .form-create-product .campo input[type="text"]:focus,
+.product-create .form-create-product .campo input[type="number"]:focus {
+    outline: none;
+    border-color: #2d89da;
+}
+
+.product-create .form-create-product .campo:nth-of-type(3) {
+    display: flex;
+    flex-direction: column;
+}

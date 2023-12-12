@@ -1,0 +1,130 @@
+.resumen {
+    padding: 0;
+}
+
+.resumen li {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+.resumen li .texto-producto,
+.resumen li .acciones {
+    flex: 0 0 calc(50% - 2rem);
+}
+
+.resumen .acciones {
+    display: flex;
+    flex-wrap: wrap;
+}
+.resumen h2 {
+    padding: 5rem 0 0 0;
+}
+
+.resumen table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.resumen table thead tr th {
+    border: 2px solid #e1e1e1;
+    background-color: var(--azul);
+    padding: 1.5rem 1.5rem;
+    font-weight: 800;
+    color: #fff;
+    display: none;
+}
+
+.resumen table tbody {
+    margin-bottom: 5rem;
+}
+
+.resumen table tbody tr td {
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid #e1e1e1;
+    color: var(--grisOscuro);
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    display: flex;
+    font-weight: bold;
+}
+
+.resumen table tbody tr td:last-child {
+    margin-bottom: 5rem;
+}
+
+.resumen table tbody tr td[data-titulo] {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resumen table tbody tr td[data-titulo]::before {
+    content: attr(data-titulo);
+}
+
+@media (min-width: 968px) {
+    .resumen table thead tr th {
+        display: table-cell;
+        padding: 1rem 3rem;
+    }
+
+    .resumen table tbody tr td {
+        display: table-cell;
+    }
+
+    .resumen table tbody tr td[data-titulo] {
+        display: table-cell;
+    }
+
+    .resumen table tbody tr td[data-titulo]::before {
+        content: none;
+    }
+}
+
+.resumen table tbody tr td input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid #e1e1e1;
+}
+
+.resumen table tbody tr td input[type="number"] {
+    width: 10rem;
+}
+
+.resumen table tbody tr td input:focus {
+    outline: #e1e1e1;
+}
+
+.resumen table tbody tr td button {
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+.resumen-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.resumen-total .campo-total {
+    padding: 2rem 0;
+    border-top: 1px solid #969696;
+    border-bottom: 1px solid #969696;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.resumen-total .campo-total p {
+    padding-right: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.resumen-total .campo-total p {
+    padding: 1rem;
+    border: none;
+}
