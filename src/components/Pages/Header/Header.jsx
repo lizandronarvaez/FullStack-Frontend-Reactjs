@@ -48,7 +48,7 @@ const Header = () => {
                         <>
                             <p className="usuario-autenticado">Bienvenido
                                 <span className="user">{usuario}</span>
-                                <button type="button" className="btn btn-rojo" onClick={logout} >
+                                <button type="button" onClick={logout} >
                                     <img src={LogoutBtn} alt="icon logout" />
                                     Logout
                                 </button>

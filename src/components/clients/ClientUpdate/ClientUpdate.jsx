@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { clienteAxios } from "../../../api/axios";
-
+import "./ClientUpdate.css";
 const EditarCliente = () => {
     const { _id } = useParams();
     const navigate = useNavigate();
@@ -33,16 +33,16 @@ const EditarCliente = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            cancelButtonText: "No, cancelar",
-            confirmButtonText: "Si, actualizar"
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Actualizar"
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire(
-                    "Actualizados!",
-                    "Se ha actualizado correctamente",
+                    "Datos actualizados",
+                    "Se ha actualizó correctamente",
                     "success"
                 );
-                navigate("/");
+                navigate("/clientes");
             }
         });
     };
@@ -55,31 +55,31 @@ const EditarCliente = () => {
 
     return (
         <>
-            <h2>Crear Nuevo Cliente</h2>
-            <form onSubmit={enviarFormulario}>
-                <legend>Llena todos los campos</legend>
-                <div className="campo">
-                    <label>Nombre:</label>
-                    <input type="text" value={cliente.fullname} placeholder="Nombre Cliente" name="fullname" onChange={datosFormulario} />
-                </div>
-                <div className="campo">
-                    <label>Empresa:</label>
-                    <input type="text" value={cliente.company} placeholder="Empresa Cliente" name="company" onChange={datosFormulario} />
-                </div>
-                <div className="campo">
-                    <label>Email:</label>
-                    <input type="email" value={cliente.email} placeholder="Email Cliente" name="email" onChange={datosFormulario} />
-                </div>
-                <div className="campo">
-                    <label>Teléfono:</label>
-                    <input type="text" value={cliente.phone} placeholder="Teléfono Cliente" name="phone" onChange={datosFormulario} />
-                </div>
-                <div className="enviar">
-                    <input type="submit" className="btn btn-azul" value="Actualizar Cliente" onChange={enviarFormulario}
-                        disabled={validarFormulario()}
-                    />
-                </div>
-            </form>
+            <div className="client-update">
+                <h2>Editar datos cliente</h2>
+                <form onSubmit={enviarFormulario}>
+                    <legend>Llena todos los campos</legend>
+                    <div className="campo">
+                        <label>Nombre:</label>
+                        <input type="text" value={cliente.fullname} name="fullname" onChange={datosFormulario} />
+                    </div>
+                    <div className="campo">
+                        <label>Empresa:</label>
+                        <input type="text" value={cliente.company} name="company" onChange={datosFormulario} />
+                    </div>
+                    <div className="campo">
+                        <label>Email:</label>
+                        <input type="email" value={cliente.email} name="email" onChange={datosFormulario} />
+                    </div>
+                    <div className="campo">
+                        <label>Teléfono:</label>
+                        <input type="text" value={cliente.phone} name="phone" onChange={datosFormulario} />
+                    </div>
+                    <div className="campo">
+                        <input type="submit" value="Actualizar Cliente" disabled={validarFormulario()} />
+                    </div>
+                </form>
+            </div>
         </>
 
     );

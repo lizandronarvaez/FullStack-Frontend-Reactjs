@@ -12,7 +12,7 @@ const dataFormClient = {
 const NuevoCLiente = () => {
     const navigate = useNavigate();
     const [cliente, setClientes] = useState(dataFormClient);
-    const datosFormulario = ({ target }) => { setClientes({ ...cliente, [target.name]: target.value }); };
+    const datosFormulario = ({ target: { name, value } }) => { setClientes({ ...cliente, [name]: value }); };
     const enviarFormulario = async (e) => {
         e.preventDefault();
         const { data, status } = await clienteAxios.post("/clients", cliente);
@@ -24,47 +24,41 @@ const NuevoCLiente = () => {
             });
             return;
         }
-        Swal.fire(
-            data.mensaje,
-            "",
-            "success"
-        );
+        Swal.fire(data.mensaje, "", "success");
         navigate("/clientes");
     };
 
     // funcion para validar el formulario
     const validarFormulario = () => {
         const { fullname, company, email, phone } = cliente;
-        // Revisar que las propiedades no esten vacias
         const validar = !fullname.length || !company.length || !email.length || !phone.length;
         return validar;
     };
-    useEffect(() => {
-    }, [cliente]);
+    useEffect(() => { }, [cliente]);
     return (
         <>
             <div className="create-client">
                 <h2>Crear Nuevo Cliente</h2>
-                <form onSubmit={enviarFormulario}>
-                    <legend>Llena todos los campos</legend>
+                <form className="form_create_client" onSubmit={enviarFormulario}>
+                    <legend>Campos obligatorios</legend>
                     <div className="campo">
                         <label>Nombre</label>
-                        <input type="text" placeholder="Nombre Cliente" name="fullname" onChange={datosFormulario} />
+                        <input type="text" placeholder="Nombre" name="fullname" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
                         <label>Empresa</label>
-                        <input type="text" placeholder="Empresa Cliente" name="company" onChange={datosFormulario} />
+                        <input type="text" placeholder="Empresa" name="company" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
                         <label>Email</label>
-                        <input type="email" placeholder="Email Cliente" name="email" onChange={datosFormulario} />
+                        <input type="email" placeholder="Email" name="email" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
                         <label>Teléfono</label>
-                        <input type="text" placeholder="Teléfono Cliente" name="phone" onChange={datosFormulario} />
+                        <input type="text" placeholder="Teléfono" name="phone" onChange={datosFormulario} />
                     </div>
-                    <div className="enviar">
-                        <input type="submit" className="btn btn-azul" value="Agregar Cliente" onChange={enviarFormulario} disabled={validarFormulario()} />
+                    <div className="campo">
+                        <input type="submit" className="buttonSubmit" value="Agregar Cliente" disabled={validarFormulario()} />
                     </div>
                 </form>
             </div>

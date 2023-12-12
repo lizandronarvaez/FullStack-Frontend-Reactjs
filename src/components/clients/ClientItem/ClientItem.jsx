@@ -47,10 +47,10 @@ const Cliente = ({ cliente }) => {
                     <td className="company" data-titulo="Empresa:">{company}</td>
                     <td data-titulo="Telefono:">{phone}</td>
                     <td data-titulo="Acciones:">
-                        <Link className="btn-create-order">
+                        <Link className="btn-create-order" to={`/pedidos/nuevo/${_id}`}>
                             <img src={CreateOrder} alt="icon" />
                         </Link>
-                        <Link className="btn-edit-client">
+                        <Link className="btn-edit-client" to={`/clientes/editar/${_id}`} >
                             <img src={Edit} alt="icon" />
                         </Link>
                         <Link className="btn-delete-client" onClick={() => eliminarCliente(_id)}>

@@ -1,46 +1,71 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable array-callback-return */
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { clienteAxios } from "../../../api/axios";
-import { Spinner } from "../../Pages";
 import { ProductItem } from "../";
+import "./ProductAll.css";
 export const ProductsAll = () => {
-    const navigate = useNavigate();
     const [productos, setProductos] = useState([]);
-    const consultarApiBackend = async () => {
-        try {
-            const { data } = await clienteAxios.get("/products");
-            setProductos(data);
-        } catch (error) {
-            error.response.status === 500
-                ? navigate("/login")
-                : null;
-        }
+    const [buscarProducto, setBuscarProducto] = useState("");
+    const [productsFilter, setProductsFilter] = useState([]);
+    const [searchProduct, setSearchProduct] = useState(false);
+    const consultaProductos = async () => {
+        const { data } = await clienteAxios.get("/products");
+        setProductos(data);
     };
-    useEffect(() => { consultarApiBackend(); }, [productos]);
+
+    const handleBusquedaProductos = (e) => {
+        e.preventDefault();
+        const result = e.target.value;
+        setBuscarProducto(result);
+        setSearchProduct(true);
+        filterProduct(result);
+    };
+
+    const filterProduct = (word) => {
+        const filteredProducts = productos.filter((product) => {
+            const { fullname, brand } = product;
+            const searchValue = word.toLowerCase().trim();
+            return (fullname.toLowerCase().includes(searchValue) || brand.toLowerCase().includes(searchValue));
+        });
+        setProductsFilter(filteredProducts);
+    };
+    useEffect(() => { consultaProductos(); }, [productos]);
     return (
         <>
-            <div>
-                <h2>Productos</h2>
-                <Link to={"/productos/nuevo-producto"} className="btn btn-verde nvo-cliente">
-                    Nuevo Producto
-                </Link>
-                <ul className="listado-productos">
-                    {!productos.length
-                        ? (
-                            <>
-                                <div className="no-disponible">
-                                    <Spinner />
-                                    <h2>Cargando productos...</h2>
-                                </div>
-                            </>
-                        )
-                        : productos.map(producto => (
-                            <ProductItem key={producto._id} productos={producto} />
-                        ))}
-                </ul>
+            <div className="productsAll">
+                <div className="header">
+                    <h2>Productos</h2>
+                    <Link to={"/productos/nuevo-producto"}>
+                        Crear Producto
+                    </Link>
+                </div>
+                <form className="form-search-product" onSubmit={handleBusquedaProductos}>
+                    <div className="search-product">
+                        <label htmlFor="word">Buscar un producto</label>
+                        <input type="text" placeholder="Introduce el nombre de un producto" name="word"
+                            value={buscarProducto}
+                            onChange={handleBusquedaProductos} />
+                        {searchProduct && productsFilter.length === 0 && <span className="product-notFound">No existe ningún producto</span>}
+                    </div>
+                    <div className="table-products">
+                        <table className='list-products'>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Marca</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th>Imagen</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            {!productsFilter.length
+                                ? productos.map((product) => (<ProductItem key={product._id} productos={product} />))
+                                : productsFilter.map((product) => (<ProductItem key={product._id} productos={product} />))}
+                        </table>
+                    </div>
+
+                </form>
             </div>
 
         </>

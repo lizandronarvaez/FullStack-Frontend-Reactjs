@@ -2,7 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { clienteAxios } from "../../../api/axios";
+import "./ProductItem.css";
+import { Delete, Edit } from "../../../assets";
+import { getEnv } from "../../../helpers/getEnv";
+const { VITE_BASE_URL } = getEnv();
 export const ProductItem = ({ productos }) => {
+    const { _id, fullname, brand, price, productImage, stock } = productos;
     const eliminarProducto = (idProducto) => {
         Swal.fire({
             title: "Eliminar producto, estas seguro?",
@@ -23,45 +28,30 @@ export const ProductItem = ({ productos }) => {
                             title: "Producto eliminado correctamente",
                             showConfirmButton: false,
                             timer: 1500
-                        }
-                        );
+                        });
                     });
             }
         });
     };
-    const { _id, nombre, precio, imagenProducto } = productos;
     return (
-        <li className="producto">
-            <div className="info-producto">
-                <p className="nombre">{nombre}</p>
-                <p className="precio">{precio}€</p>
-                {imagenProducto
-                    ? <img
-                        className="img-productos"
-                        src={`${import.meta.env.VITE_BASE_URL}/${imagenProducto}`}
-                        alt="imagen producto"
-                    />
-                    : null
-                }
-            </div>
-            <div className="acciones">
-                <Link
-                    to={`/productos/editar-producto/${_id}`}
-                    className="btn btn-azul"
-                >
-                    <i className="fas fa-pen-alt"></i>
-                    Editar Producto
-                </Link>
-
-                <button
-                    type="button"
-                    className="btn btn-rojo btn-eliminar"
-                    onClick={() => { eliminarProducto(_id); }}
-                >
-                    <i className="fas fa-times"></i>
-                    Eliminar Producto
-                </button>
-            </div>
-        </li>
+        <>
+            <tbody className="table-tbody">
+                <tr>
+                    <td className="fullname" data-titulo="Nombre:">{fullname}</td>
+                    <td className="brand" data-titulo="Marca:">{brand}</td>
+                    <td className="price" data-titulo="Precio Unitario:">{price}€</td>
+                    <td className="stock" data-titulo="Stock:">{stock} uds</td>
+                    <td data-titulo="Imagen:"><img className="imgProduct" src={`${VITE_BASE_URL}/uploads/${productImage}`} alt="img" /></td>
+                    <td data-titulo="Acciones:">
+                        <Link className="btn-edit-product" to={`/productos/editar-producto/${_id}`} >
+                            <img src={Edit} alt="icon" />
+                        </Link>
+                        <Link className="btn-delete-product" onClick={() => eliminarProducto(_id)}>
+                            <img src={Delete} alt="icon" />
+                        </Link>
+                    </td>
+                </tr>
+            </tbody>
+        </>
     );
 };

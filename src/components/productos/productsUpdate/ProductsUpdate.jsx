@@ -3,103 +3,85 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { clienteAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-const formData = {
-    nombre: "",
-    precio: "",
-    imagenProducto: ""
+import "./ProductsUpdate.css";
+
+const formDataValues = {
+    fullname: "",
+    brand: "",
+    price: 0,
+    stock: 0,
+    productImage: null
 };
 export const ProductsUpdate = () => {
     const navigate = useNavigate();
     const { _id } = useParams();
-    const [actualizarProducto, setActualizarProducto] = useState(formData);
-    const [imgProducto, setImgProducto] = useState("");
-    const { nombre, precio, imagenProducto } = actualizarProducto;
-    const consultarBackend = async () => {
-        const { data } = await clienteAxios.get(`/productos/${_id}`);
-        setActualizarProducto(data);
-    };
-    const setFormulario = ({ target: { name, value } }) => { setActualizarProducto({ ...actualizarProducto, [name]: [value] }) };
-    const archivoImg = ({ target }) => setImgProducto(target.files[0]);
 
-    const actualizarFormProducto = async (e) => {
+    const [valuesProductBackend, setValuesProductBackend] = useState(formDataValues);
+    const [productImage, setImgProducto] = useState("");
+
+    const { fullname, brand, price, stock } = valuesProductBackend;
+
+    const imgFormProduct = ({ target }) => setImgProducto(target.files[0]);
+
+    const getProductById = async () => {
+        const { data } = await clienteAxios.get(`/products/${_id}`);
+        setValuesProductBackend(data);
+    };
+
+    const onNewValuesProduct = ({ target: { name, value } }) => setValuesProductBackend({ ...valuesProductBackend, [name]: value });
+
+    const onNewFormValuesProduct = async (e) => {
         e.preventDefault();
-        const { nombre, precio } = actualizarProducto;
-        // Crear el formData y agregar los valores
         const formData = new FormData();
-        formData.append("nombre", nombre);
-        formData.append("precio", precio);
-        formData.append("imagenProducto", imgProducto);
+        formData.append("fullname", fullname);
+        formData.append("brand", brand);
+        formData.append("price", price);
+        formData.append("stock", stock);
+        formData.append("productImage", productImage);
+
         try {
-            const { status, data } = await clienteAxios.put(`/products/${_id}`, formData, {
-                headers: { "Content-Type": "multipart/form-data" }
-            });
-            if (status === 200) {
-                // Mostramos un mensaje si todo esta bien
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: data.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+            const { data: { ok, message } } = await clienteAxios.put(`/products/${_id}`, formData);
+            if (ok) {
+                Swal.fire({ position: "center", icon: "success", title: message, showConfirmButton: false, timer: 1500 });
                 navigate("/productos");
             }
         } catch ({ response }) {
-            Swal.fire("Error al actualizar el producto", response.data, "error");
+            Swal.fire("Error al actualizar el producto", response.data || "Hubo un error al actualizar el producto", "error");
         }
     };
-    useEffect(() => { consultarBackend(); }, []);
+    useEffect(() => { getProductById(); }, []);
+
     return (
         <>
-            <h2>Editar Producto</h2>
-            <form onSubmit={actualizarFormProducto}>
-                <legend>Actualiza los datos de tus productos</legend>
-                <div className="campo">
-                    <label>Nombre:</label>
-                    <input
-                        type="text"
-                        onChange={setFormulario}
-                        value={nombre}
-                        placeholder="Nombre Producto"
-                        name="nombre"
-                    />
-                </div>
-
-                <div className="campo">
-                    <label>Precio:</label>
-                    <input
-                        type="number"
-                        onChange={setFormulario}
-                        value={precio}
-                        name="precio"
-                        min="0.00"
-                        step="0.01"
-                        placeholder="Precio"
-                    />
-                </div>
-                <div className="campo">
-                    <label>Imagen:</label>
-                    {imagenProducto
-                        ? <img
-                            src={`${import.meta.env.VITE_BASE_URL}/${imagenProducto}`}
-                            alt="image producto" width={200}
-                        />
-                        : null}
-                    <input
-                        type="file"
-                        onChange={archivoImg}
-                        name="imagen"
-                    />
-                </div>
-
-                <div className="enviar">
-                    <input
-                        type="submit"
-                        className="btn btn-azul"
-                        value="Actualizar Producto"
-                    />
-                </div>
-            </form>
+            <div className="update_product">
+                <h2>Editar Producto</h2>
+                <form className="form-update-product" onSubmit={onNewFormValuesProduct}>
+                    <legend>Actualiza los datos de los productos</legend>
+                    <div className="campo">
+                        <label>Nombre</label>
+                        <input type="text" value={fullname} onChange={onNewValuesProduct} name="fullname" />
+                    </div>
+                    <div className="campo">
+                        <label>Marca</label>
+                        <input type="text" value={brand} onChange={onNewValuesProduct} name="brand" />
+                    </div>
+                    <div className="campo">
+                        <label>Precio</label>
+                        <input type="number" value={price} onChange={onNewValuesProduct} name="price" min="0.00" step="0.01" />
+                    </div>
+                    <div className="campo">
+                        <label>Unidades</label>
+                        <input type="number" value={stock} onChange={onNewValuesProduct} name="stock" min="0.00" step="0.01" />
+                    </div>
+                    <div className="campo">
+                        <label>Imagen</label>
+                        <input type="file" onChange={imgFormProduct} name="productImage" />
+                    </div>
+                    <div className="campo">
+                        <input type="submit" value="Actualizar" />
+                    </div>
+                </form>
+            </div>
         </>
     );
 };
