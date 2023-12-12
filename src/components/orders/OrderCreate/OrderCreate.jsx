@@ -1,28 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { clienteAxios } from "../../api/axios";
+import { clienteAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-import { OrderAll, SearchProducts } from ".";
-
+import { OrderAll, SearchProducts } from "..";
+import "./OrderCreate.css";
 export const OrderCreate = () => {
-    // Extraer el id del cliente que va a realizar la compra
-    const { _id } = useParams();
     const navigate = useNavigate();
+    const { _id } = useParams();
     const [cliente, setCliente] = useState({});
     const [buscar, setBuscar] = useState("");
     const [productos, setProductos] = useState([]);
     const [totalPrecio, setTotalPrecio] = useState(0);
-
-    const { nombre, apellido, empresa, telefono } = cliente;
+    const { fullname, company, phone } = cliente;
     const consultaBackend = async () => {
         const resultado = await clienteAxios.get(`/clients/${_id}`);
         setCliente(resultado.data);
     };
     const buscarProducto = async (e) => {
         e.preventDefault();
-        const resultado = await clienteAxios.get(`/products/clientes/${buscar}`);
-        const { data } = resultado;
+        const { data } = await clienteAxios.get(`/products/clientes/${buscar}`);
         if (!data[0]) {
             Swal.fire({
                 title: "No existe el producto",
@@ -30,9 +27,9 @@ export const OrderCreate = () => {
                 icon: "error"
             });
         } else {
-            const resultadoProducto = resultado.data[0];
+            const resultadoProducto = data[0];
             // Agregamos una llave a producto
-            resultadoProducto.producto = resultado.data[0]._id;
+            resultadoProducto.producto = data[0]._id;
             resultadoProducto.cantidad = 0;
             // Guardamos los datos en el state
             setProductos([...productos, resultadoProducto]);
@@ -103,61 +100,57 @@ export const OrderCreate = () => {
     }, [productos]);
 
     return (
-
         <>
-            <h2>Nuevo Pedido</h2>
-            <div className="ficha-cliente">
-                <h3>Datos del cliente</h3>
-                <p>{nombre} {apellido}</p>
-                <p>{telefono}</p>
-                <p>{empresa}</p>
-            </div>
-            <SearchProducts buscarProducto={buscarProducto} valorInput={valorInput}
-            />
-            <div className="resumen">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº Articulo</th>
-                            <th>Nombre Articulo</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    {productos.map((producto, index) => (
-
-                        <OrderAll
-                            key={producto.producto}
-                            producto={producto}
-                            index={index}
-                            cantidadProductos={cantidadProductos}
-                            eliminarProductoLista={eliminarProductoLista} />
-                    ))}
-                </table>
-            </div>
-            <div className="resumen-total">
-                <div className="campo-total">
-                    {productos.length === 0
+            <div className="order-create-client">
+                <h2>Nuevo Pedido</h2>
+                <div className="data-client">
+                    <h3>Datos del cliente</h3>
+                    <p>Nombre: <span>{fullname}</span></p>
+                    <p>Contacto: <span>{phone}</span></p>
+                    <p>Empresa: <span>{company}</span> </p>
+                </div>
+                <SearchProducts buscarProducto={buscarProducto} valorInput={valorInput} />
+                {
+                    !productos.length
                         ? null
-                        : <p>
-                            Total a pagar:
-                            <span>
-                                {totalPrecio.toFixed(2)}€
-                            </span>
-                        </p>}
-                </div>
-                <div className="campo">
-                    {totalPrecio > 0
-                        ? <form onSubmit={submitPedido}>
-                            <input
-                                type="submit"
-                                className="btn btn-azul "
-                                value="Realizar Pedido"
-                            />
-                        </form>
-                        : null}
-                </div>
+                        : (
+                            <>
+                                <div className="resumen">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Nº Articulo</th>
+                                                <th>Nombre Articulo</th>
+                                                <th>Precio</th>
+                                                <th>Cantidad</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        {productos.map((producto, index) => (
+                                            <OrderAll
+                                                key={producto.producto}
+                                                producto={producto}
+                                                index={index}
+                                                cantidadProductos={cantidadProductos}
+                                                eliminarProductoLista={eliminarProductoLista} />
+                                        ))}
+                                    </table>
+                                </div>
+                                <div className="resumen-total">
+                                    <div className="campo-total">
+                                        <p>Total a pagar: <span>{totalPrecio.toFixed(2)}€</span> </p>
+                                    </div>
+                                    <div className="campo">
+                                        <form onSubmit={submitPedido}>
+                                            <input type="submit" className="btn btn-azul " value="Realizar Pedido" />
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </>
+                        )
+                }
+
             </div>
         </>
     );

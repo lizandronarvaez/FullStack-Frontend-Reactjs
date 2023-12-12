@@ -1,11 +1,11 @@
-/* DASHBOARD */
+
 .dashboard {
     display: grid;
     grid-template-columns: 1fr;
     gap: 5rem;
     padding: 3rem 2rem;
     max-height: 25rem;
-    width: 140rem;
+    width: 100%; 
     margin: 0 auto;
 }
 

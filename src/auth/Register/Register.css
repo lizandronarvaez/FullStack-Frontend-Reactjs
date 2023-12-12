@@ -21,7 +21,7 @@
 }
 
 /** Formularios **/
-form {
+.register form {
     width: auto;
     height: auto;
     margin: 0 auto;
@@ -36,7 +36,7 @@ form {
     color: #000;
 }
 
-form legend {
+.register form legend {
     font-size: 2.4rem;
     font-weight: 700;
     text-align: center;
@@ -45,39 +45,38 @@ form legend {
     margin-bottom: 2rem;
 }
 
-form .campo {
+.register form .campo {
     padding: 2rem 2rem;
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-form .campo input {
+.register form .campo input {
     width: 100%;
     border-radius: 1rem;
 }
 
-form .campo input:focus {
+.register form .campo input:focus {
     outline: none;
     border-color: #007bff
 }
 
-form .campo label {
+.register form .campo label {
     flex: 0 0 25px;
 }
 
-form .campo input:not([type="submit"]) {
+.register form .campo input:not([type="submit"]) {
     padding: 1.5rem;
     width: 100%;
     border: 1px solid #e1e1e1;
 }
 
-form .campo input[type="file"] {
+.register form .campo input[type="file"] {
     margin-left: 2rem;
 }
 
-form .campo input[readonly] {
+.register form .campo input[readonly] {
     background-color: #e1e1e1;
 }
 

@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from "react";
-import { clienteAxios } from "../../api/axios";
+import { clienteAxios } from "../../../api/axios";
 import { useNavigate } from "react-router";
-import { Spinner } from "../Pages";
-import { OrderItem } from ".";
+import { Spinner } from "../../Pages";
+import { OrderItem } from "..";
+import "./OrderAll.css";
 export const OrderAll = () => {
     const navigate = useNavigate();
     const [pedidosLista, setPedidoLista] = useState([]);

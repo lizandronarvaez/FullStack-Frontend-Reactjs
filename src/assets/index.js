@@ -10,6 +10,7 @@ import CartNav from "./svg/cartNav.svg";
 import UsersNav from "./svg/usersNav.svg";
 import TableListNav from "./svg/table-listNav.svg";
 import CreateOrder from "./svg/create.svg";
+import Back from "./svg/back.svg";
 
 export {
     Home,
@@ -23,5 +24,6 @@ export {
     CartNav,
     UsersNav,
     TableListNav,
-    CreateOrder
+    CreateOrder,
+    Back
 };

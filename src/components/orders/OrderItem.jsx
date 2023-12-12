@@ -24,7 +24,7 @@ export const OrderItem = (pedidos) => {
                     <td data-titulo="Cliente:">
                         {/* {cliente.nombre} {cliente.apellido} */}
                     </td>
-                    <td data-titulo="Toal:">{total}€</td>
+                    <td data-titulo="Total:">{total}€</td>
                     <td data-titulo="Acciones:">
                         <button
                             type='button'

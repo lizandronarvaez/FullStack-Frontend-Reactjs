@@ -1,85 +1,73 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { clienteAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { useNavigate } from "react-router";
+import "./ProductCreate.css";
+const inputValues = {
+    fullname: "",
+    brand: "",
+    price: 0,
+    stock: 0
+};
 export const ProductCreate = () => {
     const navigate = useNavigate();
-    const [agregarProducto, setAgregarProducto] = useState({ nombre: "", precio: "" });
-    const [imgProducto, setImgProducto] = useState("");
-    const setFormulario = ({ target: { name, value } }) => { setAgregarProducto({ ...agregarProducto, [name]: [value] }); };
-    const imagenProductoForm = e => setImgProducto(e.target.files[0]);
+    const [agregarProducto, setAgregarProducto] = useState(inputValues);
+    const { fullname, brand, price, stock } = agregarProducto;
+    const onInputForm = ({ target: { name, value } }) => { setAgregarProducto({ ...agregarProducto, [name]: value }); };
+    const imagenProductoForm = (e) => setImgProducto(e.target.files[0]);
+    const [productImage, setImgProducto] = useState("");
+
     const validarFormulario = () => {
-        const { nombre, precio } = agregarProducto;
-        const validar = !nombre.length || !precio.length;
+        const validar = !fullname.length || !brand.length || price === 0 || stock === 0;
         return validar;
     };
+
     const submitFormulario = async (e) => {
         e.preventDefault();
-        const { nombre, precio } = agregarProducto;
         const formData = new FormData();
-        formData.append("nombre", nombre);
-        formData.append("precio", precio);
-        formData.append("imagenProducto", imgProducto);
+        formData.append("fullname", fullname);
+        formData.append("brand", brand);
+        formData.append("price", price);
+        formData.append("stock", stock);
+        formData.append("productImage", productImage);
+
         try {
-            const { status, data } = await clienteAxios.post("/products", formData, {
-                headers: { "Content-Type": "multipart/form-data" }
-            });
-            if (status === 201) {
-                Swal.fire(
-                    "Producto creado",
-                    data.mensaje,
-                    "success"
-                );
-            }
+            const { data: { message, ok } } = await clienteAxios.post("/products", formData);
+            if (ok) Swal.fire("Producto creado", message, "success");
             navigate("/productos");
         } catch (error) {
-            Swal.fire("Error al crear el producto", error.response.data, "error");
+            console.log(error);
+            Swal.fire("Error al crear el producto", error?.response?.data || "Hubo un error al crear el producto", "error");
         }
     };
     return (
         <>
-            <div>
+            <div className="product-create">
                 <h2>Nuevo Producto</h2>
-                <form onSubmit={submitFormulario}>
+                <form className="form-create-product" onSubmit={submitFormulario}>
                     <legend>Llena todos los campos</legend>
                     <div className="campo">
-                        <label>Nombre:</label>
-                        <input
-                            type="text"
-                            onChange={setFormulario}
-                            placeholder="Nombre Producto"
-                            name="nombre"
-                        />
+                        <label>Nombre</label>
+                        <input type="text" onChange={onInputForm} placeholder="Nombre Producto" name="fullname" />
                     </div>
                     <div className="campo">
-                        <label>Precio:</label>
-                        <input
-                            type="number"
-                            onChange={setFormulario}
-                            name="precio"
-                            min="0.00"
-                            step="0.01"
-                            placeholder="Precio"
-                        />
+                        <label>Marca</label>
+                        <input type="text" onChange={onInputForm} placeholder="Nombre Producto" name="brand" />
                     </div>
-
                     <div className="campo">
-                        <label>Imagen:</label>
-                        <input
-                            type="file"
-                            onChange={imagenProductoForm}
-                            name="imagen"
-                        />
+                        <label>Precio</label>
+                        <input type="number" onChange={onInputForm} name="price" min="0.00" step="0.01" placeholder="Precio" />
                     </div>
-
-                    <div className="enviar">
-                        <input
-                            type="submit"
-                            disabled={validarFormulario()}
-                            className="btn btn-azul"
-                            value="Agregar Producto"
-                        />
+                    <div className="campo">
+                        <label>Unidades</label>
+                        <input type="number" onChange={onInputForm} name="stock" min="0.00" step="0.01" placeholder="Unidades productos" />
+                    </div>
+                    <div className="campo">
+                        <label>Imagen</label>
+                        <input type="file" onChange={imagenProductoForm} name="productImage" />
+                    </div>
+                    <div className="campo">
+                        <input type="submit" disabled={validarFormulario()} value="Añadir stock" />
                     </div>
                 </form>
             </div>

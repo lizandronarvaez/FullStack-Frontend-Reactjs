@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import { useState } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all";
@@ -13,14 +13,11 @@ const formValues = {
 };
 const Register = () => {
     const navigate = useNavigate();
-
     const [dataForm, setDataForm] = useState(formValues);
     const { fullname, email, password, passwordRepeat } = dataForm;
     const registerData = ({ target }) => { setDataForm({ ...dataForm, [target.name]: target.value }); };
-
     const onSubmitRegister = async (e) => {
         e.preventDefault();
-
         const inputsValues = Object.values(dataForm);
         for (const input of inputsValues) {
             if (input.length < 1) {
@@ -34,7 +31,6 @@ const Register = () => {
                 return;
             }
         }
-
         if (password !== passwordRepeat) {
             Swal.fire({
                 position: "center",
@@ -45,7 +41,6 @@ const Register = () => {
             });
             return;
         }
-
         const dataCleanForm = {
             fullname: fullname.trim().toLowerCase(),
             email: email.trim().toLowerCase(),
@@ -54,7 +49,6 @@ const Register = () => {
 
         try {
             const { data } = await clienteAxios.post("/auth/register", dataCleanForm);
-
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -62,20 +56,18 @@ const Register = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-
             setDataForm({
                 fullname: "",
                 email: "",
                 password: "",
                 passwordRepeat: ""
             });
-
             navigate("/login");
         } catch (error) {
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: error.response.data.message,
+                title: error.response.data.message || "Hubo un error en el registro",
                 showConfirmButton: false,
                 timer: 1500
             });
