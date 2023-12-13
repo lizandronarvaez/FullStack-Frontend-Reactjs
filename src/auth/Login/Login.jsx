@@ -54,12 +54,12 @@ const Login = () => {
                 <form className="form_login" onSubmit={enviarFormulario}>
                     <h2>Bienvenido</h2>
                     <div className='campo'>
-                        <label htmlFor="email" >Email:</label>
-                        <input type="email" name="email" onChange={datosFormulario} autoComplete='on' />
+                        <label htmlFor="email" >Email</label>
+                        <input type="email" name="email" onChange={datosFormulario} autoComplete='on' placeholder="Introduce tu email" />
                     </div>
                     <div className='campo'>
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" name="password" onChange={datosFormulario} autoComplete="current-password" />
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" onChange={datosFormulario} autoComplete="current-password" placeholder="Introduce tu password" />
                     </div>
                     <div className="campo">
                         <input type="submit" value="Login" className='btn' />

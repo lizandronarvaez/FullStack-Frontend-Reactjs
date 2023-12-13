@@ -8,7 +8,7 @@ export const ResetPassword = () => {
             <div className="reset-password">
                 <div className="reset-image"></div>
                 <div className="reset-formulario">
-                    <form>
+                    <form className="form-reset">
                         <h2>Reestablecer password</h2>
                         <div className="campo">
                             <label htmlFor="email">Email</label>
@@ -20,7 +20,7 @@ export const ResetPassword = () => {
                         <div className="campo">
                             <Link to={"/login"}>
                                 <img src={Back} alt="back" />
-                                Ir a login
+                                Volver a login
                             </Link>
                         </div>
                     </form>
