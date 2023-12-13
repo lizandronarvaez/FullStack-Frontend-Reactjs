@@ -61,11 +61,14 @@
 
 .search-product input[type="text"] {
     padding: 1.5rem 2rem;
-    border-color: #969696;
+    border: 1px solid #ccc;
     border-radius: 0.5rem;
     outline: none;
 }
-
+.search-product input[type="text"]:focus{
+    outline: none;
+    border-color: #2d89da;
+}
 .search-product .product-notFound {
     padding: 1rem 2rem;;
     background-color: #A01C48;

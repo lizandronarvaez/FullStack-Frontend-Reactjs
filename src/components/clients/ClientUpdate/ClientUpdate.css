@@ -1,37 +1,64 @@
-.client-update{
+.client-update {
     width: 120rem;
     margin: 0 auto;
     height: auto;
 }
 
-.client-update form{
+.client-update h2 {
+    text-align: center;
+}
+
+.client-update .form_update_client {
+    max-width: 80%;
+    margin: 0 auto;
     padding: 2rem;
     height: auto;
 }
-.client-update .campo{
+
+.client-update .campo {
     padding: 2rem 0;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
-
-.client-update .campo label{
+.client-update .form_update_client legend {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
     color: #707070;
 }
 
-.client-update .campo{
-   display: flex;
-   flex-direction: column;
+
+.client-update .campo label {
+    color: #707070;
 }
+
 .client-update .campo input[type="text"],
-.client-update .campo input[type="email"]{
-    padding:1rem;
+.client-update .campo input[type="email"] {
+    padding: 1.5rem;
     width: 100%;
+    border: 1px solid #ccc;
     border-radius: .5rem;
     outline: #347cbb;
     color: #707070;
+    margin-top: 1rem;
 }
+
 .client-update .campo input[type="text"]:focus,
-.client-update .campo input[type="email"]:focus{
+.client-update .campo input[type="email"]:focus {
     border: 3px solid #347cbb;
     border-color: #347cbb;
-    color: #1f1e1e ;
+    color: #1f1e1e;
+}
+
+.form_update_client .campo .updateSubmit {
+    background-color: #347cbb;
+    color: #fff;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 900;
 }

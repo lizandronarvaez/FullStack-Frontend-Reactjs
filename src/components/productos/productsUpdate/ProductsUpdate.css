@@ -4,27 +4,38 @@
     margin: 0 auto;
     height: fit-content;
 }
-
-.update_product .form-update-product {
-    height: fit-content;
+.update_product h2{
+    text-align: center;
 }
 
-.update_product .campo label {
+.form-update-product {
+    max-width: 80%;
+    margin: 0 auto;
+    height: auto;
+}
+.form-update-product legend {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #707070;
+}
+.form-update-product .campo label {
+    margin-bottom: 2rem;
     color: #707070;
 }
 
-.update_product .form-update-product .campo {
+.form-update-product .campo {
     width: 100%; 
-    margin-bottom: 1rem; 
+    margin-bottom: 2rem; 
 }
 
 .update_product .form-update-product .campo input[type="text"],
 .update_product .form-update-product .campo input[type="number"] {
-    border: .5px solid;
-    padding: 1rem;
-    width: 100%; 
+    border: 1px solid #ccc;
+    padding: 1.5rem;
     border-radius: .5rem;
+    width: 100%; 
     outline: none;
+    margin-top: 1.5rem;
 }
 
 .update_product .form-update-product .campo input[type="text"]:focus,
@@ -33,7 +44,48 @@
     border-color: #2d89da;
 }
 
-.update_product .form-update-product .campo:nth-of-type(3) {
+.form-update-product .campo-imagen {
     display: flex;
     flex-direction: column;
+}
+
+.form-update-product .campo-imagen input[type="file"]{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0; 
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.form-update-product .campo-imagen label{
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    background-color:#347cbb ;
+    display: flex;
+    align-items: end;
+    transition: all 0.5s;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    width: fit-content;
+    text-align: center;
+    border-radius: 0.5rem;
+}
+
+.form-update-product .campo-imagen label:hover{
+    background-color:#106BA0
+}
+
+.form-update-product .updateSubmit{
+    background-color:#106BA0 ;
+    color: #fff;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 900;
 }
