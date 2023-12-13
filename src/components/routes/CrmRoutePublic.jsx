@@ -7,7 +7,7 @@ import { NotFound } from "../notFound/NotFound";
 export const CrmRoutePublic = () => {
     return (
         <>
-            <div className="contenedor caja-contenido col-9">
+            <div className="contenedor caja-contenido">
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/login' element={<Login />} />
