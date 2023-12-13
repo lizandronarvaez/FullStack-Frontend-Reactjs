@@ -11,7 +11,7 @@ import UsersNav from "./svg/usersNav.svg";
 import TableListNav from "./svg/table-listNav.svg";
 import CreateOrder from "./svg/create.svg";
 import Back from "./svg/back.svg";
-
+import Upload from "./svg/upload.svg";
 export {
     Home,
     Users,
@@ -25,5 +25,6 @@ export {
     UsersNav,
     TableListNav,
     CreateOrder,
-    Back
+    Back,
+    Upload
 };
