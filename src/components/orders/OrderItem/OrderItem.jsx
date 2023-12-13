@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Delete, Edit, Pdf } from "../../assets";
-
+import { Delete, Edit, Pdf } from "../../../assets";
+import "./OrderItem.css";
 export const OrderItem = (pedidos) => {
     const { datosPedido, eliminarPedido, pedidoTerminado } = pedidos;
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ export const OrderItem = (pedidos) => {
     const pedidoPDF = () => navigate(`/orders/pdf/${_id}`);
     return (
         <>
-            <tbody>
+            <tbody className="order-tbody">
                 <tr>
                     <td data-titulo="Fecha:">
                         {new Date().toLocaleDateString()}
