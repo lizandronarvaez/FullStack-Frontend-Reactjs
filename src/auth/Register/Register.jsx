@@ -77,24 +77,36 @@ const Register = () => {
     return (
         <div className='register'>
             <div className="register-image"></div>
-            <div>
-                <form onSubmit={onSubmitRegister}>
+            <div className="registro-formulario">
+                <form className="form-register" onSubmit={onSubmitRegister}>
                     <h2>Registrar cuenta</h2>
                     <div className='campo'>
-                        <label htmlFor="fullname">Nombre completo</label>
-                        <input type="text" name="fullname" autoComplete='on' value={fullname} onChange={registerData} />
+                        <label htmlFor="fullname">Nombre</label>
+                        <input type="text" name="fullname" autoComplete='on' value={fullname}
+                            onChange={registerData}
+                            placeholder="Introduce tu nombre completo"
+                        />
                     </div>
                     <div className='campo'>
                         <label htmlFor="email">Email</label>
-                        <input type="email" name="email" autoComplete='on' value={email} onChange={registerData} />
+                        <input type="email" name="email" autoComplete='on' value={email}
+                            onChange={registerData}
+                            placeholder="Introduce tu email"
+                        />
                     </div>
                     <div className='campo'>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" autoComplete="current-password" value={password} onChange={registerData} />
+                        <input type="password" name="password" autoComplete="current-password"
+                            value={password} onChange={registerData}
+                            placeholder="Introduce una contraseña segura"
+                        />
                     </div>
                     <div className='campo'>
                         <label htmlFor="passwordRepeat">Repetir Password</label>
-                        <input type="password" name="passwordRepeat" autoComplete="current-password" value={passwordRepeat} onChange={registerData} />
+                        <input type="password" name="passwordRepeat" autoComplete="current-password" value={passwordRepeat}
+                            onChange={registerData}
+                            placeholder="Vuelve a introducir tu contraseña por seguridad"
+                        />
                     </div>
                     <div className="campo">
                         <input type="submit" value="Registrar" className='btn' />
