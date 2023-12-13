@@ -57,26 +57,26 @@ const EditarCliente = () => {
         <>
             <div className="client-update">
                 <h2>Editar datos cliente</h2>
-                <form onSubmit={enviarFormulario}>
+                <form className="form_update_client" onSubmit={enviarFormulario}>
                     <legend>Llena todos los campos</legend>
                     <div className="campo">
-                        <label>Nombre:</label>
+                        <label htmlFor="fullname">Nombre:</label>
                         <input type="text" value={cliente.fullname} name="fullname" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <label>Empresa:</label>
+                        <label htmlFor="company">Empresa:</label>
                         <input type="text" value={cliente.company} name="company" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <label>Email:</label>
+                        <label htmlFor="email">Email:</label>
                         <input type="email" value={cliente.email} name="email" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <label>Teléfono:</label>
+                        <label htmlFor="phone">Teléfono:</label>
                         <input type="text" value={cliente.phone} name="phone" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <input type="submit" value="Actualizar Cliente" disabled={validarFormulario()} />
+                        <input type="submit" className="updateSubmit" value="Actualizar" disabled={validarFormulario()} />
                     </div>
                 </form>
             </div>

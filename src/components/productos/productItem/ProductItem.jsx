@@ -20,16 +20,18 @@ export const ProductItem = ({ productos }) => {
             confirmButtonText: "Si, eliminar producto"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await clienteAxios.delete(`/productos/${idProducto}`)
-                    .then(response => {
-                        Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Producto eliminado correctamente",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
+                try {
+                    await clienteAxios.delete(`/products/${idProducto}`);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Producto eliminado correctamente",
+                        showConfirmButton: false,
+                        timer: 1500
                     });
+                } catch (error) {
+                    console.error("Error al eliminar el producto:", error);
+                }
             }
         });
     };

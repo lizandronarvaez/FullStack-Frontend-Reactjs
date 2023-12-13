@@ -40,25 +40,25 @@ const NuevoCLiente = () => {
             <div className="create-client">
                 <h2>Crear Nuevo Cliente</h2>
                 <form className="form_create_client" onSubmit={enviarFormulario}>
-                    <legend>Campos obligatorios</legend>
+                    <legend>Campos obligatorios*</legend>
                     <div className="campo">
-                        <label>Nombre</label>
+                        <label htmlFor="fullname">Nombre*</label>
                         <input type="text" placeholder="Nombre" name="fullname" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <label>Empresa</label>
+                        <label htmlFor="company">Empresa*</label>
                         <input type="text" placeholder="Empresa" name="company" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <label>Email</label>
+                        <label htmlFor="email">Email*</label>
                         <input type="email" placeholder="Email" name="email" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <label>Teléfono</label>
+                        <label htmlFor="phone">Teléfono*</label>
                         <input type="text" placeholder="Teléfono" name="phone" onChange={datosFormulario} />
                     </div>
                     <div className="campo">
-                        <input type="submit" className="buttonSubmit" value="Agregar Cliente" disabled={validarFormulario()} />
+                        <input type="submit" className="buttonSubmit" value="Crear cliente" disabled={validarFormulario()} />
                     </div>
                 </form>
             </div>
