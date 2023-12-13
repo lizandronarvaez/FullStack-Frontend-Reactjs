@@ -38,7 +38,7 @@
 .contenido-barra .usuario-autenticado {
     color: #fff;
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     text-transform: capitalize;
     margin: 0;

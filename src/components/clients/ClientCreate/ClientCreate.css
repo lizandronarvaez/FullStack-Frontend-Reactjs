@@ -5,11 +5,24 @@
     padding: 2rem;
 }
 
+.create-client h2{
+    text-align: center;
+}
 .create-client .form_create_client {
+    margin: 0 auto;
+    max-width: 80%;
     height: auto;
 }
 
-.create-client .campo label {
+.form_create_client .campo{
+    margin-bottom: 3rem;
+}
+.form_create_client legend{
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #707070;
+}
+.form_create_client .campo label {
     color: #707070;
 }
 
@@ -17,7 +30,8 @@
 .create-client .form_create_client input[type="email"] {
     box-sizing: border-box;
     border: 1px solid #ccc;
-    padding: 1rem;
+    margin-top: 1rem;
+    padding: 1.5rem;
     width: 100%;
     border-radius: 0.5rem;
     outline: none;
@@ -38,6 +52,7 @@
     cursor: pointer;
     font-family: 'Arial', sans-serif;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 900;
 }
 
 .create-client .form_create_client .buttonSubmit:hover {

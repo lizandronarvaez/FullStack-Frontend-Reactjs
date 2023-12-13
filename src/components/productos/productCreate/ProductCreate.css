@@ -5,35 +5,90 @@
     height: fit-content;
 }
 
-.product-create .form-create-product {
-    height: fit-content;
+.product-create h2 {
+    text-align: center;
 }
 
-.product-create .campo label {
+.form-create-product {
+    max-width: 80%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.form-create-product legend {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
     color: #707070;
 }
 
-.product-create .form-create-product .campo {
-    width: 100%; 
-    margin-bottom: 1rem;
+.form-create-product .campo label {
+    margin-bottom: 2rem;
+    color: #707070;
+
 }
 
-.product-create .form-create-product .campo input[type="text"],
-.product-create .form-create-product .campo input[type="number"] {
-    border: .5px solid;
-    padding: 1rem;
-    width: 100%; 
+.form-create-product .campo {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.form-create-product .campo input[type="text"],
+.form-create-product .campo input[type="number"] {
+    border: 1px solid #ccc;
+    padding: 1.5rem;
+    width: 100%;
     border-radius: .5rem;
     outline: none;
+    margin-top: 1.5rem;
 }
 
-.product-create .form-create-product .campo input[type="text"]:focus,
-.product-create .form-create-product .campo input[type="number"]:focus {
+.form-create-product .campo input[type="text"]:focus,
+.form-create-product .campo input[type="number"]:focus {
     outline: none;
     border-color: #2d89da;
 }
 
-.product-create .form-create-product .campo:nth-of-type(3) {
+.form-create-product .campo-imagen {
     display: flex;
     flex-direction: column;
+}
+
+.form-create-product .campo-imagen input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0; 
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.form-create-product .campo-imagen label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    background-color:#347cbb ;
+    display: flex;
+    align-items: end;
+    transition: all 0.5s;
+    cursor: pointer;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    width: fit-content;
+    text-align: center;
+    border-radius: 0.5rem;
+}
+
+.form-create-product .campo-imagen label:hover{
+    background-color:#106BA0
+}
+.form-create-product .createSubmit{
+    background-color:#106BA0 ;
+    color: #fff;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 900;
 }

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { clienteAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import "./ProductsUpdate.css";
+import { Upload } from "../../../assets";
 
 const formDataValues = {
     fullname: "",
@@ -58,27 +59,27 @@ export const ProductsUpdate = () => {
                 <form className="form-update-product" onSubmit={onNewFormValuesProduct}>
                     <legend>Actualiza los datos de los productos</legend>
                     <div className="campo">
-                        <label>Nombre</label>
+                        <label htmlFor="fullname">Nombre</label>
                         <input type="text" value={fullname} onChange={onNewValuesProduct} name="fullname" />
                     </div>
                     <div className="campo">
-                        <label>Marca</label>
+                        <label htmlFor="brand">Marca</label>
                         <input type="text" value={brand} onChange={onNewValuesProduct} name="brand" />
                     </div>
                     <div className="campo">
-                        <label>Precio</label>
+                        <label htmlFor="price">Precio</label>
                         <input type="number" value={price} onChange={onNewValuesProduct} name="price" min="0.00" step="0.01" />
                     </div>
                     <div className="campo">
-                        <label>Unidades</label>
+                        <label htmlFor="stock">Unidades</label>
                         <input type="number" value={stock} onChange={onNewValuesProduct} name="stock" min="0.00" step="0.01" />
                     </div>
-                    <div className="campo">
-                        <label>Imagen</label>
+                    <div className="campo campo-imagen">
+                        <label htmlFor="productImage"><img src={Upload} alt="icon" />Subir Imagen</label>
                         <input type="file" onChange={imgFormProduct} name="productImage" />
                     </div>
-                    <div className="campo">
-                        <input type="submit" value="Actualizar" />
+                    <div className="campo ">
+                        <input type="submit" className="updateSubmit" value="Actualizar" />
                     </div>
                 </form>
             </div>

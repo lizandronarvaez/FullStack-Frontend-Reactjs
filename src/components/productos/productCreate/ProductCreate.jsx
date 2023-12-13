@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { clienteAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { useNavigate } from "react-router";
+import { Upload } from "../../../assets";
 import "./ProductCreate.css";
 const inputValues = {
     fullname: "",
@@ -40,34 +41,35 @@ export const ProductCreate = () => {
             Swal.fire("Error al crear el producto", error?.response?.data || "Hubo un error al crear el producto", "error");
         }
     };
+
     return (
         <>
             <div className="product-create">
-                <h2>Nuevo Producto</h2>
+                <h2>Crear Producto</h2>
                 <form className="form-create-product" onSubmit={submitFormulario}>
-                    <legend>Llena todos los campos</legend>
+                    <legend>Campos obligatorios*</legend>
                     <div className="campo">
-                        <label>Nombre</label>
+                        <label htmlFor="fullname">Nombre*</label>
                         <input type="text" onChange={onInputForm} placeholder="Nombre Producto" name="fullname" />
                     </div>
                     <div className="campo">
-                        <label>Marca</label>
+                        <label htmlFor="brand">Marca*</label>
                         <input type="text" onChange={onInputForm} placeholder="Nombre Producto" name="brand" />
                     </div>
                     <div className="campo">
-                        <label>Precio</label>
+                        <label htmlFor="price">Precio*</label>
                         <input type="number" onChange={onInputForm} name="price" min="0.00" step="0.01" placeholder="Precio" />
                     </div>
                     <div className="campo">
-                        <label>Unidades</label>
-                        <input type="number" onChange={onInputForm} name="stock" min="0.00" step="0.01" placeholder="Unidades productos" />
+                        <label htmlFor="stock">Unidades*</label>
+                        <input type="number" onChange={onInputForm} name="stock" min="0.00" step="0.01" placeholder="Stock productos" />
+                    </div>
+                    <div className="campo campo-imagen">
+                        <label htmlFor="productImage"><img src={Upload} alt="icon" />Subir imagen</label>
+                        <input type="file" id="productImage" onChange={imagenProductoForm} name="productImage" />
                     </div>
                     <div className="campo">
-                        <label>Imagen</label>
-                        <input type="file" onChange={imagenProductoForm} name="productImage" />
-                    </div>
-                    <div className="campo">
-                        <input type="submit" disabled={validarFormulario()} value="Añadir stock" />
+                        <input type="submit" className="createSubmit" disabled={validarFormulario()} value="Añadir stock" />
                     </div>
                 </form>
             </div>
