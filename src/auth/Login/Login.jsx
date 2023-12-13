@@ -16,7 +16,7 @@ const Login = () => {
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: "No se permite campos vacíos",
+                title: "Completa los campos",
                 showConfirmButton: false,
                 timer: 1500
             });
