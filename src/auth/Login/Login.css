@@ -67,7 +67,7 @@
     width: 100%;
     border-radius: .5rem;
     background-color: #0a59cb;
-    padding: 2rem 0;
+    padding: 1rem;
     letter-spacing: .2rem;
     color: #e1e1e1;
     font-weight: 700;
@@ -120,6 +120,9 @@
         padding: 4rem 2rem;
     }
 
+    .login-formulario .form_login .campo input[type="submit"] {
+        padding: 2rem 0;
+    }
     .login-formulario .form_login .campo {
         padding: 2rem 2rem;
         display: flex;

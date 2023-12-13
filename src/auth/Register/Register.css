@@ -61,24 +61,16 @@
 
 .register .form-register .campo input {
     width: 100%;
-    border-radius: 1rem;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    border: 1px solid #e1e1e1;
+    font-size: 1.4rem;
 }
 
 .register .form-register .campo input:focus {
     outline: none;
     border-color: #007bff
 }
-
-.register .form-register .campo label {
-    flex: 0 0 25px;
-}
-
-.register .form-register .campo input:not([type="submit"]) {
-    padding: 1.5rem;
-    width: 100%;
-    border: 1px solid #e1e1e1;
-}
-
 .register .form-register .campo input[type="file"] {
     margin-left: 2rem;
 }
@@ -88,21 +80,22 @@
 }
 
 .register .form-register .campo input[type="submit"] {
-    background-color: #fff;
+    background-color: red;
+    color: #e1e1e1;
     border-radius: .5rem;
     border: 1px solid red;
-    color: red;
     font-size: 1.8rem;
     letter-spacing: .2rem;
-    padding: 2rem 0;
+    padding: 1rem;
     width: 100%;
     cursor: pointer;
 }
 
 .register .form-register .campo input[type="submit"]:hover {
-    background-color: red;
+    background-color: #fff;
     border: 1px solid red;
-    color: #e1e1e1;
+    color: red;
+
 }
 
 .register .form-register .campo-login p {
@@ -141,6 +134,12 @@
         width: 100%;
     }
 
+    .register .form-register .campo input{
+        font-size: 1.8rem;
+    }
+    .register .form-register .campo input[type="submit"]{
+        padding: 2rem 0;
+    }
     .register .form-register .campo {
         padding: 2rem 2rem;
     }
