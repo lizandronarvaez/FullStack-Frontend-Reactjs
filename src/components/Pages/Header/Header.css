@@ -20,11 +20,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #d9534f;
+    background-color: #bd1d18;
     padding: 0.75rem 1rem;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border: none;
+    font-weight: 700;
 }
 
 .contenido-barra .usuario-autenticado button:hover {
