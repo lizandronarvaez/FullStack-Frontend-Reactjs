@@ -76,7 +76,7 @@ export const ProductsUpdate = () => {
                     </div>
                     <div className="campo campo-imagen">
                         <label htmlFor="productImage"><img src={Upload} alt="icon" />Subir Imagen</label>
-                        <input type="file" onChange={imgFormProduct} name="productImage" />
+                        <input type="file" id="productImage" onChange={imgFormProduct} name="productImage" />
                     </div>
                     <div className="campo ">
                         <input type="submit" className="updateSubmit" value="Actualizar" />
