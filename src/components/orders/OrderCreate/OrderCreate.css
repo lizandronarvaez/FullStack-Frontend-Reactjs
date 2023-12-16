@@ -1,3 +1,4 @@
+
 .order-create-client{
     padding: 0 5rem;
     height: auto;
@@ -5,4 +6,36 @@
 
 .order-create-client .data-client{
     /* TODO: diseño datos clientes */
+}
+
+.order-create-client .order-client table{
+    width: 100%;
+}
+
+
+.resumen-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 10rem;
+}
+
+.resumen-total .campo-total {
+    padding: 2rem 0;
+    border-top: 1px solid #969696;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+}
+
+.resumen-total .campo-total p {
+    padding-right: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.resumen-total .campo-total p {
+    padding: 1rem;
+    border: none;
 }

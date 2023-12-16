@@ -22,8 +22,12 @@ export const ProductsUpdate = () => {
 
     const { fullname, brand, price, stock } = valuesProductBackend;
 
-    const imgFormProduct = ({ target }) => setImgProducto(target.files[0]);
-
+    if (productImage) {
+        Swal.fire("Imagen subida con éxito", "", "success");
+    }
+    const imgFormProduct = ({ target }) => {
+        setImgProducto(target.files[0]);
+    };
     const getProductById = async () => {
         const { data } = await clienteAxios.get(`/products/${_id}`);
         setValuesProductBackend(data);
@@ -46,8 +50,9 @@ export const ProductsUpdate = () => {
                 Swal.fire({ position: "center", icon: "success", title: message, showConfirmButton: false, timer: 1500 });
                 navigate("/productos");
             }
-        } catch ({ response }) {
-            Swal.fire("Error al actualizar el producto", response.data || "Hubo un error al actualizar el producto", "error");
+        } catch (error) {
+            console.log(error)
+            Swal.fire("Error al actualizar el producto", error?.response?.data.message || "Hubo un error al actualizar el producto", "error");
         }
     };
     useEffect(() => { getProductById(); }, []);

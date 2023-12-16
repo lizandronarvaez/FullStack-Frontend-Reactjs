@@ -5,22 +5,25 @@ import { useNavigate } from "react-router";
 import { Spinner } from "../../Pages";
 import { OrderItem } from "..";
 import "./OrderAll.css";
+import Swal from "sweetalert2/dist/sweetalert2.all";
 export const OrderAll = () => {
     const navigate = useNavigate();
-    const [pedidosLista, setPedidoLista] = useState([]);
-    const bdBackend = async () => {
+
+    const [listOrderAlls, setListOrderAlls] = useState([]);
+
+    const getAllOrders = async () => {
         const { data } = await clienteAxios.get("/orders");
-        setPedidoLista(data);
+        setListOrderAlls(data);
     };
-    const eliminarPedido = async (id) => await clienteAxios.delete(`/orders/${id}`);
-    const pedidoTerminado = (e) => {
-        if (e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent === "Pendiente") {
-            e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Servido";
+
+    const onFinishOrder = (e) => {
+        if (e.target.parentNode.previousSibling.previousSibling.textContent === "Pendiente") {
+            e.target.parentNode.previousSibling.previousSibling.textContent = "Servido";
             return;
         }
-        e.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent = "Pendiente";
+        e.target.parentNode.previousSibling.previousSibling.textContent = "Pendiente";
     };
-    useEffect(() => { bdBackend(); }, [pedidosLista]);
+    useEffect(() => { getAllOrders(); }, [listOrderAlls]);
     return (
         <>
             <div className="orderAll">
@@ -30,26 +33,29 @@ export const OrderAll = () => {
                     </Link>
                 </div>
                 <div className="table-orders">
+
                     <table className="list-orders">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
                                 <th>Nº Pedido</th>
-                                <th>Estado Pedido</th>
+                                <th>Fecha</th>
                                 <th>Cliente</th>
                                 <th>Importe</th>
+                                <th>Estado Pedido</th>
                                 <th>Acciones</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        {pedidosLista.map(pedido => (
-                            <OrderItem
-                                key={pedido._id}
-                                datosPedido={pedido}
-                                eliminarPedido={eliminarPedido}
-                                pedidoTerminado={pedidoTerminado}
-                            />
-                        ))
+                        {
+                            !listOrderAlls.length
+                                ? null
+                                : listOrderAlls.map(order => (
+                                    <OrderItem
+                                        key={order._id}
+                                        orderItem={order}
+                                        onFinishOrder={onFinishOrder}
+                                    />
+                                ))
                         }
                     </table>
                 </div>

@@ -6,8 +6,10 @@ import { useLocation } from "react-router-dom";
 export const OrderPDF = () => {
     const ref = useLocation();
     const idPedido = ref.pathname.substring(13);
+
     const [pedidos, setPedidos] = useState([]);
-    const { _id, cliente, pedido, total } = pedidos;
+    const { _id, client, order, total } = pedidos;
+
     const consultaBDPedido = async () => {
         const { data } = await clienteAxios.get(`/orders/${idPedido}`);
         setPedidos(data);
@@ -36,15 +38,15 @@ export const OrderPDF = () => {
                                             <Text style={{ paddingBottom: 5, fontSize: 16, textAlign: "center" }}>DATOS DE FACTURACIÓN</Text>
                                             <View style={{ flexDirection: "row", fontSize: 9 }}>
                                                 <Text style={{ paddingBottom: 5, width: "50%" }}>Cliente:</Text>
-                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right", textTransform: "capitalize" }}>{cliente.nombre} {cliente.apellido}</Text>
+                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right", textTransform: "capitalize" }}>{client?.fullname}</Text>
                                             </View>
                                             <View style={{ flexDirection: "row", fontSize: 9 }}>
                                                 <Text style={{ paddingBottom: 5, width: "50%" }}>Telefono:</Text>
-                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{cliente.telefono}</Text>
+                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{client?.phone}</Text>
                                             </View>
                                             <View style={{ flexDirection: "row", fontSize: 9 }}>
                                                 <Text style={{ paddingBottom: 5, width: "50%" }}>Empresa</Text>
-                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{cliente.empresa}</Text>
+                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{client?.company}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -61,15 +63,15 @@ export const OrderPDF = () => {
                                             <Text style={{ paddingBottom: 5, fontSize: 16, textAlign: "center" }}>DATOS DE ENTREGA</Text>
                                             <View style={{ flexDirection: "row", fontSize: 9 }}>
                                                 <Text style={{ paddingBottom: 5, width: "50%" }}>Entregar a:</Text>
-                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right", textTransform: "capitalize" }}>{cliente.nombre}</Text>
+                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right", textTransform: "capitalize" }}>{client?.fullname}</Text>
                                             </View>
                                             <View style={{ flexDirection: "row", fontSize: 9 }}>
                                                 <Text style={{ paddingBottom: 5, width: "50%" }}>Telefono:</Text>
-                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{cliente.telefono}</Text>
+                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{client.phone}</Text>
                                             </View>
                                             <View style={{ flexDirection: "row", fontSize: 9 }}>
                                                 <Text style={{ paddingBottom: 5, width: "50%" }}>Dirección:</Text>
-                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{cliente.empresa}</Text>
+                                                <Text style={{ paddingBottom: 5, width: "50%", textAlign: "right" }}>{client?.company}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -81,14 +83,14 @@ export const OrderPDF = () => {
                                         <Text style={{ padding: "5 0 0 10", width: 95 }}>Cantidad</Text>
                                     </View>
                                     {
-                                        pedido.map(producto => (
-
-                                            <View View key={_id + producto._id} style={{ borderBottom: 1, flexDirection: "row", justifyContent: "space-around", fontSize: 13 }}>
-                                                <Text style={{ padding: "5 0 5 0", width: 207, borderRight: 1, textAlign: "center" }}>{producto.producto.nombre}</Text>
-                                                <Text style={{ padding: "5 30 0 0", width: 130, textAlign: "center", borderRight: 1 }}>{producto.producto.precio}</Text>
-                                                <Text style={{ padding: "5 30 0 0", width: 47 }}>{producto.cantidad}</Text>
+                                        order.map(item => (
+                                            < View View key={_id + item._id} style={{ borderBottom: 1, flexDirection: "row", justifyContent: "space-around", fontSize: 13 }}>
+                                                <Text style={{ padding: "5 0 5 0", width: 207, borderRight: 1, textAlign: "center" }}>{item.fullname}</Text>
+                                                <Text style={{ padding: "5 30 0 0", width: 130, textAlign: "center", borderRight: 1 }}>{item.price}</Text>
+                                                <Text style={{ padding: "5 30 0 0", width: 47 }}>{item.cantidad}</Text>
                                             </View>
-                                        ))
+                                        )
+                                        )
                                     }
                                 </View>
                                 <View style={{ border: 0, padding: 10, textAlign: "right", maxWidth: 520, margin: "50 30 0 auto" }}>

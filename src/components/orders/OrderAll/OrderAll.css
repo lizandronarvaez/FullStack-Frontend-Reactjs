@@ -1,6 +1,6 @@
 .orderAll {
     padding: 2rem;
-    width: 100%;
+    width: 80%;
     max-width: 120rem;
     margin: 0 auto;
     height: fit-content;
@@ -11,9 +11,10 @@
     margin-bottom: 10rem;
 }
 
-.orderAll table {
+.orderAll .list-orders {
     width: 100%;
     border-collapse: collapse;
+    background-color: ;
 }
 
 .orderAll table thead tr th {
@@ -23,6 +24,12 @@
     font-weight: 800;
     color: #fff;
     display: block;
+}
+
+.orderAll table tbody tr td button {
+    border: none;
+    cursor: pointer;
+    background: none;
 }
 
 @media (min-width: 968px){
@@ -36,34 +43,3 @@
     }
 }
 
-.orderAll table tbody tr td button {
-    border: none;
-    cursor: pointer;
-    background: none;
-}
-
-.resumen-total {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.resumen-total .campo-total {
-    padding: 2rem 0;
-    border-top: 1px solid #969696;
-    border-bottom: 1px solid #969696;
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.resumen-total .campo-total p {
-    padding-right: 1rem;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.resumen-total .campo-total p {
-    padding: 1rem;
-    border: none;
-}

@@ -1,5 +1,6 @@
 .table-clients {
     overflow-y: scroll;
+    height: 50rem;
 }
 
 .clientsAll {
@@ -8,7 +9,6 @@
     width: 100%;
     margin: 0 auto;
     max-width: 120rem; 
-    height: fit-content;
 }
 
 .clientsAll .header {

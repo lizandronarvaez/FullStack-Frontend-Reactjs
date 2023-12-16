@@ -13,7 +13,7 @@ export const CrmRoutePublic = () => {
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/password-reset' element={<ResetPassword />} />
-                    <Route path="/*" element={<NotFound />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </>

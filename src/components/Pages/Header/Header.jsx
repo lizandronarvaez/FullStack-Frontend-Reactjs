@@ -40,7 +40,7 @@ const Header = () => {
     return (
         <header className='barra'>
             <div className="contenido-barra">
-                <Link to={"/users"}>
+                <Link to={"/"}>
                     <h1>Sistema de Gestión</h1>
                 </Link>
                 {token

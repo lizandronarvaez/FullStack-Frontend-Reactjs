@@ -1,3 +1,6 @@
+.spinner-container{
+    text-align: center;
+}
 .spinner {
     margin: 100px auto;
     width: 50px;
