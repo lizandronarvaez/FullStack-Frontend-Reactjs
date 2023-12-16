@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { clienteAxios } from "../../../api/axios";
@@ -35,6 +35,8 @@ export const ProductItem = ({ productos }) => {
             }
         });
     };
+
+    useEffect(() => {}, [productos]);
     return (
         <>
             <tbody className="table-tbody">
@@ -43,7 +45,12 @@ export const ProductItem = ({ productos }) => {
                     <td className="brand" data-titulo="Marca:">{brand}</td>
                     <td className="price" data-titulo="Precio Unitario:">{price}€</td>
                     <td className="stock" data-titulo="Stock:">{stock} uds</td>
-                    <td data-titulo="Imagen:"><img className="imgProduct" src={`${VITE_BASE_URL}/uploads/${productImage}`} alt="img" /></td>
+                    <td data-titulo="Imagen:">
+                        {productImage
+                            ? (<img className="imgProduct" src={`${VITE_BASE_URL}/upload/${productImage}`} alt="img" />)
+                            : null
+                        }
+                    </td>
                     <td data-titulo="Acciones:">
                         <Link className="btn-edit-product" to={`/productos/editar-producto/${_id}`} >
                             <img src={Edit} alt="icon" />

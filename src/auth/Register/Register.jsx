@@ -112,7 +112,7 @@ const Register = () => {
                         <input type="submit" value="Registrar" className='btn' />
                     </div>
                     <div className="campo-login">
-                        <p>¿Ya tienes cuenta? <Link to={"/login"}>Ir a login</Link></p>
+                        <p><Link to={"/login"}>¿Ya tienes cuenta?</Link></p>
                     </div>
                 </form>
             </div>

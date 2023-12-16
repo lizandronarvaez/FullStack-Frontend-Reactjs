@@ -7,12 +7,13 @@
     border-radius: 0 1rem 1rem 0;
 }
 
-.search-products legend{
+.search-products legend {
     font-size: 2.4rem;
     font-weight: 700;
     text-align: center;
     padding: 2rem 0;
 }
+
 .search-products .campo {
     padding: 1rem 0rem;
     margin: 0 auto;
@@ -21,20 +22,21 @@
     align-items: center;
 }
 
-.search-products .campo label{
+.search-products .campo label {
     width: 100%;
     text-align: left;
     margin-bottom: 1rem;
 
 }
-.search-products .campo input[type="text"]{
+
+.search-products .campo input[type="text"] {
     width: 100%;
     border-radius: .5rem;
     padding: 1.5rem;
     outline: none;
 }
 
-.search-products .campo input[type="submit"]{
+.search-products .campo input[type="submit"] {
     background-color: #00487C;
     padding: 1rem;
     color: white;
@@ -45,6 +47,7 @@
     width: 100%;
 }
 
-.search-products .campo input[type="submit"]:hover{
+.search-products .campo input[type="submit"]:hover {
     cursor: pointer;
 }
+

@@ -15,7 +15,7 @@
 }
 
 .table-tbody tr td .imgProduct:hover {
-    transform: scale(20);
+    transform: scale(5);
     position: absolute;
 }
 

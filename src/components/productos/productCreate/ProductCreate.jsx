@@ -18,6 +18,9 @@ export const ProductCreate = () => {
     const imagenProductoForm = (e) => setImgProducto(e.target.files[0]);
     const [productImage, setImgProducto] = useState("");
 
+    if (productImage) {
+        Swal.fire("Imagen subida con éxito", "", "success");
+    }
     const validarFormulario = () => {
         const validar = !fullname.length || !brand.length || price === 0 || stock === 0;
         return validar;

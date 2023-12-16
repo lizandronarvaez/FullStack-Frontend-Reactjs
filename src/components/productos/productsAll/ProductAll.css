@@ -1,5 +1,6 @@
 .table-products {
     overflow-y: scroll;
+    max-height: 50rem;
 }
 
 .productsAll {
@@ -8,7 +9,6 @@
     width: 100%;
     margin: 0 auto;
     max-width: 120rem;
-    height: fit-content;
 }
 .productsAll .header {
     display: flex;

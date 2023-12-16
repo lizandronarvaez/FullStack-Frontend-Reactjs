@@ -65,10 +65,10 @@ const Login = () => {
                         <input type="submit" value="Login" className='btn' />
                     </div>
                     <div className="campo-register">
-                        <p>¿No tienes cuenta?<Link to={"/register"}>Crear cuenta</Link></p>
+                        <p><Link to={"/register"}>¿No tienes cuenta?</Link></p>
                     </div>
                     <div className="campo-reset">
-                        <p>¿Olvidaste la contraseña?<Link to={"/password-reset"}>Reestablecer contraseña</Link></p>
+                        <p><Link to={"/password-reset"}>¿Olvidaste la contraseña?</Link></p>
                     </div>
                 </form>
             </div>

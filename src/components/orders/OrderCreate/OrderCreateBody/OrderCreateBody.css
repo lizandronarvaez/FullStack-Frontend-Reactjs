@@ -1,0 +1,21 @@
+.order-client{
+    background-color:#f1f2f3;
+}
+
+.order-client thead tr th{
+    padding: 1rem 2rem;
+}
+.order-client tbody{
+
+}
+.order-client tbody tr td{
+    background-color: #fff;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+.order-client tbody tr td input{
+    width: 10rem;
+    padding: .5rem 2rem;
+    text-align: center;
+}

@@ -6,24 +6,26 @@
     --grisOscuro: #707070;
     --grisClaro: rgb(243, 243, 243);
 }
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    overflow:auto;
+    margin: 0;
+}
 
 body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    padding-right: 0 !important;
+    font-size: 1.6rem;
+    font-family: var(--fontTexto);
     background-image: url("https://recursosparapymes.com/wp-content/uploads/2020/02/crm-gratis.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    min-height: 100vh;
-    margin: 0;
-    font-size: 1.6rem;
-    font-family: var(--fontTexto);
 }
 
-html {
-    box-sizing: border-box;
-    font-size: 62.5%;
-    min-height: 100vh;
-    overflow:auto;
-}
 
 *,
 *:before,
@@ -53,11 +55,14 @@ h2 {
     width: 95%;
 }
 
-.contenido-principal {
+.contenido-principal  {
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     min-height: 100vh;
+    outline: 1px solid red;
+
 }
 
 .caja-contenido {
