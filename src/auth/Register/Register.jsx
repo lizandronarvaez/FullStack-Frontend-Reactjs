@@ -67,7 +67,7 @@ const Register = () => {
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: error.response.data.message || "Hubo un error en el registro",
+                title: error.response.data.error || "Hubo un error en el registro",
                 showConfirmButton: false,
                 timer: 1500
             });
