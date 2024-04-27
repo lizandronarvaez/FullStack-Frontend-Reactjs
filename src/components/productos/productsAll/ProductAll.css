@@ -1,14 +1,16 @@
 .table-products {
+    border-collapse: collapse;
     overflow-y: scroll;
     max-height: 50rem;
 }
-
+.table-products table{
+    border-collapse: collapse;
+}
 .productsAll {
     padding: 0 5rem;
     text-align: center;
-    width: 100%;
+    width: auto;
     margin: 0 auto;
-    max-width: 120rem;
 }
 .productsAll .header {
     display: flex;
@@ -40,11 +42,9 @@
 
 .productsAll .form-search-product .list-products thead tr th {
     background-color: #347cbb;
-    padding: 1rem 1.5rem;
+    padding: 1.5rem;
     font-weight: 800;
     color: #fff;
-    border-radius: .2rem;
-    border-collapse: collapse;
 }
 
 .search-product {

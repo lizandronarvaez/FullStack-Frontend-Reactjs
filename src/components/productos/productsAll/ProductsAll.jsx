@@ -1,35 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import { ProductItem } from "../";
 import "./ProductAll.css";
 export const ProductsAll = () => {
-    const [productos, setProductos] = useState([]);
-    const [buscarProducto, setBuscarProducto] = useState("");
+    const [productsAll, setProductsAll] = useState([]);
+    const [findProduct, setFindProduct] = useState("");
     const [productsFilter, setProductsFilter] = useState([]);
     const [searchProduct, setSearchProduct] = useState(false);
-    const consultaProductos = async () => {
-        const { data } = await clienteAxios.get("/products");
-        setProductos(data);
+    const handleGetProductsDB = async () => {
+        const { data } = await springBootAxios.get("/products");
+        setProductsAll(data);
     };
-
-    const handleBusquedaProductos = (e) => {
+    const handleSearchProducts = (e) => {
         e.preventDefault();
         const result = e.target.value;
-        setBuscarProducto(result);
+        setFindProduct(result);
         setSearchProduct(true);
         filterProduct(result);
     };
 
     const filterProduct = (word) => {
-        const filteredProducts = productos.filter((product) => {
-            const { fullname, brand } = product;
+        const filteredProducts = productsAll.filter((product) => {
+            const { fullname, description } = product;
             const searchValue = word.toLowerCase().trim();
-            return (fullname.toLowerCase().includes(searchValue) || brand.toLowerCase().includes(searchValue));
+            return (fullname.toLowerCase().includes(searchValue) || description.toLowerCase().includes(searchValue));
         });
         setProductsFilter(filteredProducts);
     };
-    useEffect(() => { consultaProductos(); }, [productos]);
+    useEffect(() => { handleGetProductsDB(); }, []);
     return (
         <>
             <div className="productsAll">
@@ -39,12 +38,19 @@ export const ProductsAll = () => {
                         Crear Producto
                     </Link>
                 </div>
-                <form className="form-search-product" onSubmit={handleBusquedaProductos}>
+
+                {/* // TODO: CREAR FORMULARIO Y COMPONENTE PARA FILTRAR LOS PRODUCTOS POR CATEGORIA; */}
+
+                <form className="form-search-product" onSubmit={handleSearchProducts}>
                     <div className="search-product">
                         <label htmlFor="word">Buscar un producto</label>
-                        <input type="text" placeholder="Introduce el nombre de un producto" name="word"
-                            value={buscarProducto}
-                            onChange={handleBusquedaProductos} />
+                        <input
+                            type="text"
+                            placeholder="Introduce el nombre de un producto"
+                            name="word"
+                            value={findProduct}
+                            onChange={handleSearchProducts}
+                        />
                         {searchProduct && productsFilter.length === 0 && <span className="product-notFound">No existe ningún producto</span>}
                     </div>
                     <div className="table-products">
@@ -52,16 +58,17 @@ export const ProductsAll = () => {
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Marca</th>
+                                    <th>Descripción</th>
                                     <th>Precio</th>
                                     <th>Stock</th>
+                                    <th>Categoría</th>
                                     <th>Imagen</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             {!productsFilter.length
-                                ? productos.map((product) => (<ProductItem key={product._id} productos={product} />))
-                                : productsFilter.map((product) => (<ProductItem key={product._id} productos={product} />))}
+                                ? productsAll.map((product) => (<ProductItem key={product.id} productos={product} />))
+                                : productsFilter.map((product) => (<ProductItem key={product.id} productos={product} />))}
                         </table>
                     </div>
 

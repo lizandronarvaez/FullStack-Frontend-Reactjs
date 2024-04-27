@@ -1,57 +1,52 @@
 /* eslint-disable no-multiple-empty-lines */
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { clienteAxios } from "../../../api/axios";
-import Swal from "sweetalert2/dist/sweetalert2.all";
 import "./ProductsUpdate.css";
+import { formDataInput } from "../helpers/FormDataInputs";
+import { springBootAxios } from "../../../api/axios";
 import { Upload } from "../../../assets";
+import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2/dist/sweetalert2.all";
 
-const formDataValues = {
-    fullname: "",
-    brand: "",
-    price: 0,
-    stock: 0,
-    productImage: null
-};
 export const ProductsUpdate = () => {
+    // Obtener los datos de la ruta
     const navigate = useNavigate();
-    const { _id } = useParams();
+    const { id } = useParams();
+    // Datos de los input del formulario
+    const [valuesProductBackend, setValuesProductBackend] = useState(formDataInput);
+    // Imagen del producto
+    const [imageProduct, setImageProduct] = useState("");
 
-    const [valuesProductBackend, setValuesProductBackend] = useState(formDataValues);
-    const [productImage, setImgProducto] = useState("");
+    const { fullname, description, price, quantity, category } = valuesProductBackend;
 
-    const { fullname, brand, price, stock } = valuesProductBackend;
+    if (imageProduct) Swal.fire("Imagen subida con éxito", "", "success");
 
-    if (productImage) {
-        Swal.fire("Imagen subida con éxito", "", "success");
-    }
-    const imgFormProduct = ({ target }) => {
-        setImgProducto(target.files[0]);
-    };
+    const imgFormProduct = ({ target }) => setImageProduct(target.files[0]);
+
     const getProductById = async () => {
-        const { data } = await clienteAxios.get(`/products/${_id}`);
-        setValuesProductBackend(data);
+        const { data: { product } } = await springBootAxios.get(`/products/${id}`);
+        setValuesProductBackend(product);
     };
-
     const onNewValuesProduct = ({ target: { name, value } }) => setValuesProductBackend({ ...valuesProductBackend, [name]: value });
 
     const onNewFormValuesProduct = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("fullname", fullname);
-        formData.append("brand", brand);
+        formData.append("description", description);
+        formData.append("category", category);
         formData.append("price", price);
-        formData.append("stock", stock);
-        formData.append("productImage", productImage);
+        formData.append("quantity", quantity);
+        formData.append("imageProduct", imageProduct);
 
         try {
-            const { data: { ok, message } } = await clienteAxios.put(`/products/${_id}`, formData);
-            if (ok) {
+            const { data: { message, status } } = await springBootAxios.put(`/products/${id}`, formData);
+
+            if (status === 200) {
                 Swal.fire({ position: "center", icon: "success", title: message, showConfirmButton: false, timer: 1500 });
                 navigate("/productos");
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
             Swal.fire("Error al actualizar el producto", error?.response?.data.message || "Hubo un error al actualizar el producto", "error");
         }
     };
@@ -69,7 +64,18 @@ export const ProductsUpdate = () => {
                     </div>
                     <div className="campo">
                         <label htmlFor="brand">Marca</label>
-                        <input type="text" value={brand} onChange={onNewValuesProduct} name="brand" />
+                        <input type="text" value={description} onChange={onNewValuesProduct} name="description" />
+                    </div>
+                    <div className="campo">
+                        <label htmlFor="category">Categoría del producto*</label>
+                        <div className="category">
+                            <select onChange={onNewValuesProduct} name="category" value={category.name} style={{ fontWeight: "600" }}>
+                                <option value="proteinas">Proteínas</option>
+                                <option value="carbohidratos">Carbohidratos</option>
+                                <option value="creatinas">Creatinas</option>
+                                <option value="sin_lactosa">Sin Lactosa</option>
+                            </select>
+                        </div>
                     </div>
                     <div className="campo">
                         <label htmlFor="price">Precio</label>
@@ -77,11 +83,11 @@ export const ProductsUpdate = () => {
                     </div>
                     <div className="campo">
                         <label htmlFor="stock">Unidades</label>
-                        <input type="number" value={stock} onChange={onNewValuesProduct} name="stock" min="0.00" step="0.01" />
+                        <input type="number" value={quantity} onChange={onNewValuesProduct} name="quantity" min="0.00" step="0.01" />
                     </div>
                     <div className="campo campo-imagen">
-                        <label htmlFor="productImage"><img src={Upload} alt="icon" />Subir Imagen</label>
-                        <input type="file" id="productImage" onChange={imgFormProduct} name="productImage" />
+                        <label htmlFor="imageProduct"><img src={Upload} alt="icon" />Subir Imagen</label>
+                        <input type="file" id="imageProduct" onChange={imgFormProduct} name="imageProduct" />
                     </div>
                     <div className="campo ">
                         <input type="submit" className="updateSubmit" value="Actualizar" />

@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2/dist/sweetalert2.all";
-import { clienteAxios } from "../../../api/axios";
 import "./ProductItem.css";
 import { Delete, Edit } from "../../../assets";
 import { getEnv } from "../../../helpers/getEnv";
-const { VITE_BASE_URL } = getEnv();
+import { Link } from "react-router-dom";
+import { springBootAxios } from "../../../api/axios";
+import React, { useEffect } from "react";
+import Swal from "sweetalert2/dist/sweetalert2.all";
+const { VITE_SPRINGBOOT_URL_IMAGES } = getEnv();
+
 export const ProductItem = ({ productos }) => {
-    const { _id, fullname, brand, price, productImage, stock } = productos;
+    const { id, fullname, description, price, quantity, imageProduct, category: { name } } = productos;
+
     const eliminarProducto = (idProducto) => {
         Swal.fire({
             title: "Eliminar producto, estas seguro?",
@@ -21,7 +23,7 @@ export const ProductItem = ({ productos }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await clienteAxios.delete(`/products/${idProducto}`);
+                    await springBootAxios.delete(`/products/${idProducto}`);
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -36,26 +38,33 @@ export const ProductItem = ({ productos }) => {
         });
     };
 
-    useEffect(() => {}, [productos]);
+    useEffect(() => { }, [productos]);
     return (
         <>
             <tbody className="table-tbody">
                 <tr>
                     <td className="fullname" data-titulo="Nombre:">{fullname}</td>
-                    <td className="brand" data-titulo="Marca:">{brand}</td>
+                    <td className="brand" data-titulo="Description:">{description}</td>
                     <td className="price" data-titulo="Precio Unitario:">{price}€</td>
-                    <td className="stock" data-titulo="Stock:">{stock} uds</td>
-                    <td data-titulo="Imagen:">
-                        {productImage
-                            ? (<img className="imgProduct" src={`${VITE_BASE_URL}/upload/${productImage}`} alt="img" />)
+                    <td className="stock" data-titulo="Stock:">{quantity} uds</td>
+                    <td className="category" data-titulo="Categoría:">{name}</td>
+                    <td className="img" data-titulo="Imagen:">
+                        {imageProduct
+                            ? (<img className="imgProduct" src={`${VITE_SPRINGBOOT_URL_IMAGES}/products/${imageProduct}`} alt={imageProduct} />)
                             : null
                         }
                     </td>
                     <td data-titulo="Acciones:">
-                        <Link className="btn-edit-product" to={`/productos/editar-producto/${_id}`} >
+                        <Link
+                            className="btn-edit-product"
+                            to={`/productos/editar-producto/${id}`}
+                        >
                             <img src={Edit} alt="icon" />
                         </Link>
-                        <Link className="btn-delete-product" onClick={() => eliminarProducto(_id)}>
+                        <Link
+                            className="btn-delete-product"
+                            onClick={() => eliminarProducto(id)}
+                        >
                             <img src={Delete} alt="icon" />
                         </Link>
                     </td>
