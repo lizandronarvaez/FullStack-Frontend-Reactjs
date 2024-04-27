@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import "./ClientItem.css";
 import { CreateOrder, Delete, Edit } from "../../../assets";
 
 const Cliente = ({ cliente }) => {
     const navigate = useNavigate();
-    const { _id, fullname, company, email, phone } = cliente;
-
+    const { id, fullname, email, phone, address, city, country, postalcode, createdAt } = cliente;
     const eliminarCliente = (idCliente) => {
         Swal.fire({
             title: "¿Eliminar cliente?",
@@ -21,7 +20,7 @@ const Cliente = ({ cliente }) => {
             confirmButtonText: "Confirmar"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const { data: { message } } = await clienteAxios.delete(`/clients/${idCliente}`);
+                const { data: { message } } = await springBootAxios.delete(`/clients/${idCliente}`);
                 Swal.fire(message, "", "success");
                 navigate("/clientes");
             }
@@ -33,17 +32,22 @@ const Cliente = ({ cliente }) => {
             <tbody className="table-tbody">
                 <tr>
                     <td className="fullname" data-titulo="Nombre:">{fullname}</td>
-                    <td data-titulo="Email:">{email}</td>
-                    <td className="company" data-titulo="Empresa:">{company}</td>
-                    <td data-titulo="Telefono:">{phone}</td>
+                    <td className="email" data-titulo="Email:">{email}</td>
+                    <td className="company" data-titulo="Teléfono:">{phone}</td>
+                    <td className="address" data-titulo="Dirección:">{address}</td>
+                    <td className="city" data-titulo="Ciudad:">{city}</td>
+                    <td className="country" data-titulo="País:">{country}</td>
+                    <td data-titulo="Código Postal:">{postalcode}</td>
+                    <td data-titulo="Fecha Registro:">{createdAt}</td>
+
                     <td data-titulo="Acciones:">
-                        <Link className="btn-create-order" to={`/pedidos/nuevo/${_id}`}>
+                        <Link className="btn-create-order" to={`/pedidos/nuevo/${id}`}>
                             <img src={CreateOrder} alt="icon" />
                         </Link>
-                        <Link className="btn-edit-client" to={`/clientes/editar/${_id}`} >
+                        <Link className="btn-edit-client" to={`/clientes/editar/${id}`} >
                             <img src={Edit} alt="icon" />
                         </Link>
-                        <Link className="btn-delete-client" onClick={() => eliminarCliente(_id)}>
+                        <Link className="btn-delete-client" onClick={() => eliminarCliente(id)}>
                             <img src={Delete} alt="icon" />
                         </Link>
                     </td>

@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import "./ClientUpdate.css";
+
+const formData = {
+    fullname: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    country: "",
+    postalcode: ""
+};
 const EditarCliente = () => {
-    const { _id } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
-    const [cliente, nuevoCliente] = useState({ fullname: "", company: "", email: "", phone: "" });
-    const consultarApi = async () => {
-        const { data } = await clienteAxios.get(`/clients/${_id}`);
-        nuevoCliente(data);
+    const [updateClient, setUpdateClient] = useState(formData);
+    const getDataDB = async () => {
+        const { data: { client } } = await springBootAxios.get(`/clients/${id}`);
+        setUpdateClient(client);
     };
-    useEffect(() => { consultarApi(); }, []);
-    const datosFormulario = ({ target: { name, value } }) => { nuevoCliente({ ...cliente, [name]: value }); };
-    const enviarFormulario = async (e) => {
+    useEffect(() => { getDataDB(); }, []);
+    const handleFormData = ({ target: { name, value } }) => { setUpdateClient({ ...updateClient, [name]: value }); };
+    const handleSubmitForm = async (e) => {
         e.preventDefault();
-        const { status } = await clienteAxios.put(`/clients/${_id}`, cliente);
+        // const { status } = await clienteAxios.put(`/clients/${id}`, cliente);
+        const { status, data } = await springBootAxios.put(`/clients/${id}`, updateClient);
         if (status !== 200) {
             Swal.fire({
                 title: "Hubo un error",
@@ -39,7 +50,7 @@ const EditarCliente = () => {
             if (result.isConfirmed) {
                 Swal.fire(
                     "Datos actualizados",
-                    "Se ha actualizó correctamente",
+                    data.message,
                     "success"
                 );
                 navigate("/clientes");
@@ -47,36 +58,43 @@ const EditarCliente = () => {
         });
     };
 
-    const validarFormulario = () => {
-        const { fullname, company, email, phone } = cliente;
-        const validar = !fullname.length || !company.length || !email.length || !phone.length;
-        return validar;
-    };
-
     return (
         <>
             <div className="client-update">
                 <h2>Editar datos cliente</h2>
-                <form className="form_update_client" onSubmit={enviarFormulario}>
+                <form className="form_update_client" onSubmit={handleSubmitForm}>
                     <legend>Llena todos los campos</legend>
                     <div className="campo">
                         <label htmlFor="fullname">Nombre:</label>
-                        <input type="text" value={cliente.fullname} name="fullname" onChange={datosFormulario} />
+                        <input type="text" value={updateClient.fullname} name="fullname" onChange={handleFormData} />
                     </div>
                     <div className="campo">
-                        <label htmlFor="company">Empresa:</label>
-                        <input type="text" value={cliente.company} name="company" onChange={datosFormulario} />
-                    </div>
-                    <div className="campo">
-                        <label htmlFor="email">Email:</label>
-                        <input type="email" value={cliente.email} name="email" onChange={datosFormulario} />
+                        <label htmlFor="company">Email:</label>
+                        <input type="text" value={updateClient.email} name="email" onChange={handleFormData} />
                     </div>
                     <div className="campo">
                         <label htmlFor="phone">Teléfono:</label>
-                        <input type="text" value={cliente.phone} name="phone" onChange={datosFormulario} />
+                        <input type="text" value={updateClient.phone} name="phone" onChange={handleFormData} />
                     </div>
                     <div className="campo">
-                        <input type="submit" className="updateSubmit" value="Actualizar" disabled={validarFormulario()} />
+                        <label htmlFor="address">Dirección:</label>
+                        <input type="text" value={updateClient.address} name="address" onChange={handleFormData} />
+                    </div>
+                    <div className="campo">
+                        <label htmlFor="city">Ciudad:</label>
+                        <input type="text" value={updateClient.city} name="city" onChange={handleFormData} />
+                    </div>
+                    <div className="campo">
+                        <label htmlFor="country">País:</label>
+                        <input type="text" value={updateClient.country} name="country" onChange={handleFormData} />
+                    </div>
+                    <div className="campo">
+                        <label htmlFor="postalCode">Código Postal:</label>
+                        <input type="text" value={updateClient.postalcode} name="postalCode" onChange={handleFormData} />
+                    </div>
+                    <div className="campo campos-submit">
+                        <input type="submit" className="updateSubmit" value="Actualizar" />
+                        <input type="submit" className="cancelSubmit" value="Volver" onClick={() => navigate("/clientes")} />
                     </div>
                 </form>
             </div>

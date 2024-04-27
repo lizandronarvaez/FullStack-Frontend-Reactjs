@@ -1,39 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import ClientItem from "../ClientItem/ClientItem";
 import "./ClientsAll.css";
 const Clientes = () => {
-    const [clientes, setClientes] = useState([]);
-    const [buscarCliente, setBuscarCliente] = useState("");
+    const [clients, setClients] = useState([]);
+    const [searchingClient, setSearchingClient] = useState("");
     const [clientsFilter, setClientsFilter] = useState([]);
-    const [searchClient, setSearchCliente] = useState(false);
-    const consultaClientes = async () => {
-        const { data } = await clienteAxios.get("/clients");
-        setClientes(data);
+    const [searchClient, setSearchClient] = useState(false);
+    const getClientsDB = async () => {
+        const { data } = await springBootAxios.get("/clients");
+        setClients(data);
     };
 
-    const handleBusquedaCliente = (e) => {
+    const handleFormClient = (e) => {
         e.preventDefault();
         const result = e.target.value;
-        setBuscarCliente(result);
-        setSearchCliente(true);
+        setSearchingClient(result);
+        setSearchClient(true);
         filterClient(result);
     };
 
     const filterClient = (word) => {
-        const filteredClients = clientes.filter((client) => {
-            const { fullname, company, email } = client;
+        const filteredClients = clients.filter((client) => {
+            const { fullname, email } = client;
             const searchValue = word.toLowerCase().trim();
             return (
                 fullname.toLowerCase().includes(searchValue) ||
-                company.toLowerCase().includes(searchValue) ||
                 email.toLowerCase().includes(searchValue)
             );
         });
         setClientsFilter(filteredClients);
     };
-    useEffect(() => { consultaClientes(); }, [clientes]);
+    useEffect(() => { getClientsDB(); }, []);
     return (
         <>
             <div className="clientsAll">
@@ -41,31 +40,35 @@ const Clientes = () => {
                     <h2>Clientes</h2>
                     <Link to={"/clientes/nuevo-cliente"}> Nuevo Cliente </Link>
                 </div>
-                <form className="form_search_client" onSubmit={handleBusquedaCliente}>
+                <form className="form_search_client" onSubmit={handleFormClient}>
                     <div className="busqueda-cliente">
                         <label htmlFor="busca-cliente">Buscar un cliente</label>
-                        <input type="text" placeholder="Introduce nombre, email o empresa" name="word"
-                            value={buscarCliente}
-                            onChange={handleBusquedaCliente} />
+                        <input type="text" placeholder="Introduce nombre, email" name="word"
+                            value={searchingClient}
+                            onChange={handleFormClient} />
                         {searchClient && clientsFilter.length === 0 && <span className="client-notFound">No existe ningún cliente</span>}
                     </div>
                     <div className="table-clients">
                         <table className='list-clients'>
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>Nombre Cliente</th>
                                     <th>Email</th>
-                                    <th>Empresa</th>
-                                    <th>Telefono</th>
+                                    <th>Contacto</th>
+                                    <th>Dirección</th>
+                                    <th>Ciudad</th>
+                                    <th>País</th>
+                                    <th>Codigo Postal</th>
+                                    <th>Fecha Registro</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             {!clientsFilter.length
-                                ? clientes.map((cliente) => (
-                                    <ClientItem key={cliente._id} cliente={cliente} />
+                                ? clients.map((cliente) => (
+                                    <ClientItem key={cliente.id} cliente={cliente} />
                                 ))
                                 : clientsFilter.map((cliente) => (
-                                    <ClientItem key={cliente._id} cliente={cliente} />
+                                    <ClientItem key={cliente.id} cliente={cliente} />
                                 ))}
                         </table>
                     </div>
