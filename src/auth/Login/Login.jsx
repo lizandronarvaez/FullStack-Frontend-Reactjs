@@ -1,18 +1,25 @@
 import React, { useContext, useState } from "react";
-import { clienteAxios } from "../../api/axios";
+import { springBootAxios } from "../../api/axios";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+const form = {
+    email: "",
+    password: ""
+};
+
 const Login = () => {
     const { loginUser } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [credenciales, setCredenciales] = useState({ email: "", password: "" });
-    const datosFormulario = ({ target: { name, value } }) => setCredenciales({ ...credenciales, [name]: value });
-    const enviarFormulario = async (e) => {
+    const [formData, setFormData] = useState(form);
+    const onInputChangeValues = ({ target: { name, value } }) => setFormData({ ...formData, [name]: value });
+
+    const onSubmitForm = async (e) => {
+        formData.email = formData.email.trim().toLowerCase();
         e.preventDefault();
-        if (!credenciales.email.length || !credenciales.password.length) {
+        if (!formData.email.length || !formData.password.length) {
             Swal.fire({
                 position: "center",
                 icon: "error",
@@ -23,27 +30,25 @@ const Login = () => {
             return;
         }
         try {
-            const { data } = await clienteAxios.post("/auth/login", credenciales);
-            const { token, fullname } = data.user;
+            const { data } = await springBootAxios.post("/auth/login", formData);
+            const { token, message, userEntity: { fullname } } = data;
+
             localStorage.setItem("usuario", fullname);
             localStorage.setItem("token", token);
             loginUser(localStorage.getItem("token"));
+
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Login Correcto",
+                title: message,
                 text: "Acceso correcto",
                 showConfirmButton: false,
                 timer: 2000
             }).then(() => navigate("/dashboard", { replace: true }));
         } catch (error) {
-            const errorMesssage = error?.response?.data?.message || "Hubo un error";
+            const errorMesssage = error?.response?.data || "Hubo un error";
             if (error.response) {
-                Swal.fire({
-                    icon: "error",
-                    title: errorMesssage,
-                    text: "Hubo un error"
-                });
+                Swal.fire({ icon: "error", title: "Hubo un error", text: errorMesssage });
             }
         }
     };
@@ -51,15 +56,15 @@ const Login = () => {
         <div className='login'>
             <div className="login-image"></div>
             <div className="login-formulario">
-                <form className="form_login" onSubmit={enviarFormulario}>
+                <form className="form_login" onSubmit={onSubmitForm}>
                     <h2>Bienvenido</h2>
                     <div className='campo'>
                         <label htmlFor="email" >Email</label>
-                        <input type="email" name="email" onChange={datosFormulario} autoComplete='on' placeholder="Introduce tu email" />
+                        <input type="email" name="email" onChange={onInputChangeValues} autoComplete='on' placeholder="Introduce tu email" />
                     </div>
                     <div className='campo'>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" onChange={datosFormulario} autoComplete="current-password" placeholder="Introduce tu password" />
+                        <input type="password" name="password" onChange={onInputChangeValues} autoComplete="current-password" placeholder="Introduce tu password" />
                     </div>
                     <div className="campo">
                         <input type="submit" value="Login" className='btn' />
@@ -67,9 +72,9 @@ const Login = () => {
                     <div className="campo-register">
                         <p><Link to={"/register"}>¿No tienes cuenta?</Link></p>
                     </div>
-                    <div className="campo-reset">
+                    {/* <div className="campo-reset">
                         <p><Link to={"/password-reset"}>¿Olvidaste la contraseña?</Link></p>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </div>
