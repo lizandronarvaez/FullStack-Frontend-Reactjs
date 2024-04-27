@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { clienteAxios } from "../../../api/axios";
+import { clienteAxios, springBootAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { SearchProducts } from "..";
 import { OrderCreateBody } from "./OrderCreateBody/OrderCreateBody";
@@ -8,93 +8,97 @@ import "./OrderCreate.css";
 
 export const OrderCreate = () => {
     const navigate = useNavigate();
-    const { _id: idClient } = useParams();
-    const [cliente, setCliente] = useState({});
-    const { fullname, company, phone } = cliente;
-
+    const { id } = useParams();
+    const [client, setClient] = useState({});
+    const { fullname, email, phone } = client;
     const [orderItem, setOrderItem] = useState("");
-
-    const [productos, setProductos] = useState([]);
-
+    const [orderProducts, setOrderProducts] = useState([]);
     const [totalOrder, setTotalOrder] = useState(0);
 
-    const consultaBackend = async () => {
-        const { data } = await clienteAxios.get(`/clients/${idClient}`);
-        setCliente(data);
+    const getDataDB = async () => {
+        const { data: { client } } = await springBootAxios.get(`/clients/${id}`);
+        setClient(client);
     };
-
-    const onAddProduct = (order) => { setOrderItem(order); buscarProducto(); };
-
-    const buscarProducto = async () => {
+    const onAddProduct = (order) => { setOrderItem(order); searchProductDB(); };
+    const searchProductDB = async () => {
         if (orderItem === "") return;
-        const { data } = await clienteAxios.get(`/products/${orderItem}`);
-        const order = {
-            id: data._id,
-            fullname: data.fullname,
-            price: data.price,
-            cantidad: 0,
-            total: 0
-        };
-        setProductos([...productos, order]);
+        const { data: { product: { id, fullname, price } } } = await springBootAxios.get(`/products/${orderItem}`);
+        const order = { id, fullname, price, quantity: 0, total: 0 };
+        setOrderProducts([...orderProducts, order]);
     };
 
-    const onProductQuanty = (e, index, product) => {
+    const onProductQuanty = (e, index) => {
+        const quantyValue = Number(e.target.value);
+        if (quantyValue <= 0) {
+            confirmProductList(index);
+            return;
+        }
         // Hacemos una copia de los productos
-        const allProducts = [...productos];
+        const allProducts = [...orderProducts];
         // Posicion de cada producto y accedemos a su valor
-        allProducts[index].cantidad = Number(e.target.value);
-        allProducts[index].total = (allProducts[index].price * allProducts[index].cantidad);
+        allProducts[index].quantity = Number(e.target.value);
+        allProducts[index].total = (allProducts[index].price * allProducts[index].quantity);
         // Almacenar el las cantidades en el nuevo array
-        setProductos(allProducts);
+        setOrderProducts(allProducts);
     };
 
     const totalQuantyProducts = () => {
-        if (!productos.length) setTotalOrder(0);
-        let total = 0;
-        for (const item of productos) total += item.total;
+        const total = orderProducts.reduce((acc, { total }) => acc + total, 0);
         setTotalOrder(total);
     };
 
-    // ELiminar un producto de la lista
-    // eslint-disable-next-line no-unused-vars
-    // !! TODO: SOLUCIONAR ELIMINAR PEDIDOS DE LA LISTA
-    const eliminarProductoLista = (id) => {
-        // // FIltramos todos los productos diferentes al que buscamos
-        // const eliminarProducto = productos.filter(producto => producto.producto !== id);
-        // // Guardamos en el state con los productos que no estamos eliminados
-        // setProductos(eliminarProducto);
-        // // console.log(productos)
+    const removeProductList = (index) => {
+        const productDelete = orderProducts.filter((_, i) => i !== index);
+        setOrderProducts(productDelete);
+    };
+    const confirmProductList = (index) => {
+        Swal.fire({
+            title: "Eliminar producto?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si,eliminar",
+            cancelButtonText: "No,cancelar"
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                removeProductList(index);
+            }
+        });
     };
 
     const submitPedido = async (e) => {
         e.preventDefault();
-        for (const product of productos) delete product.total;
+        for (const product of orderProducts) delete product.total;
 
         // !! todo: solucionar descontar unidades de el stock
 
         const pedido = {
-            client: idClient,
-            order: productos,
-            total: totalOrder
+            client,
+            order: orderProducts,
+            total: totalOrder.toFixed(2)
         };
-        // Guardamos en la base de datos
-        const { data: { ok, message } } = await clienteAxios.post(`/orders/${idClient}`, pedido);
 
-        if (ok) {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: message,
-                showConfirmButton: false,
-                timer: 2000
-            });
-            navigate("/pedidos/clientes");
-        }
+        // Guardamos en la base de datos
+        const data = await springBootAxios.post("/orders", pedido);
+        // console.log(data)
+
+        // if (ok) {
+        //     Swal.fire({
+        //         position: "center",
+        //         icon: "success",
+        //         title: message,
+        //         showConfirmButton: false,
+        //         timer: 2000
+        //     });
+        //     navigate("/pedidos/clientes");
+        // }
     };
     useEffect(() => {
-        consultaBackend();
+        getDataDB();
         totalQuantyProducts();
-    }, [productos, orderItem, totalOrder]);
+    }, [orderProducts, orderItem, totalOrder]);
 
     return (
         <>
@@ -104,23 +108,24 @@ export const OrderCreate = () => {
                     <h3>Datos del cliente</h3>
                     <p>Nombre: <span>{fullname}</span></p>
                     <p>Contacto: <span>{phone}</span></p>
-                    <p>Empresa: <span>{company}</span> </p>
+                    <p>Email: <span>{email}</span> </p>
                 </div>
 
-                <SearchProducts buscarProducto={buscarProducto} onAddProduct={onAddProduct} />
+                <SearchProducts buscarProducto={searchProductDB} onAddProduct={onAddProduct} />
+
                 {
-                    !productos.length
+                    !orderProducts.length
                         ? null
                         : (
                             <>
-                                <OrderCreateBody productos={productos} onProductQuanty={onProductQuanty} />
+                                <OrderCreateBody productos={orderProducts} onProductQuanty={onProductQuanty} />
                                 <div className="resumen-total">
                                     <div className="campo-total">
                                         <p>Factural Total:<span> {totalOrder.toFixed(2)}€</span> </p>
                                     </div>
                                     <div className="campo">
                                         <form onSubmit={submitPedido}>
-                                            <input type="submit" className="" value="Crear pedido" />
+                                            <input type="submit" value="Crear pedido" />
                                         </form>
                                     </div>
                                 </div>

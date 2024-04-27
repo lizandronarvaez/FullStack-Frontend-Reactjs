@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ListTableSearch.css";
-export const ListTableSearch = ({ dbProductFiltered = [], onAddProduct }) => {
+export const ListTableSearch = ({ dbProducts = [], onAddProduct, closeDivSearch }) => {
+    const [isDivVisible, setIsDivVisible] = useState(true);
+    const handleAddProduct = (id) => {
+        setIsDivVisible(true);
+        onAddProduct(id);
+        closeDivSearch();
+    };
+
     return (
         <>
-            <div className="product-list-add">
+            <div className={` ${isDivVisible ? "product-list-add" : "product-list-hidden"}`}>
                 <div className="list-header">
                     <ul>
                         <li>
                             <p>Nombre</p>
-                            <p>Marca</p>
+                            <p>Descripción</p>
                             <p>Precio</p>
                             <p>Stock</p>
                             <p>Acciones</p>
@@ -18,25 +25,22 @@ export const ListTableSearch = ({ dbProductFiltered = [], onAddProduct }) => {
                 <div className="list-body">
                     <ul>
                         {
-                            !dbProductFiltered.length
+                            !dbProducts.length
                                 ? (<p className="product-not-stock">Producto no disponible en stock</p>)
-                                : (dbProductFiltered.map((product, i) => (
-                                    <li key={product._id}>
-                                        <p>{product.fullname}</p>
-                                        <p>{product.brand}</p>
-                                        <p>{product.price}</p>
-                                        <p>{product.stock}</p>
-                                        <p
-                                            onClick={() => onAddProduct(product._id)}
-                                        >
-                                            Añadir
-                                        </p>
-                                    </li>
-                                )))
+                                : (dbProducts
+                                    .map(({ id, fullname, description, price, quantity }, i) => (
+                                        <li key={id}>
+                                            <p>{fullname}</p>
+                                            <p>{description}</p>
+                                            <p>{price}€</p>
+                                            <p>{quantity}</p>
+                                            <p onClick={() => handleAddProduct(id)}>Añadir</p>
+                                        </li>
+                                    )))
                         }
                     </ul>
                 </div>
-            </div>
+            </div >
         </>
     );
 };
