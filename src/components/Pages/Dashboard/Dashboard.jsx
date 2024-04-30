@@ -1,59 +1,53 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Cart, TableList, Users } from "../../../assets";
 import Spinner from "../Spinner/Spinner";
 import "./Dashboard.css";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 const Dashboard = () => {
     const navigate = useNavigate();
-    const [clientes, setClientes] = useState(0);
-    const [productos, setProductos] = useState(0);
-    const [pedidos, setPedidos] = useState(0);
-    const consultaBackend = async () => {
+    const [clients, setClients] = useState(0);
+    const [products, setProducts] = useState(0);
+    const [orders, setOrders] = useState(0);
+    const getInfoBackend = async () => {
         try {
-            const getClientes = await clienteAxios.get("/clients");
-            const getProductos = await clienteAxios.get("/products");
-            const getPedidos = await clienteAxios.get("/orders");
-            // useState
-            setProductos(getProductos.data.length);
-            setClientes(getClientes.data.length);
-            setPedidos(getPedidos.data.length);
+            const clientReponse = await springBootAxios.get("/clients");
+            const productsResponse = await springBootAxios.get("/products");
+            // const ordersResponse = await springBootAxios.get("/orders");
+            setClients(clientReponse.data.length);
+            setProducts(productsResponse.data.length);
+            // setOrders(ordersResponse.data.length);
         } catch (error) {
-            error.response.status === 500
-                ? navigate("/login")
-                : null;
+            // eslint-disable-next-line no-unused-expressions
+            error.response?.status === 500 ? navigate("/login") : null;
         }
     };
-    useEffect(() => {
-        consultaBackend();
-    }, [clientes, productos, pedidos]);
+    useEffect(() => { getInfoBackend(); }, [clients, products, orders]);
 
     return (
 
-        clientes.length === 0 && productos.length === 0 && pedidos.length === 0
+        clients.length === 0 && products.length === 0 && orders.length === 0
             ? <Spinner />
             : <>
                 <div className="dashboard">
                     <div className="caja-clientes">
                         <h2>Clientes</h2>
                         <div className="caja">
-                            <p>{clientes}</p>
+                            <p>{clients}</p>
                             <img src={Users} alt="icon" />
                         </div>
                     </div>
                     <div className="caja-productos">
                         <h2>Productos</h2>
                         <div className="caja">
-                            <p>{productos}</p>
+                            <p>{products}</p>
                             <img src={Cart} alt="icon" />
                         </div>
                     </div>
                     <div className="caja-pedidos">
                         <h2>Pedidos</h2>
                         <div className="caja">
-                            <p>{pedidos}</p>
+                            <p>{orders}</p>
                             <img src={TableList} alt="icon" />
                         </div>
                     </div>
