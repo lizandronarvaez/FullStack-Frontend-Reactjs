@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import { useNavigate } from "react-router";
 import { Spinner } from "../../Pages";
 import { OrderItem } from "..";
@@ -12,7 +12,7 @@ export const OrderAll = () => {
     const [listOrderAlls, setListOrderAlls] = useState([]);
 
     const getAllOrders = async () => {
-        const { data } = await clienteAxios.get("/orders");
+        const { data } = await springBootAxios.get("/orders");
         setListOrderAlls(data);
     };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Delete, Edit, Pdf } from "../../../assets";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-import { clienteAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import "./OrderItem.css";
 export const OrderItem = ({ orderItem, onFinishOrder }) => {
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ export const OrderItem = ({ orderItem, onFinishOrder }) => {
             confirmButtonText: "Confirmar"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await clienteAxios.delete(`/orders/${id}`);
+                await springBootAxios.delete(`/orders/${id}`);
                 Swal.fire("¡Eliminado correctamente!", "", "success");
                 navigate("/pedidos/clientes");
             }
