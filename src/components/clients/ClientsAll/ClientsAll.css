@@ -2,13 +2,15 @@
     overflow-y: scroll;
     height: 50rem;
 }
-
+.table-clients table{
+    border-collapse: collapse;
+}
 .clientsAll {
     padding: 0 2rem;
     text-align: center;
     width: 100%;
     margin: 0 auto;
-    max-width: 120rem; 
+    max-width: 140rem; 
 }
 
 .clientsAll .header {
@@ -41,11 +43,11 @@
 
 .clientsAll .form_search_client .list-clients thead tr th {
     background-color: #347cbb;
-    padding: 1rem 1.5rem;
+    padding: 1.5rem;
     font-weight: 800;
     color: #fff;
-    border-radius: .2rem;
-    border-collapse: collapse;
+    font-size: 1.4rem;
+    text-transform: uppercase;
 }
 
 .busqueda-cliente {
