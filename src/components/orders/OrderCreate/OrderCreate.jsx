@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { clienteAxios, springBootAxios } from "../../../api/axios";
+import { springBootAxios } from "../../../api/axios";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { SearchProducts } from "..";
 import { OrderCreateBody } from "./OrderCreateBody/OrderCreateBody";
