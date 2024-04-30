@@ -4,19 +4,17 @@
     color: #383535;
 }
 
-.table-tbody tr td .fullname,
-.table-tbody tr td .brand {
-    text-transform: capitalize;
+.table-tbody tr td {
+    text-transform: uppercase;
 }
 
 .table-tbody tr td .imgProduct {
-    width: 3rem;
+    width: 5rem;
     cursor: pointer;
 }
 
 .table-tbody tr td .imgProduct:hover {
     transform: scale(5);
-    position: absolute;
 }
 
 .table-tbody .btn-delete-product {
