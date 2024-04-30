@@ -1,13 +1,13 @@
 .product-list-add {
     background-color: #fff;
     position: absolute;
-    width: 72%;
+    width: 73%;
     color: #f1f2f1;
-    padding: .5rem 0rem;
-    margin-top: -1rem;
-
+    padding: .5rem 0;
 }
-
+.product-list-hidden{
+    display: none;
+}
 .product-list-add ul {
     padding: 0;
     margin: 0;
@@ -21,12 +21,13 @@
     margin: 0;
     font-weight: 700;
     font-size: 1.4rem;
+    text-transform: uppercase;
 }
 
 .product-list-add .list-header li {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    padding: 1.5rem;
     background-color: #00487C;
     border-radius: .5rem;
 }
@@ -37,46 +38,43 @@
 
 }
 
-.product-list-add .list-body ul {
-    padding: 0 2rem;
+.product-list-add .list-body li {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    place-items: center;
+    background-color: #f1f2f1;
+    color: #000;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+}
+
+.product-list-add .list-body li p {
+    margin: 0 2rem;
 }
 
 .product-list-add .list-body li:nth-child(1) {
     margin-top: 1rem;
 }
 
-.product-list-add .list-body li {
-    list-style: none;
+.product-list-add .list-body li p:last-child {
+    background-color: #00487C;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    background-color: #f1f2f1;
-    color: #9e9c9c;
-    margin: .5rem 0;
-    padding: .5rem;
-    cursor: pointer;
-    font-size: 1.3rem;
-    border-radius: .5rem;
-}
-
-.product-list-add .list-body li p {
-    margin: 0;
-    font-size: 1.3rem;
-}
-
-.product-list-add .list-body li p:last-child{
-    background-color: #00487C;
-    padding: .5rem 1rem;
+    justify-content: center;
+    padding: 1rem 2rem;
     color: #fff;
     border-radius: .5rem;
 }
+
 .product-list-add .list-body li:hover {
     background-color: #347cbb;
     color: #fff;
-    font-weight: 700;
 }
 
-.product-not-stock{
+.product-not-stock {
     color: white;
     background: red;
     padding: 1rem;
