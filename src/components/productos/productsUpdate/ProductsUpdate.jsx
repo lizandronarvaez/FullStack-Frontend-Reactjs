@@ -8,22 +8,19 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 
 export const ProductsUpdate = () => {
-    // Obtener los datos de la ruta
     const navigate = useNavigate();
     const { id } = useParams();
-    // Datos de los input del formulario
+
     const [valuesProductBackend, setValuesProductBackend] = useState(formDataInput);
-    // Imagen del producto
     const [imageProduct, setImageProduct] = useState("");
-
     const { fullname, description, price, quantity, category } = valuesProductBackend;
-
     if (imageProduct) Swal.fire("Imagen subida con éxito", "", "success");
-
     const imgFormProduct = ({ target }) => setImageProduct(target.files[0]);
-
     const getProductById = async () => {
         const { data: { product } } = await springBootAxios.get(`/products/${id}`);
+        delete product.category.id;
+        const categoryName = product.category.name;
+        product.category = categoryName;
         setValuesProductBackend(product);
     };
     const onNewValuesProduct = ({ target: { name, value } }) => setValuesProductBackend({ ...valuesProductBackend, [name]: value });
@@ -69,7 +66,7 @@ export const ProductsUpdate = () => {
                     <div className="campo">
                         <label htmlFor="category">Categoría del producto*</label>
                         <div className="category">
-                            <select onChange={onNewValuesProduct} name="category" value={category.name} style={{ fontWeight: "600" }}>
+                            <select onChange={onNewValuesProduct} name="category" value={category} style={{ fontWeight: "600" }}>
                                 <option value="proteinas">Proteínas</option>
                                 <option value="carbohidratos">Carbohidratos</option>
                                 <option value="creatinas">Creatinas</option>
