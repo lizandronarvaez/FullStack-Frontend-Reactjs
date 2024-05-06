@@ -23,7 +23,7 @@ export const OrderAll = () => {
         }
         e.target.parentNode.previousSibling.previousSibling.textContent = "Pendiente";
     };
-    useEffect(() => { getAllOrders(); }, [listOrderAlls]);
+    useEffect(() => { getAllOrders(); }, []);
     return (
         <>
             <div className="orderAll">
@@ -51,7 +51,7 @@ export const OrderAll = () => {
                                 ? null
                                 : listOrderAlls.map(order => (
                                     <OrderItem
-                                        key={order._id}
+                                        key={order.id}
                                         orderItem={order}
                                         onFinishOrder={onFinishOrder}
                                     />
