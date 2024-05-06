@@ -1,15 +1,12 @@
 import "./ProductItem.css";
 import { Delete, Edit } from "../../../assets";
-import { getEnv } from "../../../helpers/getEnv";
 import { Link } from "react-router-dom";
 import { springBootAxios } from "../../../api/axios";
 import React, { useEffect } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-const { VITE_SPRINGBOOT_URL_IMAGES } = getEnv();
 
 export const ProductItem = ({ productos }) => {
     const { id, fullname, description, price, quantity, imageProduct, category: { name } } = productos;
-
     const eliminarProducto = (idProducto) => {
         Swal.fire({
             title: "Eliminar producto, estas seguro?",
@@ -50,7 +47,7 @@ export const ProductItem = ({ productos }) => {
                     <td className="category" data-titulo="Categoría:">{name}</td>
                     <td className="img" data-titulo="Imagen:">
                         {imageProduct
-                            ? (<img className="imgProduct" src={`${VITE_SPRINGBOOT_URL_IMAGES}/products/${imageProduct}`} alt={imageProduct} />)
+                            ? (<img className="imgProduct" src={`${imageProduct}`} alt={imageProduct} />)
                             : null
                         }
                     </td>
