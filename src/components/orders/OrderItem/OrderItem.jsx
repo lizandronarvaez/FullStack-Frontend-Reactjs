@@ -7,8 +7,7 @@ import "./OrderItem.css";
 export const OrderItem = ({ orderItem, onFinishOrder }) => {
     const navigate = useNavigate();
 
-    // console.log(pedidos)
-    const { _id, client: { fullname }, order, total } = orderItem;
+    const { id, createdAt, clientEntity: { fullname }, details, order, total } = orderItem;
 
     const onDeleteOrder = async (id) => {
         Swal.fire({
@@ -29,18 +28,20 @@ export const OrderItem = ({ orderItem, onFinishOrder }) => {
         });
     };
 
-    const pedidoPDF = () => navigate(`/pedidos/pdf/${_id}`);
+    const pedidoPDF = () => navigate(`/pedidos/pdf/${id}`);
     return (
         <>
             <tbody className="order-tbody">
                 <tr>
-                    <td data-titulo="idPedido:">{_id.substring(_id.length - 10)}</td>
-                    <td data-titulo="Fecha:">{new Date().toLocaleDateString()}</td>
+                    <td data-titulo="idPedido:">{id}</td>
+                    <td data-titulo="Fecha:">{createdAt}</td>
                     <td data-titulo="Cliente:">{fullname}</td>
                     <td data-titulo="Total:">{total}€</td>
                     <td data-titulo="Estado:">Pendiente</td>
                     <td data-titulo="Acciones:">
-                        <button type='button' onClick={pedidoPDF}><img src={Pdf} alt="icon pdf" /></button>
+                        <button type='button' onClick={pedidoPDF}>
+                            <img src={Pdf} alt="icon pdf" />
+                        </button>
                         <button
                             type='button'>
                             <img src={Edit} alt="icon edit"
@@ -48,7 +49,7 @@ export const OrderItem = ({ orderItem, onFinishOrder }) => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => onDeleteOrder(_id)}
+                            onClick={() => onDeleteOrder(id)}
                         >
                             <img src={Delete} alt="icon delete" />
                         </button>
