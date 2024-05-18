@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
 import { Page, Text, View, Document, PDFViewer } from "@react-pdf/renderer";
 
 export const Pdf = ({ data }) => {
-
     const { id, clientEntity: { fullname, phone, address, city }, details, total } = data;
-
-    console.log(data)
     return (
         <>
             <PDFViewer width="100%" height="900px" showToolbar:true>
@@ -48,7 +45,7 @@ export const Pdf = ({ data }) => {
                                         <Text style={{ paddingBottom: 15, width: "50%" }}>Entrega del Pedido:</Text>
                                         <Text style={{ paddingBottom: 5, width: "50%", textAlign: "center" }}>{new Date().getDate() + 3}/{new Date().getMonth() + 1}/{new Date().getFullYear()}</Text>
                                     </View>
-                                    <View style={{ border: 1, padding: 5, marginTop:15 }}>
+                                    <View style={{ border: 1, padding: 5, marginTop: 15 }}>
                                         <Text style={{ paddingBottom: 5, fontSize: 16, textAlign: "center" }}>DATOS DE ENTREGA</Text>
                                         <View style={{ flexDirection: "row", fontSize: 9 }}>
                                             <Text style={{ paddingBottom: 5, width: "50%" }}>Entregar a:</Text>
@@ -92,5 +89,5 @@ export const Pdf = ({ data }) => {
                 </Document>
             </PDFViewer >
         </>
-    )
-}
+    );
+};
