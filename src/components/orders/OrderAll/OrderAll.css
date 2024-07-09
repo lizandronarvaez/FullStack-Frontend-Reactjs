@@ -1,20 +1,20 @@
 .orderAll {
     padding: 2rem;
-    width: 80%;
-    max-width: 120rem;
+    width: 100%;
     margin: 0 auto;
     height: fit-content;
 }
 
 .orderAll h2 {
     text-align: center;
-    margin-bottom: 10rem;
+    margin-top: 10rem;
 }
 
 .orderAll .list-orders {
+    overflow-x: scroll;
+    height: 30rem;
     width: 100%;
     border-collapse: collapse;
-    background-color: ;
 }
 
 .orderAll table thead tr th {
@@ -32,14 +32,20 @@
     background: none;
 }
 
+.table-orders{
+    overflow-x: scroll;
+    height: 70rem;
+}
 @media (min-width: 968px){
 
     .orderAll{
-        padding: 0;
+        padding: 0 5rem;
+        width: 100%;
     }
     .orderAll table thead tr th {
         display: table-cell;
         padding: 1rem 3rem;
     }
+
 }
 

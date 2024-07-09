@@ -4,14 +4,12 @@
 }
 
 .register {
-    max-width: 75rem;
     margin: 0 auto;
-    max-width: 120rem;
     height: 100%;
 }
 
 .register-image {
-    background-image: url("https://images.ctfassets.net/63bmaubptoky/2lYRN5xuENilsxThZSi66a/749bd49f397b2f338110040c00024fed/caracteristicas-de-un-CRM-MX-CA-header.png");
+    background-image: url("../../../public/images/imgAuth.webp");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -119,10 +117,7 @@
     .register {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        max-width: 75rem;
-        margin: 0 auto;
         max-width: 120rem;
-        height: 100%;
     }
 
     .register-image {
@@ -130,7 +125,6 @@
     }
 
     .registro-formulario {
-        margin: 0 auto;
         width: 100%;
     }
 

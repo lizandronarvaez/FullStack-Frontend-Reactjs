@@ -2,7 +2,7 @@
 import "./ProductsUpdate.css";
 import { formDataInput } from "../helpers/FormDataInputs";
 import { springBootAxios } from "../../../api/axios";
-import { Upload } from "../../../assets";
+import { Upload } from "../../../../public/index";
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all";

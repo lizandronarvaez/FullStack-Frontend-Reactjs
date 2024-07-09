@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Delete, Edit, Pdf } from "../../../assets";
+import { Delete, Edit, Pdf } from "../../../../public/index";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { springBootAxios } from "../../../api/axios";
 import "./OrderItem.css";
+
 export const OrderItem = ({ orderItem, onFinishOrder }) => {
     const navigate = useNavigate();
 
-    const { id, createdAt, clientEntity: { fullname }, details, order, total } = orderItem;
+    const { id, createdAt, clientEntity: { fullname }, total } = orderItem;
 
     const onDeleteOrder = async (id) => {
         Swal.fire({
@@ -29,6 +30,7 @@ export const OrderItem = ({ orderItem, onFinishOrder }) => {
     };
 
     const pedidoPDF = () => navigate(`/pedidos/pdf/${id}`);
+
     return (
         <>
             <tbody className="order-tbody">
@@ -41,11 +43,6 @@ export const OrderItem = ({ orderItem, onFinishOrder }) => {
                     <td data-titulo="Acciones:">
                         <button type='button' onClick={pedidoPDF}>
                             <img src={Pdf} alt="icon pdf" />
-                        </button>
-                        <button
-                            type='button'>
-                            <img src={Edit} alt="icon edit"
-                            />
                         </button>
                         <button
                             type="button"

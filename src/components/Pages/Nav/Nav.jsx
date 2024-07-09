@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { CartNav, Home, TableListNav, UsersNav } from "../../../assets";
-import "./Navegacion.css";
-const Navegacion = () => {
+import { CartNav, Home, TableListNav, UsersNav } from "../../../../public/index";
+import "./Nav.css";
+const Nav = () => {
     return (
 
         <div className="sidebar">
@@ -14,9 +14,7 @@ const Navegacion = () => {
                 <Link to={"/pedidos/clientes"} className="pedidos"> <img src={TableListNav} alt="icon" />Pedidos</Link>
             </nav>
         </div >
-
-
     );
 };
 
-export default Navegacion;
+export default Nav;

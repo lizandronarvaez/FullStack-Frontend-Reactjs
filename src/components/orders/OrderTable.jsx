@@ -1,5 +1,5 @@
 import React from "react";
-import { Delete } from "../../assets";
+import { Delete } from "../../../public/index";
 
 export const OrderTable = ({ index, producto, cantidadProductos, eliminarProductoLista }) => {
     const { nombre, precio } = producto;

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Spinner.css";
-const Spinner = () => {
+const Spinner = ({ message }) => {
     return (
         <>
             <div className="spinner-container">
@@ -12,7 +12,7 @@ const Spinner = () => {
                     <div className="rect5"></div>
                 </div>
                 <div>
-                    <h3>Cargando pedidos...</h3>
+                    <h3>{message}</h3>
                 </div>
             </div>
         </>

@@ -1,5 +1,5 @@
 import "./ProductItem.css";
-import { Delete, Edit } from "../../../assets";
+import { Delete, Edit } from "../../../../public/index";
 import { Link } from "react-router-dom";
 import { springBootAxios } from "../../../api/axios";
 import React, { useEffect } from "react";
@@ -7,7 +7,7 @@ import Swal from "sweetalert2/dist/sweetalert2.all";
 
 export const ProductItem = ({ productos }) => {
     const { id, fullname, description, price, quantity, imageProduct, category: { name } } = productos;
-    const eliminarProducto = (idProducto) => {
+    const deleteProduct = (idProducto) => {
         Swal.fire({
             title: "Eliminar producto, estas seguro?",
             text: "Si no estas seguro puedes cancelar.",
@@ -60,7 +60,7 @@ export const ProductItem = ({ productos }) => {
                         </Link>
                         <Link
                             className="btn-delete-product"
-                            onClick={() => eliminarProducto(id)}
+                            onClick={() => deleteProduct(id)}
                         >
                             <img src={Delete} alt="icon" />
                         </Link>

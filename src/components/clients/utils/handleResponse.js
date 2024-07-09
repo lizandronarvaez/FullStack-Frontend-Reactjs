@@ -1,5 +1,5 @@
 import Swal from "sweetalert2/dist/sweetalert2.all";
-// Respuesta correcta
+
 export const handleSuccessResponse = async (data, status) => {
     if (status !== 200) {
         Swal.fire({
@@ -12,7 +12,6 @@ export const handleSuccessResponse = async (data, status) => {
     Swal.fire(data.message, "", "success");
 };
 
-// Error en la respuesta
 export const handleErrorResponse = async (err) => {
     if (err.response.status === 500) {
         Swal.fire({

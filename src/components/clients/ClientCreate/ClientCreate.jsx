@@ -12,16 +12,15 @@ const formData = {
     country: "",
     postalCode: ""
 };
-const NuevoCLiente = () => {
+const createClient = () => {
     const navigate = useNavigate();
-    const [cliente, setClientes] = useState(formData);
-    const datosFormulario = ({ target: { name, value } }) => {
-        setClientes({ ...cliente, [name]: value });
-    };
-    const enviarFormulario = async (e) => {
+    const [client, setClient] = useState(formData);
+    const onChangeInputForm = ({ target: { name, value } }) => setClient({ ...client, [name]: value });
+
+    const submitFormCreateClient = async (e) => {
         e.preventDefault();
         try {
-            const { data, status } = await springBootAxios.post("/clients", cliente);
+            const { data, status } = await springBootAxios.post("/clients", client);
             handleSuccessResponse(data, status);
             navigate("/clientes");
         } catch (err) {
@@ -29,41 +28,41 @@ const NuevoCLiente = () => {
         }
     };
 
-    useEffect(() => { }, [cliente]);
+    useEffect(() => { }, [client]);
     return (
         <>
             <div className="create-client">
                 <h2>Crear Nuevo Cliente</h2>
 
-                <form className="form_create_client" onSubmit={enviarFormulario}>
+                <form className="form_create_client" onSubmit={submitFormCreateClient}>
                     <legend>Campos obligatorios*</legend>
                     <div className="campo">
                         <label htmlFor="fullname">Nombre*</label>
-                        <input type="text" placeholder="Nombre" name="fullname" onChange={datosFormulario} />
+                        <input type="text" placeholder="Nombre" name="fullname" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo">
                         <label htmlFor="company">Email*</label>
-                        <input type="text" placeholder="Email" name="email" onChange={datosFormulario} />
+                        <input type="text" placeholder="Email" name="email" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo">
                         <label htmlFor="phone">Teléfono*</label>
-                        <input type="text" placeholder="Teléfono" name="phone" onChange={datosFormulario} />
+                        <input type="text" placeholder="Teléfono" name="phone" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo">
                         <label htmlFor="phone">Dirección*</label>
-                        <input type="text" placeholder="Dirección" name="address" onChange={datosFormulario} />
+                        <input type="text" placeholder="Dirección" name="address" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo">
                         <label htmlFor="phone">Ciudad*</label>
-                        <input type="text" placeholder="Ciudad" name="city" onChange={datosFormulario} />
+                        <input type="text" placeholder="Ciudad" name="city" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo">
                         <label htmlFor="phone">País*</label>
-                        <input type="text" placeholder="Teléfono" name="country" onChange={datosFormulario} />
+                        <input type="text" placeholder="Teléfono" name="country" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo">
                         <label htmlFor="phone">Codigo Postal*</label>
-                        <input type="text" placeholder="Código Postal" name="postalCode" onChange={datosFormulario} />
+                        <input type="text" placeholder="Código Postal" name="postalCode" onChange={onChangeInputForm} />
                     </div>
                     <div className="campo campos-submit">
                         <input type="submit" className="buttonSubmit" value="Crear cliente" />
@@ -77,4 +76,4 @@ const NuevoCLiente = () => {
     );
 };
 
-export default NuevoCLiente;
+export default createClient;

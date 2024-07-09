@@ -1,29 +1,29 @@
 import "./ProductCreate.css";
 import { formDataInput } from "../helpers/FormDataInputs";
 import { springBootAxios } from "../../../api/axios";
-import { Upload } from "../../../assets";
+import { Upload } from "../../../../public/index";
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 
 export const ProductCreate = () => {
     const navigate = useNavigate();
-    const [agregarProducto, setAgregarProducto] = useState(formDataInput);
-    const { fullname, description, price, quantity, category } = agregarProducto;
-    const onInputForm = ({ target: { name, value } }) => { setAgregarProducto({ ...agregarProducto, [name]: value }); };
-    const imagenProductoForm = (e) => setImgProducto(e.target.files[0]);
+    const [createProduct, setCreateProduct] = useState(formDataInput);
+    const { fullname, description, price, quantity, category } = createProduct;
+    const onInputForm = ({ target: { name, value } }) => { setCreateProduct({ ...createProduct, [name]: value }); };
+    const imageProductForm = (e) => setImgProducto(e.target.files[0]);
     const [imageProduct, setImgProducto] = useState("");
 
     if (imageProduct) Swal.fire("Imagen subida con éxito", "", "success");
-    const validarFormulario = () => {
+    const formValidate = () => {
         return !fullname.length || !description.length || !category.length || price === 0 || quantity === 0
             ? Swal.fire("Completar los campos", "Campos incompletos", "error")
             : null;
     };
 
-    const submitFormulario = async (e) => {
+    const submitFormUpdate = async (e) => {
         e.preventDefault();
-        validarFormulario();
+        formValidate();
         const formData = new FormData();
         formData.append("fullname", fullname);
         formData.append("description", description);
@@ -38,7 +38,6 @@ export const ProductCreate = () => {
             if (ok) Swal.fire("Producto creado", message, "success");
             navigate("/productos");
         } catch (error) {
-            console.log(error);
             Swal.fire("Error al crear el producto", error?.response?.data || "Hubo un error al crear el producto", "error");
         }
     };
@@ -47,7 +46,7 @@ export const ProductCreate = () => {
         <>
             <div className="product-create">
                 <h2>Crear Producto</h2>
-                <form className="form-create-product" onSubmit={submitFormulario}>
+                <form className="form-create-product" onSubmit={submitFormUpdate}>
                     <legend>Campos obligatorios*</legend>
                     <div className="campo">
                         <label htmlFor="fullname">Nombre*</label>
@@ -78,7 +77,7 @@ export const ProductCreate = () => {
                     </div>
                     <div className="campo campo-imagen">
                         <label htmlFor="productImage"><img src={Upload} alt="icon" />Subir imagen</label>
-                        <input type="file" id="productImage" onChange={imagenProductoForm} name="imageProduct" />
+                        <input type="file" id="productImage" onChange={imageProductForm} name="imageProduct" />
                     </div>
                     <div className="campo">
                         <input type="submit" className="createSubmit" value="Añadir stock" />

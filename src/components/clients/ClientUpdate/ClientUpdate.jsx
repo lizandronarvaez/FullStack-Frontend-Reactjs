@@ -25,7 +25,6 @@ const EditarCliente = () => {
     const handleFormData = ({ target: { name, value } }) => { setUpdateClient({ ...updateClient, [name]: value }); };
     const handleSubmitForm = async (e) => {
         e.preventDefault();
-        // const { status } = await clienteAxios.put(`/clients/${id}`, cliente);
         const { status, data } = await springBootAxios.put(`/clients/${id}`, updateClient);
         if (status !== 200) {
             Swal.fire({

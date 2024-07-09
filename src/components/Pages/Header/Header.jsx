@@ -3,15 +3,15 @@ import { useNavigate } from "react-router";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import { LogoutBtn } from "../../../assets";
+import { LogoutBtn } from "../../../../public/index";
 import { AuthContext } from "../../../auth/context/authContext";
 const Header = () => {
     const navigate = useNavigate();
-    const usuario = localStorage.getItem("usuario");
+    const user = localStorage.getItem("usuario");
     const token = localStorage.getItem("token");
     const { logoutUser } = useContext(AuthContext);
 
-    const logout = () => {
+    const logoutAccount = () => {
         Swal.fire({
             title: "Cerrar sesion?",
             icon: "warning",
@@ -33,9 +33,7 @@ const Header = () => {
             }
         });
     };
-    useEffect(() => {
-
-    }, [token]);
+    useEffect(() => {}, [token]);
 
     return (
         <header className='barra'>
@@ -47,8 +45,8 @@ const Header = () => {
                     ? (
                         <>
                             <p className="usuario-autenticado">Bienvenido
-                                <span className="user">{usuario}</span>
-                                <button type="button" onClick={logout} >
+                                <span className="user">{user}</span>
+                                <button type="button" onClick={logoutAccount} >
                                     <img src={LogoutBtn} alt="icon logout" />
                                     Logout
                                 </button>

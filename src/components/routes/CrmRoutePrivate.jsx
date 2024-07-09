@@ -1,15 +1,15 @@
 import React from "react";
-import { Dashboard, Navegacion } from "../Pages";
+import { Dashboard, Nav } from "../Pages";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ClientsAll, ClientUpdate, ClientCreate } from "../clients";
-import { ProductCreate, ProductsAll, ProductsUpdate } from "../productos";
-import { OrderCreate, OrderPDF, OrderAll } from "../orders";
+import { ProductCreate, ProductsAll, ProductsUpdate } from "../products";
+import { OrderPDF, OrderAll } from "../orders";
 
 export const CrmRoutePrivate = () => {
     return (
         <>
             <div className="contenido-principal">
-                <Navegacion />
+                <Nav />
                 <Routes>
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route exact path="/clientes" element={<ClientsAll />} />
@@ -21,7 +21,6 @@ export const CrmRoutePrivate = () => {
                     <Route exact path="/productos/editar-producto/:id" element={<ProductsUpdate />} />
 
                     <Route exact path="/pedidos/clientes" element={<OrderAll />} />
-                    <Route exact path="/pedidos/nuevo/:id" element={<OrderCreate />} />
                     <Route exact path="/pedidos/pdf/:idPedido" element={<OrderPDF />} />
 
                     <Route path="/*" element={<Navigate to={"/dashboard"} />} />

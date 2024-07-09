@@ -3,12 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { springBootAxios } from "../../../api/axios";
 import "./ClientItem.css";
-import { CreateOrder, Delete, Edit } from "../../../assets";
+import { Delete, Edit } from "../../../../public/index";
 
-const Cliente = ({ cliente }) => {
+const ClientItem = ({ client }) => {
     const navigate = useNavigate();
-    const { id, fullname, email, phone, address, city, country, postalcode, createdAt } = cliente;
-    const eliminarCliente = (idCliente) => {
+    const { id, fullname, email, phone, address, city, country, postalcode, createdAt } = client;
+    const deleteClient = (idCliente) => {
         Swal.fire({
             title: "¿Eliminar cliente?",
             text: "",
@@ -26,7 +26,7 @@ const Cliente = ({ cliente }) => {
             }
         });
     };
-    useEffect(() => { }, [cliente]);
+    useEffect(() => { }, [client]);
     return (
         <>
             <tbody className="table-tbody">
@@ -41,13 +41,10 @@ const Cliente = ({ cliente }) => {
                     <td data-titulo="Fecha Registro:">{createdAt}</td>
 
                     <td data-titulo="Acciones:">
-                        <Link className="btn-create-order" to={`/pedidos/nuevo/${id}`}>
-                            <img src={CreateOrder} alt="icon" />
-                        </Link>
                         <Link className="btn-edit-client" to={`/clientes/editar/${id}`} >
                             <img src={Edit} alt="icon" />
                         </Link>
-                        <Link className="btn-delete-client" onClick={() => eliminarCliente(id)}>
+                        <Link className="btn-delete-client" onClick={() => deleteClient(id)}>
                             <img src={Delete} alt="icon" />
                         </Link>
                     </td>
@@ -57,4 +54,4 @@ const Cliente = ({ cliente }) => {
     );
 };
 
-export default Cliente;
+export default ClientItem;

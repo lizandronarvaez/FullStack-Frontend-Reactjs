@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { springBootAxios } from "../../../api/axios";
 import ClientItem from "../ClientItem/ClientItem";
 import "./ClientsAll.css";
-const Clientes = () => {
+import { Spinner } from "../../Pages";
+const ClientsAll = () => {
     const [clients, setClients] = useState([]);
     const [searchingClient, setSearchingClient] = useState("");
     const [clientsFilter, setClientsFilter] = useState([]);
@@ -38,44 +39,57 @@ const Clientes = () => {
             <div className="clientsAll">
                 <div className="header">
                     <h2>Clientes</h2>
-                    <Link to={"/clientes/nuevo-cliente"}> Nuevo Cliente </Link>
+                    {
+                        !clients.length
+                            ? null
+                            : <Link to={"/clientes/nuevo-cliente"}> Nuevo Cliente </Link>
+                    }
                 </div>
-                <form className="form_search_client" onSubmit={handleFormClient}>
-                    <div className="busqueda-cliente">
-                        <label htmlFor="busca-cliente">Buscar un cliente</label>
-                        <input type="text" placeholder="Introduce nombre, email" name="word"
-                            value={searchingClient}
-                            onChange={handleFormClient} />
-                        {searchClient && clientsFilter.length === 0 && <span className="client-notFound">No existe ningún cliente</span>}
-                    </div>
-                    <div className="table-clients">
-                        <table className='list-clients'>
-                            <thead>
-                                <tr>
-                                    <th>Nombre Cliente</th>
-                                    <th>Email</th>
-                                    <th>Contacto</th>
-                                    <th>Dirección</th>
-                                    <th>Ciudad</th>
-                                    <th>País</th>
-                                    <th>Codigo Postal</th>
-                                    <th>Fecha Registro</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            {!clientsFilter.length
-                                ? clients.map((cliente) => (
-                                    <ClientItem key={cliente.id} cliente={cliente} />
-                                ))
-                                : clientsFilter.map((cliente) => (
-                                    <ClientItem key={cliente.id} cliente={cliente} />
-                                ))}
-                        </table>
-                    </div>
-                </form>
+                {
+                    !clients.length ?
+                        <Spinner message={"Cargando clientes..."} />
+                        :
+                        <form className="form_search_client" onSubmit={handleFormClient}>
+                            <div className="busqueda-cliente">
+                                <label htmlFor="busca-cliente">Buscar un cliente</label>
+                                <input
+                                    type="text"
+                                    placeholder="Introduce nombre, email"
+                                    name="word"
+                                    value={searchingClient}
+                                    onChange={handleFormClient}
+                                />
+                                {searchClient && !clientsFilter.length && <span className="client-notFound">No existe ningún cliente</span>}
+                            </div>
+                            <div className="table-clients">
+                                <table className='list-clients'>
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre Cliente</th>
+                                            <th>Email</th>
+                                            <th>Contacto</th>
+                                            <th>Dirección</th>
+                                            <th>Ciudad</th>
+                                            <th>País</th>
+                                            <th>Codigo Postal</th>
+                                            <th>Fecha Registro</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    {!clientsFilter.length
+                                        ? clients.map((client) => (
+                                            <ClientItem key={client.id} client={client} />
+                                        ))
+                                        : clientsFilter.map((client) => (
+                                            <ClientItem key={client.id} client={client} />
+                                        ))}
+                                </table>
+                            </div>
+                        </form>
+                }
             </div>
         </>
     );
 };
 
-export default Clientes;
+export default ClientsAll;
