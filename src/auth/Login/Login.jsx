@@ -32,10 +32,9 @@ const Login = () => {
         try {
             const { data } = await springBootAxios.post("/auth/login", formData);
             const { token, message, userEntity: { fullname } } = data;
-
+            loginUser(token);
             localStorage.setItem("usuario", fullname);
             localStorage.setItem("token", token);
-            loginUser(localStorage.getItem("token"));
 
             Swal.fire({
                 position: "center",

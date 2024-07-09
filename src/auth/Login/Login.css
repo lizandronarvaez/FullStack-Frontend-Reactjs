@@ -17,7 +17,7 @@
 }
 
 .login-image {
-    background-image: url("../../assets/images/imgAuth.webp");
+    background-image: url("../../../public/images/imgAuth.webp");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -109,10 +109,6 @@
     }
 
     .login-image {
-        background-image: url("../../assets/images/imgAuth.webp");
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
         display: block;
     }
 
@@ -125,8 +121,6 @@
     }
     .login-formulario .form_login .campo {
         padding: 2rem 2rem;
-        display: flex;
-        flex-direction: column;
         margin-bottom: 2rem;
     }
 
