@@ -3,14 +3,14 @@
     grid-template-columns: 1fr;
     gap: 5rem;
     padding: 3rem 2rem;
-    max-height: 25rem;
-    width: 100%; 
+    width: 100%;
     margin: 0 auto;
 }
 
-.dashboard h2{
+.dashboard h2 {
     color: #fff;
 }
+
 .caja-clientes,
 .caja-productos,
 .caja-pedidos {
@@ -29,12 +29,15 @@
     justify-content: center;
     align-items: flex-end;
 }
-.caja-pedidos .caja{
+
+.caja-pedidos .caja {
     justify-content: space-evenly;
 }
-.caja-pedidos .caja p:first-child{
+
+.caja-pedidos .caja p:first-child {
     font-size: 2rem;
 }
+
 .caja p {
     font-size: 3rem;
     margin: 0;
@@ -44,9 +47,10 @@
     .dashboard {
         grid-template-columns: repeat(3, 1fr);
         gap: 5rem;
+        max-height: 25rem;
     }
 
-    .caja-pedidos .caja p:first{
+    .caja-pedidos .caja p:first {
         justify-content: space-evenly;
     }
 }
