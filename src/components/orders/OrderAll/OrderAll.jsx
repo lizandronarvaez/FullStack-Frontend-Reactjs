@@ -11,18 +11,6 @@ export const OrderAll = () => {
         const { data } = await springBootAxios.get("/orders");
         setListOrderAlls(data);
     };
-
-    // todo:!! realizar logica para enviar al backend el estado del pedido
-    const onFinishOrder = (e) => {
-        console.log(e.target);
-        if (e.target.parentNode.previousSibling.previousSibling.textContent === "Pendiente") {
-            e.target.parentNode.previousSibling.previousSibling.textContent = "Servido";
-            return;
-        }
-        e.target.parentNode.previousSibling.previousSibling.textContent = "Pendiente";
-    };
-
-    // TODO!!:Realizar formulario para añadir filtros
     useEffect(() => { getAllOrders(); }, []);
     return (
         <>
@@ -53,7 +41,6 @@ export const OrderAll = () => {
                                         <OrderItem
                                             key={order.id}
                                             orderItem={order}
-                                            onFinishOrder={onFinishOrder}
                                         />
                                     ))
                                 }
