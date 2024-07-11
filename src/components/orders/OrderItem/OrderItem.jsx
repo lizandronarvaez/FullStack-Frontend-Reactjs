@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Delete, Edit, Pdf } from "../../../../public/index";
+import { Delete, Pdf } from "../../../../public/index";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { springBootAxios } from "../../../api/axios";
 import "./OrderItem.css";
 
-export const OrderItem = ({ orderItem, onFinishOrder }) => {
+export const OrderItem = ({ orderItem }) => {
     const navigate = useNavigate();
 
     const { id, createdAt, clientEntity: { fullname }, total } = orderItem;
@@ -27,6 +27,15 @@ export const OrderItem = ({ orderItem, onFinishOrder }) => {
                 navigate("/pedidos/clientes");
             }
         });
+    };
+
+    // todo!!: Realizar logica para completar el pedido o no
+    const onFinishOrder = (e) => {
+        if (e.target.parentNode.previousSibling.previousSibling.textContent === "Pendiente") {
+            e.target.parentNode.previousSibling.previousSibling.textContent = "Servido";
+            return;
+        }
+        e.target.parentNode.previousSibling.previousSibling.textContent = "Pendiente";
     };
 
     const pedidoPDF = () => navigate(`/pedidos/pdf/${id}`);
