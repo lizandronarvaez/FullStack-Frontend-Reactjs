@@ -47,23 +47,29 @@
     align-items: start;
     margin-bottom: 2rem;
 }
-.login-formulario .form_login .campo label{
+
+.login-formulario .form_login .campo label {
     margin-bottom: 1rem;
     font-weight: 600;
 }
+
 .login-formulario .form_login .campo input {
     width: 100%;
     border-radius: .5rem;
     padding: 1.5rem;
     border: 1px solid #e1e1e1;
 }
-
+.login-formulario .form_login .campo .capsLock{
+    margin-top: 1rem;
+    color: red;
+    font-weight: 600;
+}
 .login-formulario .form_login .campo input:focus {
-    border-color:#0a59cb ;
+    border-color: #0a59cb;
     outline: none;
 }
 
-.login-formulario .form_login .campo input[type="submit"] {
+.login-formulario .form_login .campo button {
     width: 100%;
     border-radius: .5rem;
     background-color: #0a59cb;
@@ -73,9 +79,10 @@
     font-weight: 700;
     font-size: 1.8rem;
     cursor: pointer;
+    border: none;
 }
 
-.login-formulario .form_login .campo input[type="submit"]:hover {
+.login-formulario .form_login .campo button:hover {
     background-color: #052c66;
 }
 
@@ -100,6 +107,7 @@
     .caja-contenido {
         margin-top: 5rem;
     }
+
     .login {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -116,9 +124,10 @@
         padding: 4rem 2rem;
     }
 
-    .login-formulario .form_login .campo input[type="submit"] {
+    .login-formulario .form_login .campo button {
         padding: 2rem 0;
     }
+
     .login-formulario .form_login .campo {
         padding: 2rem 2rem;
         margin-bottom: 2rem;

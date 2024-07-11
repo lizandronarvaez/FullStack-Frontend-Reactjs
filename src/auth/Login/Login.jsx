@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { springBootAxios } from "../../api/axios";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import { SpinnerLoading } from "../spinner/SpinnerLoading";
+
 const form = {
     email: "",
     password: ""
@@ -14,11 +16,24 @@ const Login = () => {
     const { loginUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState(form);
-    const onInputChangeValues = ({ target: { name, value } }) => setFormData({ ...formData, [name]: value });
+    const [loading, setLoading] = useState(false);
+    const [isCapsLockOn, setIsCapsLockOn] = useState(false);
 
+    const onInputChangeValues = ({ target: { name, value } }) => {
+        if (name === "email") value = value.trim().toLowerCase();
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const onkeyboardCapsLock = (e) => {
+        if (e.getModifierState("CapsLock")) {
+            setIsCapsLockOn(true);
+            return;
+        }
+        setIsCapsLockOn(false);
+    };
     const onSubmitForm = async (e) => {
-        formData.email = formData.email.trim().toLowerCase();
         e.preventDefault();
+
         if (!formData.email.length || !formData.password.length) {
             Swal.fire({
                 position: "center",
@@ -29,12 +44,13 @@ const Login = () => {
             });
             return;
         }
+        setLoading(true);
         try {
             const { data } = await springBootAxios.post("/auth/login", formData);
             const { token, message, userEntity: { fullname } } = data;
-            loginUser(token);
-            localStorage.setItem("usuario", fullname);
             localStorage.setItem("token", token);
+            localStorage.setItem("usuario", fullname);
+            loginUser(token);
 
             Swal.fire({
                 position: "center",
@@ -44,6 +60,7 @@ const Login = () => {
                 showConfirmButton: false,
                 timer: 2000
             }).then(() => navigate("/dashboard", { replace: true }));
+            setLoading(true);
         } catch (error) {
             const errorMesssage = error?.response?.data || "Hubo un error";
             if (error.response) {
@@ -51,31 +68,45 @@ const Login = () => {
             }
         }
     };
+
+    useEffect(() => {
+
+    }, [loading, isCapsLockOn]);
     return (
         <div className='login'>
-            <div className="login-image"></div>
-            <div className="login-formulario">
+            <div className="login-image"></div><div className="login-formulario">
                 <form className="form_login" onSubmit={onSubmitForm}>
                     <h2>Bienvenido</h2>
                     <div className='campo'>
-                        <label htmlFor="email" >Email</label>
+                        <label htmlFor="email">Email</label>
                         <input type="email" name="email" onChange={onInputChangeValues} autoComplete='on' placeholder="Introduce tu email" />
                     </div>
                     <div className='campo'>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" onChange={onInputChangeValues} autoComplete="current-password" placeholder="Introduce tu password" />
+                        <input type="password" name="password" onChange={onInputChangeValues} onKeyDown={onkeyboardCapsLock} autoComplete="current-password" placeholder="Introduce tu password" />
+                        {
+                            isCapsLockOn && <span className="capsLock">La tecla Mayús está activada</span>
+                        }
                     </div>
                     <div className="campo">
-                        <input type="submit" value="Login" className='btn' />
+                        {
+                            loading
+                                ? <SpinnerLoading />
+                                : <button type="submit" className='btn'>
+                                    Login
+                                </button>
+                        }
+
                     </div>
                     <div className="campo-register">
                         <p><Link to={"/register"}>¿No tienes cuenta?</Link></p>
                     </div>
                     {/* <div className="campo-reset">
-                        <p><Link to={"/password-reset"}>¿Olvidaste la contraseña?</Link></p>
-                    </div> */}
+                    <p><Link to={"/password-reset"}>¿Olvidaste la contraseña?</Link></p>
+                </div> */}
                 </form>
             </div>
+
         </div>
     );
 };
