@@ -66,6 +66,8 @@ const Login = () => {
             if (error.response) {
                 Swal.fire({ icon: "error", title: "Hubo un error", text: errorMesssage });
             }
+        } finally {
+            setLoading(false);
         }
     };
 
