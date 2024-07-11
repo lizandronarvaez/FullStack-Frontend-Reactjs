@@ -13,13 +13,13 @@ const Header = () => {
 
     const logoutAccount = () => {
         Swal.fire({
-            title: "Cerrar sesion?",
+            title: "Cerrar sesión?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             cancelButtonText: "No, cancelar",
-            confirmButtonText: "Si, cerrar sesion"
+            confirmButtonText: "Si, salir de la cuenta"
         }).then((result) => {
             if (result.isConfirmed) {
                 logoutUser();
