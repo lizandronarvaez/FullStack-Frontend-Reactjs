@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { Cart, TableList, Users } from "../../../../public/index";
 import Spinner from "../Spinner/Spinner";
 import "./Dashboard.css";
 import { springBootAxios } from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
     const navigate = useNavigate();
     const [clients, setClients] = useState([]);

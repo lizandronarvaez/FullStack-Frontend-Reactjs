@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { springBootAxios } from "../../api/axios";
-import { useNavigate } from "react-router";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { SpinnerLoading } from "../spinner/SpinnerLoading";
 
@@ -20,7 +19,7 @@ const Login = () => {
     const [isCapsLockOn, setIsCapsLockOn] = useState(false);
 
     const onInputChangeValues = ({ target: { name, value } }) => {
-        if (name === "email") value = value.trim().toLowerCase();
+        if (name === "email") value = value.toLowerCase().trim();
         setFormData({ ...formData, [name]: value });
     };
 
@@ -33,6 +32,7 @@ const Login = () => {
     };
     const onSubmitForm = async (e) => {
         e.preventDefault();
+        console.log(formData);
 
         if (!formData.email.length || !formData.password.length) {
             Swal.fire({
