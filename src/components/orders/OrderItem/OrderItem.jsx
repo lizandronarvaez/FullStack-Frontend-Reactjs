@@ -1,9 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router";
 import { Delete, Pdf } from "../../../../public/index";
 import Swal from "sweetalert2/dist/sweetalert2.all";
 import { springBootAxios } from "../../../api/axios";
 import "./OrderItem.css";
+import { useNavigate } from "react-router-dom";
 
 export const OrderItem = ({ orderItem }) => {
     const navigate = useNavigate();
