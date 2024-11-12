@@ -2,9 +2,9 @@ import "./ProductCreate.css";
 import { formDataInput } from "../helpers/FormDataInputs";
 import { springBootAxios } from "../../../api/axios";
 import { Upload } from "../../../../public/index";
-import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import Swal from "sweetalert2/dist/sweetalert2.all";
+import { useNavigate } from "react-router-dom";
 
 export const ProductCreate = () => {
     const navigate = useNavigate();

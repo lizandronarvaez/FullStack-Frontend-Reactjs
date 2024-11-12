@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router";
 import Swal from "sweetalert2/dist/sweetalert2.all";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { LogoutBtn } from "../../../../public/index";
 import { AuthContext } from "../../../auth/context/authContext";
