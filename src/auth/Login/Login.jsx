@@ -32,8 +32,6 @@ const Login = () => {
     };
     const onSubmitForm = async (e) => {
         e.preventDefault();
-        console.log(formData);
-
         if (!formData.email.length || !formData.password.length) {
             Swal.fire({
                 position: "center",
